@@ -2,6 +2,31 @@
   'use strict';
 
   /* ══════════════════════════════════════
+     SVG SYMBOL HANDLING
+     ══════════════════════════════════════ */
+  var SVG_SYMBOLS = ['book', 'pen', 'moon', 'compass'];
+
+  function isSvgSymbol(symbol) {
+    return SVG_SYMBOLS.indexOf(symbol) !== -1;
+  }
+
+  function renderSymbol(symbol) {
+    if (isSvgSymbol(symbol)) {
+      return '<img src="' + window.BASE + 'img/svg/' + symbol + '.svg" alt="">';
+    }
+    return symbol;
+  }
+
+  function setSymbol(el, symbol) {
+    if (!el) return;
+    if (isSvgSymbol(symbol)) {
+      el.innerHTML = '<img src="' + window.BASE + 'img/svg/' + symbol + '.svg" alt="">';
+    } else {
+      el.textContent = symbol;
+    }
+  }
+
+  /* ══════════════════════════════════════
      TRANSITION — Outbound
      ══════════════════════════════════════ */
   window.meridianTransition = function (href, label, symbol) {
@@ -15,8 +40,9 @@
     var overlay = document.getElementById('transition');
     var symEl  = document.getElementById('transition-symbol');
     var textEl = document.getElementById('transition-text');
-    if (symEl)  symEl.textContent  = symbol || '✦';
-    if (textEl) textEl.textContent = label  || '';
+
+    setSymbol(symEl, symbol || '✦');
+    if (textEl) textEl.textContent = label || '';
     if (overlay) overlay.classList.add('active');
 
     setTimeout(function () {
@@ -78,7 +104,8 @@
       var data   = JSON.parse(raw);
       var symEl  = document.getElementById('transition-symbol');
       var textEl = document.getElementById('transition-text');
-      if (symEl)  symEl.textContent  = data.symbol;
+
+      setSymbol(symEl, data.symbol);
       if (textEl) textEl.textContent = data.label;
 
       overlay.classList.add('active');

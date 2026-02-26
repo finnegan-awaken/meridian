@@ -41,7 +41,6 @@ There was a time when she would have trusted the map. When the
 abstraction seemed more real than the ground beneath her feet.
 That time had passed like a season she could no longer name.
 
-· · ·
 
 The line between hemispheres is not a wall but a hinge.
 Stand on it long enough and you begin to feel the earth

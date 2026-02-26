@@ -17,7 +17,7 @@ trembles between two norths —
                   from the tyranny
                   of singular direction.
 
-· · ·
+
 
 i have stood on lines
 that do not exist
@@ -33,7 +33,7 @@ painted shut
         who forgot
         they held the key.
 
-· · ·
+
 
                   cross over.
 the other side

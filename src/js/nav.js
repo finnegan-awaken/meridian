@@ -3,27 +3,41 @@
 
   var STARS = [
     {
-      id: 'archive', name: 'АРХИВ', symbol: '🕮', num: 'I',
+      id: 'archive', name: 'АРХИВ', symbol: 'book', num: 'I',
       sub: 'Capax infiniti',
       desc: 'Всяко ненаписано начало, всяка неизречена дума.',
       coords: 'α 0h 00m · δ +0° 00′',
       x: 50, y: 56, mag: 1, href: window.BASE + 'archive/'
     },
     {
-      id: 'atlas', name: 'АТЛАС', symbol: '✵', num: 'II',
+      id: 'atlas', name: 'АТЛАС', symbol: 'compass', num: 'II',
       sub: 'Experimentum Crucis',
       desc: 'Указател на неизследваните територии.',
       coords: 'α 5h 32m · δ +46° 01′',
       x: 24, y: 36, mag: 2, href: window.BASE + 'atlas/'
     },
     {
-      id: 'codex', name: 'КОДЕКС', symbol: '☽', num: 'III',
+      id: 'codex', name: 'КОДЕКС', symbol: 'moon', num: 'III',
       sub: 'Lasciate ogne speranza voi ch\'entrate',
       desc: 'Отвъд първия предел. Кои сме ние и какво търсим.',
       coords: 'α 18h 36m · δ +38° 47′',
       x: 76, y: 36, mag: 2, href: window.BASE + 'codex/'
     }
   ];
+
+  /* SVG symbols (lowercase keys) vs Unicode symbols */
+  var SVG_SYMBOLS = ['book', 'pen', 'moon', 'compass'];
+
+  function isSvgSymbol(symbol) {
+    return SVG_SYMBOLS.indexOf(symbol) !== -1;
+  }
+
+  function renderSymbol(symbol) {
+    if (isSvgSymbol(symbol)) {
+      return '<img src="' + window.BASE + 'img/svg/' + symbol + '.svg" alt="" class="gloss-symbol-img">';
+    }
+    return symbol;
+  }
 
   /* Mobile-adjusted positions — more vertical spread */
   var MOBILE_STARS = {
@@ -129,10 +143,9 @@
 
       g.innerHTML =
         '<div class="gloss-inner' + (right ? ' align-right' : '') + '">' +
-          '<div class="gloss-numeral">' + s.num + ' · ' + s.symbol + '</div>' +
+          '<div class="gloss-numeral">' + s.num + ' · ' + renderSymbol(s.symbol) + '</div>' +
           '<div class="gloss-title">' + s.name + '</div>' +
           '<div class="gloss-subtitle">' + s.sub + '</div>' +
-          '<span class="gloss-sep">· · ·</span>' +
           '<div class="gloss-desc">' + s.desc + '</div>' +
           '<div class="gloss-coords">' + s.coords + '</div>' +
         '</div>';

@@ -10,7 +10,9 @@ currentNav: archive
 </a>
 
 <div class="page-header">
-  <div class="page-symbol">🕮</div>
+  <div class="page-symbol">
+    <img src="/img/svg/book.svg" alt="">
+  </div>
   <div class="page-rule top"></div>
   <h2>АРХИВ</h2>
   <div class="page-sub">Capax infiniti</div>
@@ -39,13 +41,13 @@ currentNav: archive
       {%- for issue in collections.issue | reverse -%}
       <a href="{{ issue.url }}" class="issue-grid-card archive-stagger-item"
          data-grid-index="{{ loop.index0 }}"
-         data-transition data-label="{{ issue.data.title }}" data-symbol="🕮">
+         data-transition data-label="{{ issue.data.title }}" data-symbol="book">
         <div class="issue-grid-cover">
           {%- if issue.data.cover -%}
           <img src="{{ issue.data.cover }}" alt="Брой {{ issue.data.number }}" loading="lazy">
           {%- else -%}
           <div class="issue-grid-fallback">
-            <div class="issue-grid-fallback-symbol">🕮</div>
+            <div class="issue-grid-fallback-symbol"><img src="/img/svg/book.svg" alt=""></div>
             <div class="issue-grid-fallback-number">{{ issue.data.number }}</div>
             <div class="issue-grid-fallback-ornament">· · ·</div>
           </div>
@@ -69,7 +71,7 @@ currentNav: archive
     {%- for issue in collections.issue | reverse -%}
     <div class="timeline-card archive-stagger-item">
       <a href="{{ issue.url }}" class="timeline-card-top"
-         data-transition data-label="{{ issue.data.title }}" data-symbol="🕮">
+         data-transition data-label="{{ issue.data.title }}" data-symbol="book">
         <div class="timeline-card-banner">
           {%- if issue.data.banner -%}
           <img src="{{ issue.data.banner }}" alt="Брой {{ issue.data.number }}" loading="lazy">
@@ -77,7 +79,7 @@ currentNav: archive
           <img src="{{ issue.data.cover }}" alt="Брой {{ issue.data.number }}" loading="lazy">
           {%- else -%}
           <div class="timeline-card-banner-fallback">
-            <div class="timeline-card-fb-symbol">🕮</div>
+            <div class="timeline-card-fb-symbol"><img src="/img/svg/book.svg" alt=""></div>
             <div class="timeline-card-fb-number">{{ issue.data.number }}</div>
           </div>
           {%- endif -%}
@@ -99,7 +101,7 @@ currentNav: archive
         {%- for article in issueArticles -%}
           {%- set authorPage = collections.author | filterBy("data.key", article.data.author) | first -%}
           <a href="{{ article.url }}" class="timeline-article"
-             data-transition data-label="{{ article.data.title }}" data-symbol="✦">
+             data-transition data-label="{{ article.data.title }}" data-symbol="✧">
             <span class="timeline-article-order">{{ article.data.order }}.</span>
             <span class="timeline-article-title">{{ article.data.title }}</span>
             <span class="timeline-article-author">{{ authorPage.data.name if authorPage else article.data.author }}</span>
@@ -121,7 +123,7 @@ currentNav: archive
       {%- if authorArticles.length > 0 -%}
       <div class="archive-author-group archive-stagger-item">
         <a href="{{ author.data.permalink }}" class="archive-author-heading"
-           data-transition data-label="{{ author.data.name }}" data-symbol="✵">
+           data-transition data-label="{{ author.data.name }}" data-symbol="pen">
           <div class="archive-author-name">{{ author.data.name }}</div>
           {%- if author.data.location -%}
           <div class="archive-author-location">{{ author.data.location }}</div>
@@ -133,14 +135,14 @@ currentNav: archive
           {%- if issueArticles.length > 0 -%}
           <div class="archive-author-issue">
             <a href="{{ issue.url }}" class="archive-author-issue-link"
-               data-transition data-label="{{ issue.data.title }}" data-symbol="🕮">
+               data-transition data-label="{{ issue.data.title }}" data-symbol="book">
               <span class="archive-author-issue-num">Брой {{ issue.data.number }}:</span>
               <span class="archive-author-issue-name">{{ issue.data.title }}</span>
             </a>
             <div class="archive-author-articles">
               {%- for article in issueArticles -%}
               <a href="{{ article.url }}" class="archive-author-article"
-                 data-transition data-label="{{ article.data.title }}" data-symbol="✦">
+                 data-transition data-label="{{ article.data.title }}" data-symbol="✧">
                 <span class="archive-author-article-title">{{ article.data.title }}</span>
                 <span class="archive-author-article-genre">{{ article.data.genre }}</span>
               </a>
@@ -176,7 +178,7 @@ currentNav: archive
           {%- if issueGenreArticles.length > 0 -%}
           <div class="genre-issue-group archive-stagger-item">
             <a href="{{ issue.url }}" class="genre-issue-link"
-               data-transition data-label="{{ issue.data.title }}" data-symbol="🕮">
+               data-transition data-label="{{ issue.data.title }}" data-symbol="book">
               <span class="genre-issue-num">Брой {{ issue.data.number }}:</span>
               <span class="genre-issue-name">{{ issue.data.title }}</span>
             </a>
@@ -184,7 +186,7 @@ currentNav: archive
               {%- for article in issueGenreArticles -%}
                 {%- set authorPage = collections.author | filterBy("data.key", article.data.author) | first -%}
                 <a href="{{ article.url }}" class="genre-article"
-                   data-transition data-label="{{ article.data.title }}" data-symbol="✦">
+                   data-transition data-label="{{ article.data.title }}" data-symbol="✧">
                   <span class="genre-article-title">{{ article.data.title }}</span>
                   <span class="genre-article-author">{{ authorPage.data.name if authorPage else article.data.author }}</span>
                 </a>
@@ -203,5 +205,5 @@ currentNav: archive
     </div>
     {%- endfor -%}
   </div>
-
+  <div class="atlas-manifesto-sigil">✦</div>
 </div>

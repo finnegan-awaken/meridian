@@ -7,6 +7,7 @@ year: 2025
 date: 2025-09-10
 permalink: /issue/01/
 description: "The origin, the first principle. Every beginning conceals within it every end."
+issue-cover: /img/issue-covers/01.jpg
 cover: /img/covers/01.jpg
 banner: /img/banners/01-banner.jpg
 epigraph:

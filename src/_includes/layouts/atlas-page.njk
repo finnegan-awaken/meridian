@@ -10,7 +10,9 @@ currentNav: atlas
 </a>
 
 <div class="page-header">
-  <div class="page-symbol">✵</div>
+  <div class="page-symbol">
+    <img src="/img/svg/compass.svg" alt="">
+  </div>
   <div class="page-rule top"></div>
   <h2>АТЛАС</h2>
   <div class="page-sub">Experimentum Crucis</div>
@@ -28,7 +30,7 @@ currentNav: atlas
       {%- for author in collections.author -%}
         {%- if author.data.role == "cartographer" -%}
         <a href="{{ author.url }}" class="atlas-cell atlas-cell-editor"
-           data-transition data-label="{{ author.data.name }}" data-symbol="🖋" data-from="atlas">
+           data-transition data-label="{{ author.data.name }}" data-symbol="pen" data-from="atlas">
           <div class="atlas-cell-label">{{ author.data.name | upper }}</div>
           <div class="atlas-cell-sub">{{ author.data.location }}</div>
         </a>
@@ -44,7 +46,7 @@ currentNav: atlas
       {%- for author in collections.author -%}
         {%- if author.data.role != "cartographer" -%}
         <a href="{{ author.url }}" class="atlas-cell"
-           data-transition data-label="{{ author.data.name }}" data-symbol="🖋" data-from="atlas">
+           data-transition data-label="{{ author.data.name }}" data-symbol="pen" data-from="atlas">
           <div class="atlas-cell-label">{{ author.data.name | upper }}</div>
           <div class="atlas-cell-sub">{{ author.data.location }}</div>
         </a>
@@ -57,7 +59,7 @@ currentNav: atlas
   <div class="atlas-manifesto">
     <div class="atlas-manifesto-title">Манифест</div>
     <div class="atlas-manifesto-text">
-      <em><p class="atlas-manifesto-quote">„Какво е тласъкът на въображението без юздите на волята? Какво е посоката на волята без атласа на въображението?”</p></em>
+      <em><p class="atlas-manifesto-quote">„Какво е тласъкът на въображението без юздите на волята? Какво е посоката на волята без атласа на въображението?"</p></em>
       <p>Отваряте дверите на нова епоха. Четете словата на нов живот, на прероден и претопен дух, разпръснат и разхвърлен в хилядите ни лица. С нас се заражда нов етап в българската литература, ново превъплъщение на творческите ѝ пориви, на могъщ подтик към нейното съзидание и унищожение.</p>
       <p>Отваряте дверите на съдбоносно събитие. Ние сме вестоносци, носители на знамения и предсказания, ние носим тегобни и радостни вести, ние ви обещаваме едновременно опустошение и градеж на нашата литература.</p>
       <p>За какво копнеем?</p>

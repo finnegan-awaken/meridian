@@ -6,8 +6,8 @@ bodyClass: page-dest
 {%- set prevIssue = collections.issue | getPrev(page) -%}
 {%- set nextIssue = collections.issue | getNext(page) -%}
 
-<a class="back-link" href="/"
-   data-transition data-label="АРХИВ" data-symbol="🕮">
+<a class="back-link" href="/archive/"
+   data-transition data-label="АРХИВ" data-symbol="book">
   <span>←</span>Към Архива
 </a>
 
@@ -21,6 +21,27 @@ bodyClass: page-dest
   <h2 class="issue-page-title">{{ title }}</h2>
   <div class="issue-page-date">{{ season }} · {{ year }}</div>
 </div>
+
+<!-- ═══ ISSUE COVER ═══ -->
+<div class="issue-cover-wrapper">
+  <div class="issue-cover">
+    {% if cover %}
+      <img src="{{ cover }}" alt="Корица на Брой {{ number }}" class="issue-cover-img" />
+    {% else %}
+      <div class="issue-cover-fallback">
+        <div class="issue-cover-fb-symbol">
+          <img src="/img/svg/moon.svg" alt="">
+        </div>
+        <div class="issue-cover-fb-number">{{ number }}</div>
+        <div class="issue-cover-fb-ornament">· · ✦ · ·</div>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{%- if description -%}
+<div class="issue-description">{{ description }}</div>
+{%- endif -%}
 
 <div class="toc">
   <div class="toc-label">Съдържание:</div>
@@ -42,7 +63,7 @@ bodyClass: page-dest
         <div class="toc-meta">
           {% if authorList.length > 0 %}
           <a href="{{ authorList[0].url }}" class="toc-author"
-             data-transition data-label="{{ authorList[0].data.name }}" data-symbol="🖋">
+             data-transition data-label="{{ authorList[0].data.name }}" data-symbol="pen">
             {{ authorList[0].data.name }}
           </a>
           {% endif %}
@@ -57,7 +78,7 @@ bodyClass: page-dest
 <div class="issue-bottom-nav">
   {% if prevIssue %}
   <a href="{{ prevIssue.url }}" class="article-nav-link prev"
-     data-transition data-label="{{ prevIssue.data.title }}" data-symbol="🕮">
+     data-transition data-label="{{ prevIssue.data.title }}" data-symbol="book">
     <span class="article-nav-dir">предишен брой</span>
     <span class="article-nav-title">{{ prevIssue.data.number }} · {{ prevIssue.data.title }}</span>
   </a>
@@ -67,7 +88,7 @@ bodyClass: page-dest
 
   {% if nextIssue %}
   <a href="{{ nextIssue.url }}" class="article-nav-link next"
-     data-transition data-label="{{ nextIssue.data.title }}" data-symbol="🕮">
+     data-transition data-label="{{ nextIssue.data.title }}" data-symbol="book">
     <span class="article-nav-dir">следващ брой</span>
     <span class="article-nav-title">{{ nextIssue.data.number }} · {{ nextIssue.data.title }}</span>
   </a>

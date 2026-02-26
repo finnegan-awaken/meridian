@@ -8,7 +8,7 @@ bodyClass: page-dest page-article
 {%- set issueArticles = collections.article | filterBy("data.issue", issue) -%}
 {%- set sortedArticles = issueArticles | sort(false, false, "data.order") -%}
 <a class="back-link" href="/issue/{{ issueSlug }}/"
-   data-transition data-label="{{ issueTitle }}" data-symbol="🕮">
+   data-transition data-label="{{ issueTitle }}" data-symbol="book">
   <span>←</span>Брой {{ issue }} · {{ issueTitle }}
 </a>
 
@@ -28,7 +28,7 @@ bodyClass: page-dest page-article
     <div class="article-header-meta">
       {% if authorList.length > 0 %}
       <a href="{{ authorList[0].url }}" class="article-header-author"
-         data-transition data-label="{{ authorList[0].data.name }}" data-symbol="🖋">{{ authorList[0].data.name }}</a>
+         data-transition data-label="{{ authorList[0].data.name }}" data-symbol="pen">{{ authorList[0].data.name }}</a>
       <span class="article-header-sep">·</span>
       {% endif %}
       <span class="article-header-date">
@@ -36,7 +36,7 @@ bodyClass: page-dest page-article
       </span>
       <span class="article-header-sep">·</span>
       <a href="/issue/{{ issueSlug }}/" class="article-header-issue"
-         data-transition data-label="{{ issueTitle }}" data-symbol="🕮">Брой {{ issue }}</a>
+         data-transition data-label="{{ issueTitle }}" data-symbol="book">Брой {{ issue }}</a>
     </div>
   </header>
 </div>
@@ -50,24 +50,6 @@ bodyClass: page-dest page-article
     </div>
 
     <footer class="article-footer">
-      <div class="codex-sigil">· ◇ · ◇ · ◇ ·</div>
-
-      {% if authorList.length > 0 %}
-      <div class="article-author-card-left">
-        <div class="author-card-name-left">
-          <a href="{{ authorList[0].url }}"
-             data-transition data-label="{{ authorList[0].data.name }}" data-symbol="🖋">
-            {{ authorList[0].data.name }}
-          </a>
-        </div>
-        <div class="author-card-location-left">{{ authorList[0].data.location }}</div>
-        <div class="author-card-bio-left">{{ authorList[0].data.bio }}</div>
-        <a href="{{ authorList[0].url }}" class="author-card-all-works-left"
-           data-transition data-label="{{ authorList[0].data.name }}" data-symbol="🖋">
-          Към всички творби →
-        </a>
-      </div>
-      {% endif %}
 
       <nav class="article-nav">
         {%- for a in sortedArticles -%}
@@ -95,12 +77,31 @@ bodyClass: page-dest page-article
           {%- endif -%}
         {%- endfor -%}
       </nav>
+
+      <div class="codex-sigil">- ✦ -</div>
+
+      {% if authorList.length > 0 %}
+      <div class="article-author-card-left">
+        <div class="author-card-name-left">
+          <a href="{{ authorList[0].url }}"
+             data-transition data-label="{{ authorList[0].data.name }}" data-symbol="pen">
+            {{ authorList[0].data.name }}
+          </a>
+        </div>
+        <div class="author-card-location-left">{{ authorList[0].data.location }}</div>
+        <div class="author-card-bio-left">{{ authorList[0].data.bio }}</div>
+        <a href="{{ authorList[0].url }}" class="author-card-all-works-left"
+           data-transition data-label="{{ authorList[0].data.name }}" data-symbol="pen">
+          Към всички творби →
+        </a>
+      </div>
+      {% endif %}
     </footer>
   </article>
 
   <nav class="article-sidebar" aria-label="Issue contents">
     <a href="/issue/{{ issueSlug }}/" class="sidebar-issue-link"
-       data-transition data-label="{{ issueTitle }}" data-symbol="🕮">
+       data-transition data-label="{{ issueTitle }}" data-symbol="book">
       {{ issueTitle }}
     </a>
 

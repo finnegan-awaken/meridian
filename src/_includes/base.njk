@@ -14,16 +14,18 @@
   {% include "partials/tarot.njk" %}
   {% endif %}
 
+  <!-- Transition overlay -->
+  <div id="transition">
+    <div id="transition-symbol"></div>
+    <div id="transition-text"></div>
+  </div>
+
   <script src="/js/shared.js"></script>
   {% if "page-nav" in bodyClass %}
   <script src="/js/cosmos.js"></script>
   <script src="/js/nav.js"></script>
   <script src="/js/tarot.js"></script>
-  {# <script src="/js/easteregg.js"></script> #}
   {% endif %}
-  {# {% if "page-book" in bodyClass %}
-  <script src="/js/book.js"></script>
-  {% endif %} #}
   {% if "page-dest" in bodyClass %}
   <script src="/js/archive.js"></script>
   {% endif %}

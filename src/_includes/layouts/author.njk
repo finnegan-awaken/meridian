@@ -5,7 +5,7 @@ currentNav: archive
 ---
 
 <a class="back-link" id="author-back-link" href="/archive/"
-   data-transition data-label="АРХИВ" data-symbol="🕮">
+   data-transition data-label="АРХИВ" data-symbol="book">
   <span>←</span>Към Архива
 </a>
 
@@ -15,7 +15,9 @@ currentNav: archive
 </a>
 
 <div class="page-header">
-  <div class="page-symbol">🖋</div>
+  <div class="page-symbol">
+    <img src="/img/svg/pen.svg" alt="">
+  </div>
   <div class="page-rule top"></div>
   <h2>Автори</h2>
   <div class="page-rule bottom"></div>
@@ -63,7 +65,7 @@ currentNav: archive
     {%- if articlesInIssue.length > 0 -%}
     <div class="author-issue-group">
       <a href="{{ issue.url }}" class="author-issue-heading"
-         data-transition data-label="{{ issue.data.title }}" data-symbol="🕮">
+         data-transition data-label="{{ issue.data.title }}" data-symbol="book">
         <span class="author-issue-number">Брой {{ issue.data.number }}</span>
         <span class="author-issue-name">{{ issue.data.title }}</span>
         <span class="author-issue-season">{{ issue.data.season }} · {{ issue.data.year }}</span>
@@ -98,7 +100,7 @@ currentNav: archive
     if (backLink) {
       backLink.setAttribute('href', window.BASE + 'atlas/');
       backLink.setAttribute('data-label', 'АТЛАС');
-      backLink.setAttribute('data-symbol', '✵');
+      backLink.setAttribute('data-symbol', 'compass');
       backLink.innerHTML = '<span>←</span>Към Атлас';
     }
 
@@ -106,7 +108,7 @@ currentNav: archive
       archiveStar.classList.remove('current');
       archiveStar.setAttribute('data-transition', '');
       archiveStar.setAttribute('data-label', 'АРХИВ');
-      archiveStar.setAttribute('data-symbol', '🕮');
+      archiveStar.setAttribute('data-symbol', 'book');
       var archivePulse = archiveStar.querySelector('.mstar-pulse');
       if (archivePulse) archivePulse.remove();
     }
@@ -114,7 +116,7 @@ currentNav: archive
       atlasStar.classList.add('current');
       atlasStar.setAttribute('data-transition', '');
       atlasStar.setAttribute('data-label', 'АТЛАС');
-      atlasStar.setAttribute('data-symbol', '✵');
+      atlasStar.setAttribute('data-symbol', 'compass');
       var pulse = document.createElement('div');
       pulse.className = 'mstar-pulse';
       atlasStar.insertBefore(pulse, atlasStar.firstChild);
@@ -125,7 +127,7 @@ currentNav: archive
     if (archiveStar) {
       archiveStar.setAttribute('data-transition', '');
       archiveStar.setAttribute('data-label', 'АРХИВ');
-      archiveStar.setAttribute('data-symbol', '🕮');
+      archiveStar.setAttribute('data-symbol', 'book');
     }
 
   }

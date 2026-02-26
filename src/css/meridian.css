@@ -49,6 +49,7 @@
        All transparent variants derive from these values. ── */
   --copper:         #cbba64;
   --copper-rgb:     203, 186, 100;
+  --copper-ghost2:   rgba(203, 186, 100, 0.061);
   --copper-ghost:   rgba(203, 186, 100, 0.27);
   --copper-faint:   rgba(203, 186, 100, 0.08);
   --copper-subtle:  rgba(203, 186, 100, 0.12);
@@ -347,9 +348,20 @@ body.constellation-hover .star:not(.hovered) .star-label { color: rgba(var(--sta
 }
 
 .gloss-numeral {
-  font-family: var(--ff-display);
+  font-family: var(--ff-display);  
+  display: flex;
   font-size: 14px; color: var(--copper);
   letter-spacing: 2px; margin-bottom: 6px; opacity: .85;
+  align-items: center;
+  gap: 4px;
+}
+
+.gloss-numeral img.gloss-symbol-img {
+  width: 14px;
+  height: 14px;
+}
+.gloss-inner.align-right .gloss-numeral {
+  justify-content: flex-end;
 }
 .gloss-title {
   font-family: var(--ff-display);
@@ -620,8 +632,14 @@ a.mini-star { display: flex; }
   padding: 100px 40px 0;
 }
 .page-header .page-symbol {
-  font-size: 26px; color: var(--copper);
-  opacity: .6; margin-bottom: 8px;
+  opacity: .6;
+  margin-bottom: 8px;
+  line-height: 1;
+}
+
+.page-symbol img {
+  width: 28px;
+  height: 28px;
 }
 .page-header h2 {
   font-family: var(--ff-display);
@@ -740,6 +758,7 @@ a.mini-star { display: flex; }
 .archive-tab:focus-visible {
   border-color: var(--copper-subtle);
   color: var(--star);
+  background: var(--copper-ghost2);
 }
 .archive-tab.active {
   border-color: var(--copper-soft);
@@ -1080,13 +1099,15 @@ a.mini-star { display: flex; }
   margin-bottom: 35px;
 }
 
+
 .genre-filter-btn {
   background: none;
   border: 1px solid var(--copper-ghost);
   padding: 10px 22px;
   font-family: var(--ff-display);
-  font-size: 10px;
-  letter-spacing: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
   color: var(--moon);
   cursor: pointer;
   text-transform: uppercase;
@@ -1096,6 +1117,7 @@ a.mini-star { display: flex; }
 .genre-filter-btn:focus-visible {
   border-color: var(--copper-subtle);
   color: var(--star);
+  background: var(--copper-ghost2);
 }
 .genre-filter-btn.active {
   border-color: var(--copper-soft);
@@ -1612,12 +1634,12 @@ a.mini-star { display: flex; }
    ══════════════════════════════════════════ */
 .issue-page-header {
   text-align: center;
-  padding: 110px 40px 45px;
+  padding: 110px 40px 20px;
 }
 .issue-page-number {
   font-family: var(--ff-display);
   font-size: 16px; letter-spacing: 2px;
-  color: var(--copper); opacity: .6;
+  color: var(--copper); opacity: .9;
   text-transform: uppercase; margin-bottom: 14px;
 }
 .issue-page-title {
@@ -1629,7 +1651,100 @@ a.mini-star { display: flex; }
 .issue-page-date {
   font-family: var(--ff-body);
   font-style: italic; font-size: 16px; font-weight: 300;
-  color: var(--copper); letter-spacing: 3px; opacity: .65;
+  color: var(--copper); letter-spacing: 3px; opacity: 0.9;
+}
+
+/* ── Issue Cover ── */
+.issue-cover-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 0 40px 20px;
+}
+
+.issue-cover {
+  width: 100%;
+  max-width: 280px;
+  aspect-ratio: 3 / 4;
+  border: 1px solid var(--copper-ghost);
+  overflow: hidden;
+  transition: border-color .4s ease;
+}
+
+.issue-cover:hover {
+  border-color: var(--copper-soft);
+}
+
+/* ── Cover image ── */
+.issue-cover-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: .85;
+  transition: opacity .5s ease, transform .6s ease;
+}
+
+.issue-cover:hover .issue-cover-img {
+  opacity: 1;
+  transform: scale(1.03);
+}
+
+/* ── Fallback ── */
+.issue-cover-fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background:
+    radial-gradient(ellipse at 50% 30%, var(--atmo-deep) 0%, transparent 60%),
+    linear-gradient(to bottom, var(--night), var(--twilight));
+}
+
+.issue-cover-fb-symbol {
+  opacity: .35;
+  transition: opacity .4s ease;
+}
+
+.issue-cover-fb-symbol img {
+  width: 28px;
+  height: 28px;
+}
+
+.issue-cover:hover .issue-cover-fb-symbol {
+  opacity: .6;
+}
+
+.issue-cover-fb-number {
+  font-family: var(--ff-decorative);
+  font-size: 32px;
+  letter-spacing: 6px;
+  color: var(--star);
+  opacity: .6;
+  transition: opacity .4s ease;
+}
+
+.issue-cover:hover .issue-cover-fb-number {
+  opacity: .9;
+}
+
+.issue-cover-fb-ornament {
+  font-size: 8px;
+  letter-spacing: 6px;
+  color: var(--copper-mid);
+}
+
+.issue-description {
+  max-width: 540px;
+  margin: 0 auto;
+  padding: 0 40px 20px;
+  font-family: var(--ff-body);
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.85;
+  color: var(--bright);
+  text-align: left;
 }
 
 .toc {
@@ -1640,7 +1755,7 @@ a.mini-star { display: flex; }
 .toc-label {
   font-family: var(--ff-body);
   font-size: 20px; font-weight: 400;
-  color: var(--copper); opacity: .9;
+  color: var(--copper); opacity: 0.8;
   margin-bottom: 20px;
 }
 
@@ -1699,7 +1814,7 @@ a.mini-star { display: flex; }
   font-size: 7px; letter-spacing: 4px;
   color: var(--copper-soft);
 }
-.toc-dots::after { content: '· · · ·'; }
+.toc-dots::after { content: ''; }
 .toc-entry:hover .toc-dots { color: var(--copper-medium); }
 
 
@@ -1714,9 +1829,9 @@ a.mini-star { display: flex; }
 
 .article-genre-label {
   font-family: var(--ff-body);
-  font-style: italic; font-size: 16px; font-weight: 300;
+  font-style: italic; font-size: 18px; font-weight: 300;
   color: var(--moon);
-  letter-spacing: 3px; margin-bottom: 15px;
+  letter-spacing: 1px; margin-bottom: 15px;
 }
 .article-title {
   font-family: var(--ff-display);
@@ -1733,7 +1848,7 @@ a.mini-star { display: flex; }
 .article-header-meta {
   margin-top: 14px;
   font-family: var(--ff-body);
-  font-size: 16px; font-weight: 300;
+  font-size: 18px; font-weight: 300;
   color: var(--moon);
 }
 .article-header-sep   { margin: 5px; color: var(--copper-medium); font-size: 13px; }
@@ -1782,9 +1897,9 @@ a.mini-star { display: flex; }
 }
 .article-body hr { border: none; text-align: center; margin: 45px 0; }
 .article-body hr::after {
-  content: '· ◇ ·';
+  content: '✦';
   font-size: 10px; letter-spacing: 6px;
-  color: var(--copper-mid);
+  color: var(--copper); opacity: 0.8;;
 }
 
 .article-footer { margin-top: 60px; }
@@ -2019,12 +2134,12 @@ a.mini-star { display: flex; }
   display: inline-block;
   font-family: var(--ff-display);
   font-size: 16px; letter-spacing: 2px;
-  color: var(--copper-links); opacity: .70;
+  color: var(--copper); opacity: .90;
   margin-right: 20px;
-  transition: opacity .4s ease;
+  transition: opacity .4s ease, letter-spacing .4s ease;
 }
 .author-ext-link:hover,
-.author-ext-link:focus-visible { opacity: 1; }
+.author-ext-link:focus-visible { opacity: 1; letter-spacing: 6px; }
 
 .author-works-title {
   font-family: var(--ff-display);
@@ -2135,11 +2250,24 @@ a.mini-star { display: flex; }
 
 #transition-symbol {
   font-family: var(--ff-body);
-  font-size: 32px; color: var(--copper);
-  opacity: 0; transform: scale(.5);
+  font-size: 32px;
+  color: var(--copper);
+  opacity: 0;
+  transform: scale(.5);
   transition: opacity .7s ease .3s, transform .7s ease .3s;
+  line-height: 1;
 }
-#transition.active #transition-symbol { opacity: .6; transform: scale(1); }
+
+#transition.active #transition-symbol {
+  opacity: .6;
+  transform: scale(1);
+}
+
+#transition-symbol img {
+  width: 32px;
+  height: 32px;
+  display: block;
+}
 
 #transition-text {
   font-family: var(--ff-display);
@@ -2249,6 +2377,17 @@ a:focus-visible {
   .contact-row { flex-direction: column; gap: 6px; }
 
   body::before, body::after { left: 20px; right: 20px; }
+  .issue-cover-wrapper {
+    padding: 0 24px 40px;
+  }
+
+  .issue-cover {
+    max-width: 240px;
+  }
+
+  .issue-description {
+    padding: 0 24px 35px;
+  }
 }
 
 /* ── Nav page mobile (≤ 600px) ── */
@@ -2293,6 +2432,18 @@ a:focus-visible {
   }
   .gloss-subtitle {
     font-size: 14px;
+  }
+  .issue-cover-wrapper {
+    padding: 0 20px 35px;
+  }
+
+  .issue-cover {
+    max-width: 200px;
+  }
+
+  .issue-description {
+    padding: 0 20px 30px;
+    font-size: 16px;
   }
 }
 
@@ -2386,6 +2537,24 @@ a:focus-visible {
   body::before,
   body::after {
     display: none;
+  }
+
+    .issue-cover {
+    max-width: 160px;
+  }
+
+  .issue-cover-fb-number {
+    font-size: 26px;
+    letter-spacing: 4px;
+  }
+
+  .issue-cover-fb-symbol img {
+    width: 22px;
+    height: 22px;
+  }
+
+  .issue-description {
+    font-size: 15px;
   }
 }
 
