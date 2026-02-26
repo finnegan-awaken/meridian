@@ -1,0 +1,207 @@
+---
+layout: base.njk
+bodyClass: page-dest
+currentNav: archive
+---
+
+<a class="back-link" href="/"
+   data-transition data-label="МЕРИДИАН" data-symbol="✦">
+  <span>←</span>към звездите
+</a>
+
+<div class="page-header">
+  <div class="page-symbol">🕮</div>
+  <div class="page-rule top"></div>
+  <h2>АРХИВ</h2>
+  <div class="page-sub">Capax infiniti</div>
+  <div class="page-rule bottom"></div>
+</div>
+
+{% include "partials/mini-nav.njk" %}
+
+<div class="archive-content">
+
+  {# ── VIEW SWITCHER ── #}
+  <div class="archive-controls">
+    <div class="archive-tabs">
+      <button class="archive-tab active" data-view="grid">Мрежа</button>
+      <button class="archive-tab" data-view="timeline">Хронология</button>
+      <button class="archive-tab" data-view="author">Автори</button>
+      <button class="archive-tab" data-view="genre">Жанр</button>
+    </div>
+  </div>
+
+  {# ══════════════════════════════════════
+     GRID VIEW
+     ══════════════════════════════════════ #}
+  <div class="archive-view active" data-view="grid">
+    <div class="issue-grid">
+      {%- for issue in collections.issue | reverse -%}
+      <a href="{{ issue.url }}" class="issue-grid-card archive-stagger-item"
+         data-grid-index="{{ loop.index0 }}"
+         data-transition data-label="{{ issue.data.title }}" data-symbol="🕮">
+        <div class="issue-grid-cover">
+          {%- if issue.data.cover -%}
+          <img src="{{ issue.data.cover }}" alt="Брой {{ issue.data.number }}" loading="lazy">
+          {%- else -%}
+          <div class="issue-grid-fallback">
+            <div class="issue-grid-fallback-symbol">🕮</div>
+            <div class="issue-grid-fallback-number">{{ issue.data.number }}</div>
+            <div class="issue-grid-fallback-ornament">· · ·</div>
+          </div>
+          {%- endif -%}
+        </div>
+        <div class="issue-grid-info">
+          <div class="issue-grid-number">БРОЙ {{ issue.data.number }}</div>
+          <div class="issue-grid-title">{{ issue.data.title }}</div>
+          <div class="issue-grid-season">{{ issue.data.season }} · {{ issue.data.year }}</div>
+        </div>
+      </a>
+      {%- endfor -%}
+    </div>
+    <div class="archive-pagination"></div>
+  </div>
+
+  {# ══════════════════════════════════════
+     TIMELINE VIEW (Хронология)
+     ══════════════════════════════════════ #}
+  <div class="archive-view" data-view="timeline">
+    {%- for issue in collections.issue | reverse -%}
+    <div class="timeline-card archive-stagger-item">
+      <a href="{{ issue.url }}" class="timeline-card-top"
+         data-transition data-label="{{ issue.data.title }}" data-symbol="🕮">
+        <div class="timeline-card-banner">
+          {%- if issue.data.banner -%}
+          <img src="{{ issue.data.banner }}" alt="Брой {{ issue.data.number }}" loading="lazy">
+          {%- elif issue.data.cover -%}
+          <img src="{{ issue.data.cover }}" alt="Брой {{ issue.data.number }}" loading="lazy">
+          {%- else -%}
+          <div class="timeline-card-banner-fallback">
+            <div class="timeline-card-fb-symbol">🕮</div>
+            <div class="timeline-card-fb-number">{{ issue.data.number }}</div>
+          </div>
+          {%- endif -%}
+        </div>
+        <div class="timeline-card-info">
+          <div class="timeline-card-number">БРОЙ {{ issue.data.number }}</div>
+          <div class="timeline-card-title">{{ issue.data.title }}</div>
+          <div class="timeline-card-season">{{ issue.data.season }} · {{ issue.data.year }}</div>
+          {%- if issue.data.description -%}
+          <div class="timeline-card-desc">{{ issue.data.description }}</div>
+          {%- endif -%}
+        </div>
+      </a>
+
+      {%- set issueArticles = collections.article | filterBy("data.issue", issue.data.number) -%}
+      {%- if issueArticles.length > 0 -%}
+      <div class="timeline-card-articles">
+        <div class="timeline-card-articles-label">Съдържание:</div>
+        {%- for article in issueArticles -%}
+          {%- set authorPage = collections.author | filterBy("data.key", article.data.author) | first -%}
+          <a href="{{ article.url }}" class="timeline-article"
+             data-transition data-label="{{ article.data.title }}" data-symbol="✦">
+            <span class="timeline-article-order">{{ article.data.order }}.</span>
+            <span class="timeline-article-title">{{ article.data.title }}</span>
+            <span class="timeline-article-author">{{ authorPage.data.name if authorPage else article.data.author }}</span>
+            <span class="timeline-article-genre">{{ article.data.genre }}</span>
+          </a>
+        {%- endfor -%}
+      </div>
+      {%- endif -%}
+    </div>
+    {%- endfor -%}
+  </div>
+
+  {# ══════════════════════════════════════
+     AUTHOR VIEW
+     ══════════════════════════════════════ #}
+  <div class="archive-view" data-view="author">
+    {%- for author in collections.author -%}
+      {%- set authorArticles = collections.article | filterBy("data.author", author.data.key) -%}
+      {%- if authorArticles.length > 0 -%}
+      <div class="archive-author-group archive-stagger-item">
+        <a href="{{ author.data.permalink }}" class="archive-author-heading"
+           data-transition data-label="{{ author.data.name }}" data-symbol="✵">
+          <div class="archive-author-name">{{ author.data.name }}</div>
+          {%- if author.data.location -%}
+          <div class="archive-author-location">{{ author.data.location }}</div>
+          {%- endif -%}
+        </a>
+
+        {%- for issue in collections.issue | reverse -%}
+          {%- set issueArticles = authorArticles | filterBy("data.issue", issue.data.number) -%}
+          {%- if issueArticles.length > 0 -%}
+          <div class="archive-author-issue">
+            <a href="{{ issue.url }}" class="archive-author-issue-link"
+               data-transition data-label="{{ issue.data.title }}" data-symbol="🕮">
+              <span class="archive-author-issue-num">Брой {{ issue.data.number }}:</span>
+              <span class="archive-author-issue-name">{{ issue.data.title }}</span>
+            </a>
+            <div class="archive-author-articles">
+              {%- for article in issueArticles -%}
+              <a href="{{ article.url }}" class="archive-author-article"
+                 data-transition data-label="{{ article.data.title }}" data-symbol="✦">
+                <span class="archive-author-article-title">{{ article.data.title }}</span>
+                <span class="archive-author-article-genre">{{ article.data.genre }}</span>
+              </a>
+              {%- endfor -%}
+            </div>
+          </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+
+  {# ══════════════════════════════════════
+     GENRE VIEW
+     ══════════════════════════════════════ #}
+  <div class="archive-view" data-view="genre">
+    <div class="genre-filter-bar">
+      {%- for genre in genres -%}
+      <button class="genre-filter-btn{% if loop.first %} active{% endif %}"
+              data-genre="{{ genre.key }}">{{ genre.name | upper }}</button>
+      {%- endfor -%}
+    </div>
+
+    {%- for genre in genres -%}
+    <div class="genre-article-list{% if loop.first %} active{% endif %}"
+         data-genre-list="{{ genre.key }}">
+      {%- set genreArticles = collections.article | filterBy("data.genre", genre.key) -%}
+      {%- if genreArticles.length > 0 -%}
+
+        {%- for issue in collections.issue | reverse -%}
+          {%- set issueGenreArticles = genreArticles | filterBy("data.issue", issue.data.number) -%}
+          {%- if issueGenreArticles.length > 0 -%}
+          <div class="genre-issue-group archive-stagger-item">
+            <a href="{{ issue.url }}" class="genre-issue-link"
+               data-transition data-label="{{ issue.data.title }}" data-symbol="🕮">
+              <span class="genre-issue-num">Брой {{ issue.data.number }}:</span>
+              <span class="genre-issue-name">{{ issue.data.title }}</span>
+            </a>
+            <div class="genre-issue-articles">
+              {%- for article in issueGenreArticles -%}
+                {%- set authorPage = collections.author | filterBy("data.key", article.data.author) | first -%}
+                <a href="{{ article.url }}" class="genre-article"
+                   data-transition data-label="{{ article.data.title }}" data-symbol="✦">
+                  <span class="genre-article-title">{{ article.data.title }}</span>
+                  <span class="genre-article-author">{{ authorPage.data.name if authorPage else article.data.author }}</span>
+                </a>
+              {%- endfor -%}
+            </div>
+          </div>
+          {%- endif -%}
+        {%- endfor -%}
+
+      {%- else -%}
+        <div class="genre-empty">
+          <div class="genre-empty-symbol">✧</div>
+          <div class="genre-empty-text">все още няма {{ genre.name }}</div>
+        </div>
+      {%- endif -%}
+    </div>
+    {%- endfor -%}
+  </div>
+
+</div>

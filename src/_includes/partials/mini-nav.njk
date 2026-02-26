@@ -1,0 +1,23 @@
+<nav class="mini-nav" aria-label="Section navigation">
+  <a href="/atlas/" class="mini-star {% if currentNav == 'atlas' %}current{% endif %}" {% if currentNav != 'atlas' %}data-transition data-label="АТЛАС" data-symbol="✵"{% endif %}>
+    {% if currentNav == 'atlas' %}<div class="mstar-pulse"></div>{% endif %}
+    <div class="mstar-glow"></div>
+    <div class="mstar-core"></div>
+    <span class="mstar-label">АТЛАС</span>
+  </a>
+  <div class="mini-sep"></div>
+  <a href="/archive/" class="mini-star {% if currentNav == 'archive' %}current{% endif %}" {% if currentNav != 'archive' %}data-transition data-label="АРХИВ" data-symbol="🕮"{% endif %}>
+    {% if currentNav == 'archive' %}<div class="mstar-pulse"></div>{% endif %}
+    <div class="mstar-glow"></div>
+    <div class="mstar-core"></div>
+    <span class="mstar-label">АРХИВ</span>
+  </a>
+  <div class="mini-sep"></div>
+  <a href="/codex/" class="mini-star {% if currentNav == 'codex' %}current{% endif %}" {% if currentNav != 'codex' %}data-transition data-label="КОДЕКС" data-symbol="☽"{% endif %}>
+    {% if currentNav == 'codex' %}<div class="mstar-pulse"></div>{% endif %}
+    <div class="mstar-glow"></div>
+    <div class="mstar-core"></div>
+    <span class="mstar-label">КОДЕКС</span>
+  </a>
+</nav>
+<div class="mini-nav-sep"></div>

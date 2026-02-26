@@ -1,0 +1,7 @@
+{
+  "layout": "layouts/article.njk",
+  "tags": "article",
+  "issue": "I",
+  "issueTitle": "ARCHÉ",
+  "issueSlug": "01"
+}

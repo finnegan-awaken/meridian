@@ -1,0 +1,77 @@
+---
+layout: base.njk
+bodyClass: page-dest
+---
+
+{%- set prevIssue = collections.issue | getPrev(page) -%}
+{%- set nextIssue = collections.issue | getNext(page) -%}
+
+<a class="back-link" href="/"
+   data-transition data-label="АРХИВ" data-symbol="🕮">
+  <span>←</span>Към Архива
+</a>
+
+<a class="back-link-right" href="/"
+   data-transition data-label="МЕРИДИАН" data-symbol="✦">
+  към звездите<span>→</span>
+</a>
+
+<div class="issue-page-header">
+  <div class="issue-page-number">Брой {{ number }}</div>
+  <h2 class="issue-page-title">{{ title }}</h2>
+  <div class="issue-page-date">{{ season }} · {{ year }}</div>
+</div>
+
+<div class="toc">
+  <div class="toc-label">Съдържание:</div>
+
+  {%- set issueArticles = collections.article | filterBy("data.issue", number) -%}
+  {%- for article in issueArticles | sort(false, false, "data.order") -%}
+    {%- set authorList = collections.author | filterBy("data.key", article.data.author) -%}
+
+    <div class="toc-entry">
+      <div class="toc-order">{{ article.data.order }}</div>
+      <div class="toc-body">
+        <a href="{{ article.url }}" class="toc-article-link"
+           data-transition data-label="{{ article.data.title }}" data-symbol="✧">
+          <div class="toc-article-title">{{ article.data.title }}</div>
+          {%- if article.data.subtitle %}
+          <div class="toc-article-subtitle">{{ article.data.subtitle }}</div>
+          {%- endif %}
+        </a>
+        <div class="toc-meta">
+          {% if authorList.length > 0 %}
+          <a href="{{ authorList[0].url }}" class="toc-author"
+             data-transition data-label="{{ authorList[0].data.name }}" data-symbol="🖋">
+            {{ authorList[0].data.name }}
+          </a>
+          {% endif %}
+          <span class="toc-genre">{{ article.data.genre }}</span>
+        </div>
+      </div>
+      <div class="toc-dots"></div>
+    </div>
+  {%- endfor -%}
+</div>
+
+<div class="issue-bottom-nav">
+  {% if prevIssue %}
+  <a href="{{ prevIssue.url }}" class="article-nav-link prev"
+     data-transition data-label="{{ prevIssue.data.title }}" data-symbol="🕮">
+    <span class="article-nav-dir">предишен брой</span>
+    <span class="article-nav-title">{{ prevIssue.data.number }} · {{ prevIssue.data.title }}</span>
+  </a>
+  {% else %}
+  <div class="article-nav-link prev empty"></div>
+  {% endif %}
+
+  {% if nextIssue %}
+  <a href="{{ nextIssue.url }}" class="article-nav-link next"
+     data-transition data-label="{{ nextIssue.data.title }}" data-symbol="🕮">
+    <span class="article-nav-dir">следващ брой</span>
+    <span class="article-nav-title">{{ nextIssue.data.number }} · {{ nextIssue.data.title }}</span>
+  </a>
+  {% else %}
+  <div class="article-nav-link next empty"></div>
+  {% endif %}
+</div>

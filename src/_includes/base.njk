@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% include "partials/head.njk" %}
+  <script>window.BASE = "{{ '/' | url }}";</script>
+</head>
+<body class="{{ bodyClass | default('page-dest') }}">
+
+  {% include "partials/grain.njk" %}
+
+  {{ content | safe }}
+
+  {% if "page-nav" in bodyClass %}
+  {% include "partials/tarot.njk" %}
+  {% endif %}
+
+  <script src="/js/shared.js"></script>
+  {% if "page-nav" in bodyClass %}
+  <script src="/js/cosmos.js"></script>
+  <script src="/js/nav.js"></script>
+  <script src="/js/tarot.js"></script>
+  {#<script src="/js/easteregg.js"></script>#}
+  {% endif %}
+  {#{% if "page-book" in bodyClass %}
+  <script src="/js/book.js"></script>#}
+  {% endif %}
+  {% if "page-dest" in bodyClass %}
+  <script src="/js/archive.js"></script>
+  {% endif %}
+</body>
+</html>

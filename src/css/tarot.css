@@ -1,0 +1,572 @@
+/* ══════════════════════════════════════════
+   TAROT — Feature Stylesheet
+   Depends on meridian.css custom properties
+   ══════════════════════════════════════════
+
+   CONTENTS:
+   1. Trigger
+   2. Overlay & Close
+   3. Spread Section
+   4. Card Component (shared)
+   5. Spread Cards
+   6. Revealed Area
+   7. Nav Element Hiding
+   8. Accessibility
+   9. Responsive
+   ══════════════════════════════════════════ */
+
+
+/* ══════════════════════════════════════════
+   1. TRIGGER
+   ══════════════════════════════════════════ */
+.tarot-trigger {
+  position: fixed; bottom: 40px; right: 40px;
+  z-index: 90; cursor: pointer;
+  display: flex; flex-direction: column;
+  align-items: center; gap: 10px;
+  opacity: 0; transform: translateY(20px);
+  transition: opacity .8s ease, transform .8s ease;
+  pointer-events: none;
+  /* Reset button styles (JS creates this as a <button> for a11y) */
+  background: none; border: none;
+  padding: 0; font: inherit; color: inherit;
+}
+.tarot-trigger.visible {
+  opacity: 1; transform: translateY(0);
+  pointer-events: auto;
+}
+.tarot-trigger.hidden {
+  opacity: 0; transform: translateY(20px);
+  pointer-events: none;
+}
+
+.tarot-trigger-glow {
+  position: absolute; width: 100px; height: 120px;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -55%);
+  background: radial-gradient(ellipse, var(--copper) 0%, transparent 70%);
+  border-radius: 50%; opacity: 0;
+  transition: opacity .5s ease;
+  pointer-events: none;
+}
+.tarot-trigger:hover .tarot-trigger-glow,
+.tarot-trigger:focus-visible .tarot-trigger-glow {
+  opacity: .15;
+  animation: shimmer 3s ease-in-out infinite alternate;
+}
+
+.tarot-trigger-stack {
+  position: relative; width: 67px; height: 110px;
+}
+
+.tarot-trigger-card {
+  position: absolute; inset: 0;
+  width: 67px; height: 110px;
+  border: 1px solid var(--copper-subtle);
+  overflow: hidden;
+  transition: border-color .4s ease, transform .4s ease, box-shadow .4s ease;
+}
+.tarot-trigger-card img {
+  width: 100%; height: 100%; object-fit: cover;
+}
+
+.tarot-trigger-card-back-2 {
+  transform: rotate(-6deg) translate(-4px, 2px); opacity: .5;
+}
+.tarot-trigger-card-back-1 {
+  transform: rotate(-3deg) translate(-2px, 1px); opacity: .7;
+}
+.tarot-trigger-card-top { transform: rotate(0deg); }
+
+.tarot-trigger:hover .tarot-trigger-card-back-2,
+.tarot-trigger:focus-visible .tarot-trigger-card-back-2 {
+  transform: rotate(-10deg) translate(-8px, 2px); opacity: .6;
+}
+.tarot-trigger:hover .tarot-trigger-card-back-1,
+.tarot-trigger:focus-visible .tarot-trigger-card-back-1 {
+  transform: rotate(-5deg) translate(-4px, 1px); opacity: .8;
+}
+.tarot-trigger:hover .tarot-trigger-card-top,
+.tarot-trigger:focus-visible .tarot-trigger-card-top {
+  transform: translateY(-4px);
+  border-color: var(--copper-soft);
+  box-shadow: 0 8px 30px rgba(var(--copper-rgb), .15);
+}
+
+.tarot-trigger-fallback {
+  display: none; width: 100%; height: 100%;
+  flex-direction: column; align-items: center;
+  justify-content: center; gap: 6px;
+  background:
+    radial-gradient(ellipse at 50% 30%, var(--atmo-deep) 0%, transparent 60%),
+    linear-gradient(to bottom, var(--night), var(--twilight));
+}
+.tarot-trigger-fb-symbol   { font-size: 14px; color: var(--copper); opacity: .4; }
+.tarot-trigger-fb-ornament { font-size: 5px; letter-spacing: 3px; color: var(--copper-mid); }
+
+.tarot-trigger-text {
+  font-family: var(--ff-body);
+  font-style: italic; font-size: 14px; font-weight: 300;
+  color: var(--copper); letter-spacing: 3px;
+  opacity: 0; transform: translateY(-4px);
+  transition: opacity .4s ease, transform .4s ease;
+  pointer-events: none; white-space: nowrap;
+}
+.tarot-trigger:hover .tarot-trigger-text,
+.tarot-trigger:focus-visible .tarot-trigger-text {
+  opacity: .7; transform: translateY(0);
+}
+
+
+/* ══════════════════════════════════════════
+   2. OVERLAY & CLOSE
+   ══════════════════════════════════════════ */
+.tarot-overlay {
+  position: fixed; inset: 0; z-index: 400;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: flex-end;
+  gap: 0; padding-bottom: 40px;
+  opacity: 0; pointer-events: none;
+  overflow-y: auto; overflow-x: hidden;
+  background:
+    radial-gradient(ellipse at 50% 60%, rgba(22, 18, 51, .85) 0%, transparent 50%),
+    rgba(6, 9, 15, .92);
+  transition: opacity .7s ease;
+  scrollbar-width: none;
+}
+.tarot-overlay::-webkit-scrollbar { display: none; }
+.tarot-overlay.active  { opacity: 1; pointer-events: auto; }
+.tarot-overlay.closing { opacity: 0; pointer-events: none; }
+
+.tarot-close {
+  position: absolute; top: 30px; right: 35px;
+  background: none; border: none;
+  font-family: var(--ff-display);
+  font-size: 16px; color: var(--copper);
+  opacity: .5; cursor: pointer;
+  z-index: 10; padding: 8px;
+  transition: opacity .4s ease, transform .3s ease;
+}
+.tarot-close:hover,
+.tarot-close:focus-visible {
+  opacity: 1; transform: scale(1.15);
+}
+
+
+/* ══════════════════════════════════════════
+   3. SPREAD SECTION
+   ══════════════════════════════════════════ */
+.tarot-spread-section {
+  display: flex; flex-direction: column;
+  align-items: center; flex-shrink: 0;
+  margin-top: 6px;
+}
+
+.tarot-spread-label {
+  font-family: var(--ff-body);
+  font-style: italic; font-size: 16px; font-weight: 300;
+  color: var(--copper); letter-spacing: 2px;
+  text-align: center; opacity: .9;
+  margin-bottom: -10px;
+  transition: opacity .5s ease;
+}
+.tarot-spread-label.tarot-hidden {
+  opacity: 0; pointer-events: none;
+}
+
+.tarot-spread {
+  display: flex; align-items: flex-end; justify-content: center;
+  gap: 0; position: relative; height: 170px;
+}
+.tarot-spread.exhausted {
+  opacity: .2; pointer-events: none;
+  transition: opacity .6s ease;
+}
+
+
+/* ══════════════════════════════════════════
+   4. CARD COMPONENT (shared back/front)
+   Aspect ratio: 525:900 ≈ 7:12
+   ══════════════════════════════════════════ */
+.tarot-card {
+  width: 100%; height: 100%;
+  perspective: 1000px;
+}
+.tarot-card-inner {
+  width: 100%; height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform .8s ease;
+  will-change: transform;
+}
+
+.tarot-card-face {
+  position: absolute; inset: 0;
+  backface-visibility: hidden;
+  overflow: hidden;
+  border: 1px solid var(--copper-subtle);
+}
+.tarot-card-face img {
+  width: 100%; height: 100%; object-fit: cover;
+}
+.tarot-card-back  { z-index: 2; }
+.tarot-card-front { transform: rotateY(180deg); z-index: 1; }
+
+/* ── Fallback: back ── */
+.tarot-card-fallback-back {
+  display: none; width: 100%; height: 100%;
+  flex-direction: column; align-items: center;
+  justify-content: center; gap: 8px;
+  background:
+    radial-gradient(ellipse at 50% 30%, var(--atmo-deep) 0%, transparent 60%),
+    linear-gradient(to bottom, var(--night), var(--twilight));
+  position: relative;
+}
+.tarot-fb-border {
+  position: absolute; inset: 6px;
+  border: 1px solid var(--copper-faint);
+  pointer-events: none;
+}
+.tarot-fb-symbol   { font-size: 18px; color: var(--copper); opacity: .35; }
+.tarot-fb-ornament { font-size: 6px; letter-spacing: 4px; color: var(--copper-mid); }
+
+/* ── Fallback: front ── */
+.tarot-card-fallback-front {
+  display: none; width: 100%; height: 100%;
+  flex-direction: column; align-items: center;
+  justify-content: center; gap: 10px;
+  padding: 16px 10px; text-align: center;
+  background:
+    radial-gradient(ellipse at 50% 20%, rgba(var(--copper-rgb), .08) 0%, transparent 60%),
+    linear-gradient(to bottom, var(--transition), var(--night));
+  position: relative;
+}
+.tarot-fb-numeral {
+  font-family: var(--ff-decorative);
+  font-size: 20px; color: var(--copper);
+  opacity: .6; letter-spacing: 4px;
+}
+.tarot-fb-name {
+  font-family: var(--ff-display);
+  font-size: 9px;
+  letter-spacing: 3px;
+  color: var(--star);
+  line-height: 1.4;
+  max-width: 90%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  line-clamp: 2;
+  text-align: center;
+}
+
+.tarot-fb-meaning {
+  font-family: var(--ff-body);
+  font-style: italic; font-size: 8px; font-weight: 300;
+  color: var(--copper); opacity: .6; line-height: 1.5;
+}
+
+/* ── Large card (revealed) ── */
+.tarot-card-large {
+  width: 150px; height: 257px; flex-shrink: 0;
+}
+.tarot-card-large .tarot-fb-numeral { font-size: 30px; }
+.tarot-card-large .tarot-fb-name {
+  font-size: 12px;
+  letter-spacing: 4px;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  max-width: 85%;
+}
+.tarot-card-large .tarot-fb-meaning { font-size: 11px; }
+
+
+/* ══════════════════════════════════════════
+   5. SPREAD CARDS
+   ══════════════════════════════════════════ */
+.tarot-spread-card {
+  width: 65px; height: 111px;
+  position: relative; cursor: pointer;
+  margin: 0 -14px; opacity: 0;
+  transform: translateY(60px) rotate(var(--spread-rotation, 0deg));
+  transition: opacity .5s ease, transform .5s ease, margin .4s ease;
+  transform-origin: bottom center;
+}
+.tarot-spread-card.dealt {
+  opacity: 1;
+  transform:
+    translateY(calc(var(--spread-y-offset, 0px) * -1))
+    rotate(var(--spread-rotation, 0deg));
+}
+.tarot-spread-card:hover,
+.tarot-spread-card:focus-visible {
+  transform:
+    translateY(calc(var(--spread-y-offset, 0px) * -1 - 16px))
+    rotate(var(--spread-rotation, 0deg))
+    scale(1.08);
+  z-index: 5;
+}
+.tarot-spread-card.drawn {
+  opacity: 0;
+  transform: translateY(-100px) rotate(0deg) scale(.6);
+  pointer-events: none; margin: 0 -28px;
+  transition: opacity .4s ease, transform .5s ease, margin .5s ease;
+}
+
+
+/* ══════════════════════════════════════════
+   6. REVEALED AREA
+   ══════════════════════════════════════════ */
+.tarot-revealed {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 40px;
+  width: 100%;
+  max-width: 1100px;
+  padding: 0 40px;
+  position: relative;
+  flex: 0 1 auto;
+  overflow: visible;
+}
+
+.tarot-revealed-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  opacity: 0;
+  transform: translateY(30px) scale(.85);
+  transition: opacity .5s ease, transform .6s ease;
+  position: relative;
+  width: 280px;
+  flex-shrink: 0;
+  min-height: 460px;
+}
+
+.tarot-revealed-card.entered {
+  opacity: 1; transform: translateY(0) scale(1);
+}
+.tarot-revealed-card.flipped .tarot-card-inner {
+  transform: rotateY(180deg);
+}
+
+/* Position classes */
+.tarot-revealed-card.pos-center { order: 2; }
+.tarot-revealed-card.pos-left   { order: 1; }
+.tarot-revealed-card.pos-right  { order: 3; }
+
+/* Side cards scale smaller */
+.tarot-revealed.count-2 .pos-left,
+.tarot-revealed.count-3 .pos-left,
+.tarot-revealed.count-3 .pos-right {
+  transform: translateY(15px) scale(.85);
+}
+.tarot-revealed.count-2 .pos-left.entered,
+.tarot-revealed.count-3 .pos-left.entered,
+.tarot-revealed.count-3 .pos-right.entered {
+  transform: translateY(15px) scale(.85); opacity: .8;
+}
+
+.tarot-revealed-position {
+  font-family: var(--ff-display);
+  font-size: 16px; letter-spacing: 2px;
+  color: var(--copper); opacity: .9;
+  text-transform: uppercase; margin-bottom: 2px;
+}
+
+.tarot-revealed-info {
+  text-align: center;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity .5s ease .1s, transform .5s ease .1s;
+  width: 100%;
+  max-width: 260px;
+  min-height: 130px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tarot-revealed-card.info-visible .tarot-revealed-info {
+  opacity: 1; transform: translateY(0);
+}
+
+.tarot-revealed-meaning {
+  font-family: var(--ff-body);
+  font-style: italic;
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--copper);
+  opacity: .9;
+  margin-bottom: 8px;
+  line-height: 1.6;
+  min-height: 26px;
+}
+
+.tarot-revealed-desc {
+  font-family: var(--ff-body);
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.75;
+  color: var(--bright);
+  margin-bottom: 14px;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  line-clamp: 4;
+  overflow: hidden;
+}
+
+.tarot-article-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--ff-display);
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: var(--copper);
+  opacity: .9;
+  text-transform: uppercase;
+  transition: opacity .4s ease, letter-spacing .4s ease;
+  border-bottom: 1px solid var(--copper-faint);
+  padding-bottom: 2px;
+  margin-top: auto;
+}
+
+.tarot-article-link:hover,
+.tarot-article-link:focus-visible {
+  opacity: 1; letter-spacing: 4px;
+}
+.tarot-article-arrow {
+  font-size: 12px; transition: transform .3s ease;
+}
+.tarot-article-link:hover .tarot-article-arrow { transform: translateX(3px); }
+.tarot-article-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 190px;
+}
+
+.tarot-spacer { flex: 1 1 auto; }
+
+
+/* ══════════════════════════════════════════
+   7. NAV ELEMENT HIDING
+   When tarot overlay is open, hide constellation nav chrome.
+   These rules reference meridian.css elements but belong here
+   because they are triggered by tarot state.
+   ══════════════════════════════════════════ */
+.tarot-active #cartouche,
+.tarot-active #hint,
+.tarot-active .edge,
+.tarot-active #geometry {
+  opacity: 0 !important;
+}
+
+
+/* ══════════════════════════════════════════
+   8. ACCESSIBILITY
+   ══════════════════════════════════════════ */
+
+/* Tarot-specific focus styles */
+.tarot-trigger:focus-visible {
+  outline: 1px solid var(--copper-mid);
+  outline-offset: 4px;
+}
+.tarot-close:focus-visible {
+  outline: 1px solid var(--copper-mid);
+  outline-offset: 2px;
+}
+.tarot-spread-card:focus-visible {
+  outline: 1px solid var(--copper-mid);
+  outline-offset: 2px;
+}
+
+/* Touch: show trigger text without hover */
+@media (hover: none) {
+  .tarot-trigger.visible .tarot-trigger-text {
+    opacity: .6;
+    transform: translateY(0);
+  }
+}
+
+
+/* ══════════════════════════════════════════
+   9. RESPONSIVE
+   ══════════════════════════════════════════ */
+@media (max-width: 700px) {
+  .tarot-overlay {
+    flex-direction: column-reverse;
+    justify-content: flex-start;
+    padding: 0 0 24px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .tarot-close { position: fixed; }
+
+  .tarot-spread-section { order: -1; flex-shrink: 0; }
+
+  .tarot-revealed {
+    order: 0; flex-direction: column;
+    align-items: center; gap: 20px;
+    padding: 60px 30px 20px;
+    flex: 0 0 auto; min-height: 0;
+  }
+
+  .tarot-revealed-card { width: 180px; }
+
+  .tarot-revealed-card.pos-left,
+  .tarot-revealed-card.pos-center,
+  .tarot-revealed-card.pos-right { order: unset; }
+
+  .tarot-revealed.count-2 .pos-left.entered,
+  .tarot-revealed.count-3 .pos-left.entered,
+  .tarot-revealed.count-3 .pos-right.entered {
+    transform: none; opacity: 1;
+  }
+
+  .tarot-revealed-info { max-width: 170px; }
+
+  .tarot-card-large { width: 110px; height: 189px; }
+
+  .tarot-spread-card {
+    width: 48px; height: 82px; margin: 0 -16px;
+  }
+  .tarot-spread { height: 120px; }
+
+  .tarot-trigger { bottom: 24px; right: 24px; }
+  .tarot-trigger-stack { width: 38px; height: 65px; }
+  .tarot-trigger-card  { width: 38px; height: 65px; }
+  .tarot-revealed-card {
+    width: 180px;
+    min-height: auto;
+  }
+
+  .tarot-revealed {
+    gap: 24px;
+    padding: 60px 20px 20px;
+  }
+
+  .tarot-revealed-card {
+    width: 200px;
+    min-height: auto;
+  }
+
+  .tarot-revealed-info {
+    max-width: 190px;
+    min-height: auto;
+  }
+
+  .tarot-revealed-desc {
+    -webkit-line-clamp: 5;
+    line-clamp: 5;
+  }
+
+  .tarot-article-title {
+    max-width: 140px;
+  }
+}

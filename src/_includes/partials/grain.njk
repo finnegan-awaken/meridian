@@ -1,0 +1,11 @@
+<div id="grain"></div>
+<div id="transition" class="active no-transition">
+  <span id="transition-symbol"></span>
+  <span id="transition-text"></span>
+</div>
+<script>
+  /* Immediately hide overlay if direct visit (no transit data) */
+  if (!sessionStorage.getItem('meridian-transit')) {
+    document.getElementById('transition').classList.remove('active', 'no-transition');
+  }
+</script>

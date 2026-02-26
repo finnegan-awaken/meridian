@@ -1,0 +1,69 @@
+---
+layout: base.njk
+bodyClass: page-dest
+currentNav: atlas
+---
+
+<a class="back-link" href="/"
+   data-transition data-label="МЕРИДИАН" data-symbol="✦">
+  <span>←</span>към звездите
+</a>
+
+<div class="page-header">
+  <div class="page-symbol">✵</div>
+  <div class="page-rule top"></div>
+  <h2>АТЛАС</h2>
+  <div class="page-sub">Experimentum Crucis</div>
+  <div class="page-rule bottom"></div>
+</div>
+
+{% include "partials/mini-nav.njk" %}
+
+<div class="atlas-content">
+
+  {# ── THE CARTOGRAPHERS ── #}
+  <div class="atlas-section">
+    <div class="atlas-section-title">Тайновидци</div>
+    <div class="atlas-grid-cartographer">
+      {%- for author in collections.author -%}
+        {%- if author.data.role == "cartographer" -%}
+        <a href="{{ author.url }}" class="atlas-cell atlas-cell-editor"
+           data-transition data-label="{{ author.data.name }}" data-symbol="🖋" data-from="atlas">
+          <div class="atlas-cell-label">{{ author.data.name | upper }}</div>
+          <div class="atlas-cell-sub">{{ author.data.location }}</div>
+        </a>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+
+  {# ── ASTROLOGERS ── #}
+  <div class="atlas-section">
+    <div class="atlas-section-title">Звездобройци</div>
+    <div class="atlas-grid-astrologer">
+      {%- for author in collections.author -%}
+        {%- if author.data.role != "cartographer" -%}
+        <a href="{{ author.url }}" class="atlas-cell"
+           data-transition data-label="{{ author.data.name }}" data-symbol="🖋" data-from="atlas">
+          <div class="atlas-cell-label">{{ author.data.name | upper }}</div>
+          <div class="atlas-cell-sub">{{ author.data.location }}</div>
+        </a>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+
+  {# ── MANIFESTO ── #}
+  <div class="atlas-manifesto">
+    <div class="atlas-manifesto-title">Манифест</div>
+    <div class="atlas-manifesto-text">
+      <em><p class="atlas-manifesto-quote">„Какво е тласъкът на въображението без юздите на волята? Какво е посоката на волята без атласа на въображението?”</p></em>
+      <p>Отваряте дверите на нова епоха. Четете словата на нов живот, на прероден и претопен дух, разпръснат и разхвърлен в хилядите ни лица. С нас се заражда нов етап в българската литература, ново превъплъщение на творческите ѝ пориви, на могъщ подтик към нейното съзидание и унищожение.</p>
+      <p>Отваряте дверите на съдбоносно събитие. Ние сме вестоносци, носители на знамения и предсказания, ние носим тегобни и радостни вести, ние ви обещаваме едновременно опустошение и градеж на нашата литература.</p>
+      <p>За какво копнеем?</p>
+      <p>Ние копнеем да отприщим потопа на духовното ни съзерцание, ние копнеем да изследваме нови земи и континенти от духовното ни преживяване, ние копнеем да заличим изцяло тесногръдото, плашливо, смехотворно ограничение на българската литература, ние копнеем да скършим веригите на мимолетното ѝ време и на дребнавото ѝ пространство, ние копнеем да разкъсаме границите на нейните клишета и повторения.</p>
+    </div>
+    <div class="atlas-manifesto-sigil">✦</div>
+  </div>
+
+</div>

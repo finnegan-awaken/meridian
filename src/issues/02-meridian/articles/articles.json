@@ -1,0 +1,7 @@
+{
+  "layout": "layouts/article.njk",
+  "tags": "article",
+  "issue": "II",
+  "issueTitle": "МИСТЕРИУМ",
+  "issueSlug": "02-meridian"
+}

@@ -1,0 +1,133 @@
+---
+layout: base.njk
+bodyClass: page-dest
+currentNav: archive
+---
+
+<a class="back-link" id="author-back-link" href="/archive/"
+   data-transition data-label="АРХИВ" data-symbol="🕮">
+  <span>←</span>Към Архива
+</a>
+
+<a class="back-link-right" id="author-stars-link" href="/"
+   data-transition data-label="МЕРИДИАН" data-symbol="✦">
+  към звездите<span>→</span>
+</a>
+
+<div class="page-header">
+  <div class="page-symbol">🖋</div>
+  <div class="page-rule top"></div>
+  <h2>Автори</h2>
+  <div class="page-rule bottom"></div>
+</div>
+
+{% include "partials/mini-nav.njk" %}
+
+<div class="author-page-content">
+
+  {# ── PHOTO ── #}
+  {%- if photo -%}
+  <div class="author-photo">
+    <img src="{{ photo }}" alt="{{ name }}">
+  </div>
+  {%- endif -%}
+
+  <div class="author-identity">
+    <span class="author-name">{{ name }}</span>{% if location %}, <span class="author-location">{{ location }}</span>{% endif %}
+  </div>
+
+  {# ── BIO ── #}
+  <div class="author-bio">
+    <p>{{ bio }}</p>
+  </div>
+
+  {%- if links %}
+  <div class="author-links">
+    {%- for link in links %}
+    <a href="{{ link.url }}" class="author-ext-link" target="_blank">{{ link.label }} →</a>
+    {%- endfor %}
+  </div>
+  {%- endif %}
+
+  <div class="codex-sigil"></div>
+
+  {# ── ALL WORKS, GROUPED BY ISSUE ── #}
+  <div class="author-works-title">ТВОРБИ В МЕРИДИАН:</div>
+
+  {%- set authorArticles = collections.article | filterBy("data.author", key) -%}
+
+  {%- for issue in collections.issue | reverse -%}
+    {%- set issueKey = issue.data.number -%}
+    {%- set articlesInIssue = authorArticles | filterBy("data.issue", issueKey) -%}
+
+    {%- if articlesInIssue.length > 0 -%}
+    <div class="author-issue-group">
+      <a href="{{ issue.url }}" class="author-issue-heading"
+         data-transition data-label="{{ issue.data.title }}" data-symbol="🕮">
+        <span class="author-issue-number">Брой {{ issue.data.number }}</span>
+        <span class="author-issue-name">{{ issue.data.title }}</span>
+        <span class="author-issue-season">{{ issue.data.season }} · {{ issue.data.year }}</span>
+      </a>
+
+      {%- for article in articlesInIssue | sort(false, false, "data.order") -%}
+      <a href="{{ article.url }}" class="author-article-entry"
+         data-transition data-label="{{ article.data.title }}" data-symbol="✧">
+        <span class="author-article-title">{{ article.data.title }}</span>
+        <span class="author-article-genre">{{ article.data.genre }}</span>
+      </a>
+      {%- endfor -%}
+    </div>
+    {%- endif -%}
+  {%- endfor -%}
+
+  <div class="codex-sigil">✦</div>
+
+</div>
+
+<script>
+(function () {
+  var from = sessionStorage.getItem('meridian-from') || 'archive';
+  sessionStorage.removeItem('meridian-from');
+
+  var backLink = document.getElementById('author-back-link');
+  var archiveStar = document.querySelector('.mini-star[href="' + window.BASE + 'archive/"]');
+  var atlasStar   = document.querySelector('.mini-star[href="' + window.BASE + 'atlas/"]');
+
+  if (from === 'atlas') {
+
+    if (backLink) {
+      backLink.setAttribute('href', window.BASE + 'atlas/');
+      backLink.setAttribute('data-label', 'АТЛАС');
+      backLink.setAttribute('data-symbol', '✵');
+      backLink.innerHTML = '<span>←</span>Към Атлас';
+    }
+
+    if (archiveStar) {
+      archiveStar.classList.remove('current');
+      archiveStar.setAttribute('data-transition', '');
+      archiveStar.setAttribute('data-label', 'АРХИВ');
+      archiveStar.setAttribute('data-symbol', '🕮');
+      var archivePulse = archiveStar.querySelector('.mstar-pulse');
+      if (archivePulse) archivePulse.remove();
+    }
+    if (atlasStar) {
+      atlasStar.classList.add('current');
+      atlasStar.setAttribute('data-transition', '');
+      atlasStar.setAttribute('data-label', 'АТЛАС');
+      atlasStar.setAttribute('data-symbol', '✵');
+      var pulse = document.createElement('div');
+      pulse.className = 'mstar-pulse';
+      atlasStar.insertBefore(pulse, atlasStar.firstChild);
+    }
+
+  } else {
+
+    if (archiveStar) {
+      archiveStar.setAttribute('data-transition', '');
+      archiveStar.setAttribute('data-label', 'АРХИВ');
+      archiveStar.setAttribute('data-symbol', '🕮');
+    }
+
+  }
+})();
+</script>

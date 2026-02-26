@@ -1,0 +1,1099 @@
+/* ══════════════════════════════════════════
+   BOOK OF SECRETS — VARIABLES
+   ══════════════════════════════════════════ */
+:root {
+  --book-gold:       rgba(180, 160, 120, 1);
+  --book-gold-rgb:   180, 160, 120;
+  --book-text:       rgb(210, 190, 150);
+  --book-text-rgb:   210, 190, 150;
+  --book-dark:       #0a0806;
+  --book-scene:      #08060a;
+}
+
+
+/* ══════════════════════════════════════════
+   BOOK OF SECRETS — BASE & SCENE
+   ══════════════════════════════════════════ */
+body.page-book {
+  background: var(--book-dark);
+  overflow: hidden;
+  cursor: default;
+}
+
+body.page-book::before,
+body.page-book::after {
+  display: none;
+}
+
+.book-scene {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(ellipse at 50% 50%, rgba(36, 21, 65, 0.3) 0%, transparent 60%),
+    radial-gradient(ellipse at 50% 50%, transparent 0%, rgba(0, 0, 0, 0.8) 80%),
+    var(--book-scene);
+}
+
+
+/* ══════════════════════════════════════════
+   CLOSE BUTTON
+   ══════════════════════════════════════════ */
+.book-close {
+  position: fixed;
+  top: 28px;
+  right: 32px;
+  z-index: 100;
+  font-family: var(--ff-display);
+  font-size: 18px;
+  color: rgba(var(--book-gold-rgb), 0.4);
+  cursor: pointer;
+  padding: 8px;
+  transition: color 0.4s ease, transform 0.3s ease;
+}
+
+.book-close:hover,
+.book-close:focus-visible {
+  color: rgba(var(--book-gold-rgb), 0.8);
+  transform: scale(1.15);
+}
+
+.book-close:focus-visible {
+  outline: 1px solid rgba(var(--book-gold-rgb), 0.3);
+  outline-offset: 4px;
+}
+
+
+/* ══════════════════════════════════════════
+   BOOK CONTAINER
+   ══════════════════════════════════════════ */
+.book-container {
+  position: relative;
+  width: 782px;
+  height: 552px;
+  perspective: 1800px;
+}
+
+/* Spine gutter shadow */
+.book-container::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: calc(100% + 40px);
+  background: linear-gradient(to right,
+    transparent 0%,
+    rgba(0, 0, 0, 0.25) 20%,
+    rgba(0, 0, 0, 0.5) 45%,
+    rgba(0, 0, 0, 0.6) 50%,
+    rgba(0, 0, 0, 0.5) 55%,
+    rgba(0, 0, 0, 0.25) 80%,
+    transparent 100%
+  );
+  z-index: 50;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 20px, black calc(100% - 20px), transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 20px, black calc(100% - 20px), transparent 100%);
+}
+
+.book {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  transform-style: preserve-3d;
+}
+
+
+/* ══════════════════════════════════════════
+   BOOK SPINE
+   ══════════════════════════════════════════ */
+.book-spine {
+  position: absolute;
+  top: -1px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 26px;
+  height: calc(100% + 2px);
+  z-index: 0;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(
+      0deg, transparent, transparent 4px,
+      rgba(var(--book-gold-rgb), 0.008) 4px, rgba(var(--book-gold-rgb), 0.008) 5px
+    ),
+    repeating-linear-gradient(
+      115deg, transparent, transparent 3px,
+      rgba(160, 140, 100, 0.018) 3px, rgba(160, 140, 100, 0.018) 4px
+    ),
+    repeating-linear-gradient(
+      65deg, transparent, transparent 3px,
+      rgba(140, 120, 80, 0.012) 3px, rgba(140, 120, 80, 0.012) 4px
+    ),
+    linear-gradient(to right,
+      #0c0a06 0%, #100d08 10%, #14100a 25%, #1a150e 40%,
+      #1c1710 50%, #1a150e 60%, #14100a 75%, #100d08 90%, #0c0a06 100%
+    );
+  box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.5);
+}
+
+.book-spine::before,
+.book-spine::after {
+  content: '';
+  position: absolute;
+  left: 4px;
+  right: 4px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(var(--book-gold-rgb), 0.06), transparent);
+}
+.book-spine::before { top: 18px; }
+.book-spine::after  { bottom: 18px; }
+
+
+/* ══════════════════════════════════════════
+   SHARED PARCHMENT TEXTURES
+   ══════════════════════════════════════════ */
+.page-parchment {
+  position: absolute;
+  inset: 0;
+}
+
+.page-parchment::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      115deg, transparent, transparent 2px,
+      rgba(var(--book-gold-rgb), 0.018) 2px, rgba(var(--book-gold-rgb), 0.018) 3px
+    ),
+    repeating-linear-gradient(
+      65deg, transparent, transparent 2px,
+      rgba(160, 140, 100, 0.012) 2px, rgba(160, 140, 100, 0.012) 3px
+    );
+  pointer-events: none;
+  z-index: 1;
+}
+
+.book-page-front .page-parchment {
+  border-right: none;
+  border-left: 1px solid rgba(var(--book-gold-rgb), 0.08);
+  background:
+    repeating-linear-gradient(
+      0deg, transparent, transparent 4px,
+      rgba(200, 180, 140, 0.01) 4px, rgba(200, 180, 140, 0.01) 5px
+    ),
+    linear-gradient(90deg, rgba(var(--book-text-rgb), 0.10) 0%, transparent 22%),
+    radial-gradient(ellipse at 25% 15%, rgba(240, 220, 180, 0.14) 0%, transparent 45%),
+    radial-gradient(ellipse at 70% 80%, rgba(220, 200, 160, 0.10) 0%, transparent 40%),
+    radial-gradient(ellipse at 15% 50%, rgba(200, 180, 140, 0.07) 0%, transparent 28%),
+    radial-gradient(ellipse at 85% 25%, rgba(190, 170, 130, 0.06) 0%, transparent 22%),
+    radial-gradient(ellipse at 50% 50%, transparent 55%, rgba(0, 0, 0, 0.22) 100%),
+    linear-gradient(to bottom, #4a3e2c, #433728 25%, #3d3224 50%, #372d20 75%, #30281c);
+}
+
+.book-page-back .page-parchment {
+  border-left: none;
+  border-right: 1px solid rgba(var(--book-gold-rgb), 0.06);
+  background:
+    repeating-linear-gradient(
+      0deg, transparent, transparent 4px,
+      rgba(200, 180, 140, 0.009) 4px, rgba(200, 180, 140, 0.009) 5px
+    ),
+    linear-gradient(-90deg, rgba(200, 180, 140, 0.09) 0%, transparent 20%),
+    radial-gradient(ellipse at 75% 18%, rgba(230, 210, 170, 0.12) 0%, transparent 42%),
+    radial-gradient(ellipse at 30% 70%, rgba(var(--book-text-rgb), 0.08) 0%, transparent 38%),
+    radial-gradient(ellipse at 80% 85%, rgba(190, 170, 130, 0.06) 0%, transparent 22%),
+    radial-gradient(ellipse at 50% 50%, transparent 55%, rgba(0, 0, 0, 0.20) 100%),
+    linear-gradient(to bottom, #473b2a, #403626 25%, #3a3022 50%, #342b1e 75%, #2e261a);
+}
+
+
+/* ══════════════════════════════════════════
+   FLIPPABLE PAGES — BASE
+   ══════════════════════════════════════════ */
+.book-page {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 50%;
+  height: 100%;
+  transform-origin: left center;
+  transform-style: preserve-3d;
+  transform: rotateY(0deg);
+  transition: transform 0.9s cubic-bezier(0.645, 0.045, 0.355, 1);
+  cursor: pointer;
+  z-index: 1;
+  will-change: transform;
+}
+
+.book-page.flipped {
+  transform: rotateY(-180deg);
+}
+
+.book-page.flipping {
+  transition: none;
+}
+
+.book-page.animating {
+  transition: transform 0.9s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+.book-page-front,
+.book-page-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  overflow: hidden;
+}
+
+.book-page-front {
+  transform: rotateY(0deg) translateZ(0.5px);
+}
+
+.book-page-back {
+  transform: rotateY(180deg) translateZ(0.5px);
+}
+
+
+/* ══════════════════════════════════════════
+   PAGE THICKNESS — 3D edge
+   ══════════════════════════════════════════ */
+.book-page::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 3px;
+  height: 100%;
+  margin-right: -1.5px;
+  transform-origin: center center;
+  transform: rotateY(90deg);
+  background: linear-gradient(to bottom,
+    rgb(65, 56, 41) 0%,
+    rgb(109, 90, 67) 25%,
+    rgb(87, 71, 51) 50%,
+    rgb(44, 36, 26) 75%,
+    rgba(48, 40, 28, 0.95) 100%
+  );
+  pointer-events: none;
+  z-index: 2;
+  opacity: var(--thickness-opacity, 0);
+  transition: opacity 0.3s ease;
+}
+
+.book-page-cover::after {
+  width: 5px;
+  margin-right: -2.5px;
+  opacity: 1;
+  transition: none;
+  background: linear-gradient(to bottom,
+    rgba(32, 24, 14, 0.95) 0%,
+    rgba(42, 32, 18, 1) 20%,
+    rgba(48, 36, 20, 1) 50%,
+    rgba(42, 32, 18, 1) 80%,
+    rgba(32, 24, 14, 0.95) 100%
+  );
+}
+
+
+/* ══════════════════════════════════════════
+   COVER & CONTENT SHEET SIZING
+   ══════════════════════════════════════════ */
+.book-page.book-page-cover {
+  width: calc(50% + 10px);
+  height: calc(100% + 0px);
+  top: 0px;
+}
+
+.book-page.book-page-content {
+  width: calc(50% - var(--page-inset, 6px));
+  height: calc(100% - 16px);
+  top: 8px;
+}
+
+
+/* ══════════════════════════════════════════
+   PAGE FLIP SHADOWS
+   ══════════════════════════════════════════ */
+.book-page-front::after,
+.book-page-back::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.book-page-front::after {
+  background: linear-gradient(to left, rgba(0, 0, 0, 0.15) 0%, transparent 30%);
+  opacity: 1;
+}
+.book-page.flipped .book-page-front::after {
+  opacity: 0;
+}
+
+.book-page-back::after {
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.15) 0%, transparent 30%);
+  opacity: 0;
+}
+.book-page.flipped .book-page-back::after {
+  opacity: 1;
+}
+
+
+/* ══════════════════════════════════════════
+   PAGE STACK DEPTH SHADOWS
+   ══════════════════════════════════════════ */
+.book-page-content .book-page-back .page-parchment {
+  box-shadow:
+    -2px 0 3px rgba(0, 0, 0, 0.12),
+    -1px 0 1px rgba(0, 0, 0, 0.08);
+}
+
+
+/* ══════════════════════════════════════════
+   PAGE CONTENT (shared)
+   ══════════════════════════════════════════ */
+.page-content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  padding: 32px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.page-number {
+  font-family: var(--ff-display);
+  font-size: 10px;
+  letter-spacing: 4px;
+  color: rgba(var(--book-gold-rgb), 0.35);
+  margin-bottom: 12px;
+  align-self: center;
+}
+
+.page-rule-top,
+.page-rule-bottom {
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(var(--book-gold-rgb), 0.2), transparent);
+}
+.page-rule-top    { margin-bottom: 18px; }
+.page-rule-bottom { margin-top: 18px; }
+
+.page-text {
+  font-family: var(--ff-body);
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.82;
+  color: var(--book-text);
+  text-align: justify;
+  flex: 1;
+  hyphens: auto;
+}
+
+.page-text::first-letter {
+  font-family: var(--ff-decorative);
+  font-size: 4em;
+  float: left;
+  line-height: 0.75;
+  margin-right: 8px;
+  padding-top: 6px;
+  color: var(--book-text);
+}
+
+.page-text-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.page-text-body .page-text      { flex: none; }
+.page-text-body .page-text:last-child { flex: 1; }
+
+.page-text-continued::first-letter {
+  font-family: inherit;
+  font-size: inherit;
+  float: none;
+  line-height: inherit;
+  margin-right: 0;
+  padding-top: 0;
+  color: inherit;
+}
+
+.page-text-continued {
+  text-indent: 2em;
+  margin-top: 0.4em;
+}
+
+.page-ornament {
+  font-size: 8px;
+  letter-spacing: 6px;
+  color: rgba(var(--book-text-rgb), 0.818);
+  margin-top: auto;
+  padding-top: 12px;
+}
+
+/* ══════════════════════════════════════════
+   PAGE IMAGES
+   ══════════════════════════════════════════ */
+.page-image-frame {
+  position: relative;
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+  border: 1px solid rgba(var(--book-gold-rgb), 0.15);
+  overflow: hidden;
+}
+
+.page-image-frame::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  box-shadow:
+    inset 0 0 30px rgba(0, 0, 0, 0.35),
+    inset 0 0 6px rgba(0, 0, 0, 0.2);
+}
+
+.page-image-frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at 50% 50%,
+    transparent 40%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
+}
+
+.page-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  opacity: 0.75;
+  filter: sepia(0.2) contrast(0.9) brightness(0.85) saturate(0.85);
+}
+
+.page-image-border {
+  position: absolute;
+  inset: 4px;
+  border: 1px solid rgba(var(--book-gold-rgb), 0.08);
+  pointer-events: none;
+  z-index: 4;
+}
+
+.page-caption {
+  font-family: var(--ff-body);
+  font-style: italic;
+  font-size: 12px;
+  font-weight: 300;
+  letter-spacing: 2px;
+  color: var(--book-text);
+  text-align: center;
+  margin-top: 10px;
+  line-height: 1.5;
+  flex-shrink: 0;
+}
+
+
+/* ── Responsive ── */
+@media (max-width: 850px) {
+  .page-caption {
+    font-size: 10px;
+    letter-spacing: 1.5px;
+  }
+}
+
+@media (max-width: 500px) {
+  .page-caption {
+    font-size: 9px;
+    margin-top: 8px;
+  }
+  .page-image-border { inset: 3px; }
+}
+
+/* ══════════════════════════════════════════
+   TITLE / HEADING PAGE
+   ══════════════════════════════════════════ */
+.page-heading {
+  font-family: var(--ff-display);
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: 8px;
+  color: var(--book-text);
+  text-align: center;
+  text-transform: uppercase;
+  margin: auto 0;
+  margin-top: 150px;
+  line-height: 1.6;
+}
+
+.page-title-ornament {
+  font-size: 8px;
+  letter-spacing: 6px;
+  color: rgba(var(--book-gold-rgb), 0.25);
+  margin: 20px 0;
+}
+
+
+/* ══════════════════════════════════════════
+   COVER — SHARED (front + back)
+   ══════════════════════════════════════════ */
+.cover-border {
+  position: absolute;
+  inset: 12px;
+  border: 1px solid rgba(var(--book-gold-rgb), 0.12);
+  pointer-events: none;
+}
+.cover-border::before {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border: 1px solid rgba(var(--book-gold-rgb), 0.06);
+}
+
+
+/* ══════════════════════════════════════════
+   FRONT COVER
+   ══════════════════════════════════════════ */
+.book-cover-front {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 30px;
+  background:
+    repeating-linear-gradient(
+      0deg, transparent, transparent 4px,
+      rgba(var(--book-gold-rgb), 0.008) 4px, rgba(var(--book-gold-rgb), 0.008) 5px
+    ),
+    repeating-linear-gradient(
+      115deg, transparent, transparent 3px,
+      rgba(160, 140, 100, 0.018) 3px, rgba(160, 140, 100, 0.018) 4px
+    ),
+    repeating-linear-gradient(
+      65deg, transparent, transparent 3px,
+      rgba(140, 120, 80, 0.012) 3px, rgba(140, 120, 80, 0.012) 4px
+    ),
+    radial-gradient(ellipse at 30% 20%, rgba(70, 50, 25, 0.35) 0%, transparent 40%),
+    radial-gradient(ellipse at 70% 75%, rgba(60, 42, 20, 0.30) 0%, transparent 45%),
+    radial-gradient(ellipse at 50% 50%, rgba(80, 55, 30, 0.20) 0%, transparent 35%),
+    radial-gradient(ellipse at 15% 65%, rgba(55, 38, 18, 0.25) 0%, transparent 30%),
+    radial-gradient(ellipse at 85% 30%, rgba(65, 45, 22, 0.22) 0%, transparent 28%),
+    radial-gradient(ellipse at 50% 50%, transparent 40%, rgba(0, 0, 0, 0.40) 100%),
+    linear-gradient(to bottom, #1a150e, #14100a 40%, #100d08 70%, #0c0a06);
+  border-right: 1px solid rgba(var(--book-gold-rgb), 0.1);
+  transform: rotateY(0deg) translateZ(0.5px);
+  backface-visibility: hidden;
+}
+
+.cover-ornament-top {
+  font-size: 20px;
+  letter-spacing: 6px;
+  color: rgba(184, 162, 116, 0.803);
+  margin-bottom: 54px;
+  margin-top: -20px;
+}
+
+.cover-image-container {
+  position: relative;
+  width: 180px;
+  height: 135px;
+  border: 1px solid rgba(var(--book-gold-rgb), 0.15);
+  overflow: hidden;
+  margin-bottom: 20px;
+  margin-top: -20px;
+}
+.cover-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.7;
+  filter: sepia(0.3) contrast(0.9) brightness(0.8);
+}
+
+.cover-image-fallback {
+  display: none;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(ellipse at 50% 40%, rgba(80, 50, 20, 0.3) 0%, transparent 60%),
+    linear-gradient(to bottom, #1a150e, #100d08);
+}
+.cover-fallback-symbol {
+  font-size: 36px;
+  color: rgba(var(--book-gold-rgb), 0.3);
+}
+
+.cover-title {
+  font-family: var(--ff-decorative);
+  font-size: 32px;
+  font-weight: 400;
+  letter-spacing: 2px;
+  color: var(--book-text);
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.cover-rule {
+  width: 80px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(var(--book-gold-rgb), 0.3), transparent);
+  margin-bottom: 12px;
+}
+
+.cover-sub {
+  font-family: var(--ff-body);
+  font-style: italic;
+  font-size: 14px;
+  font-weight: 300;
+  letter-spacing: 4px;
+  color: var(--book-gold);
+  margin-bottom: 24px;
+}
+
+.cover-ornament-bottom {
+  font-size: 8px;
+  letter-spacing: 6px;
+  color: rgba(var(--book-gold-rgb), 0.2);
+}
+
+
+/* ══════════════════════════════════════════
+   BACK COVER
+   ══════════════════════════════════════════ */
+.back-cover-inner {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    repeating-linear-gradient(
+      0deg, transparent, transparent 4px,
+      rgba(var(--book-gold-rgb), 0.008) 4px, rgba(var(--book-gold-rgb), 0.008) 5px
+    ),
+    repeating-linear-gradient(
+      115deg, transparent, transparent 3px,
+      rgba(160, 140, 100, 0.018) 3px, rgba(160, 140, 100, 0.018) 4px
+    ),
+    repeating-linear-gradient(
+      65deg, transparent, transparent 3px,
+      rgba(140, 120, 80, 0.012) 3px, rgba(140, 120, 80, 0.012) 4px
+    ),
+    radial-gradient(ellipse at 60% 30%, rgba(70, 50, 25, 0.30) 0%, transparent 40%),
+    radial-gradient(ellipse at 35% 70%, rgba(60, 42, 20, 0.28) 0%, transparent 45%),
+    radial-gradient(ellipse at 50% 50%, rgba(80, 55, 30, 0.18) 0%, transparent 35%),
+    radial-gradient(ellipse at 80% 80%, rgba(55, 38, 18, 0.22) 0%, transparent 30%),
+    radial-gradient(ellipse at 20% 20%, rgba(65, 45, 22, 0.20) 0%, transparent 28%),
+    radial-gradient(ellipse at 50% 50%, transparent 40%, rgba(0, 0, 0, 0.40) 100%),
+    linear-gradient(to bottom, #1a150e, #14100a 40%, #100d08 70%, #0c0a06);
+  border-left: 1px solid rgba(var(--book-gold-rgb), 0.1);
+}
+
+.back-cover-ornament {
+  font-size: 12px;
+  letter-spacing: 8px;
+  color: rgba(var(--book-gold-rgb), 0.2);
+}
+
+
+/* ══════════════════════════════════════════
+   ENDPAPER
+   ══════════════════════════════════════════ */
+.endpaper {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 20% 25%, rgba(80, 55, 30, 0.40) 0%, transparent 45%),
+    radial-gradient(ellipse at 80% 75%, rgba(70, 45, 25, 0.35) 0%, transparent 40%),
+    radial-gradient(ellipse at 55% 35%, rgba(90, 60, 30, 0.25) 0%, transparent 30%),
+    radial-gradient(ellipse at 35% 80%, rgba(75, 50, 28, 0.30) 0%, transparent 35%),
+    radial-gradient(ellipse at 70% 15%, rgba(60, 40, 22, 0.25) 0%, transparent 30%),
+    repeating-linear-gradient(
+      115deg, transparent, transparent 3px,
+      rgba(160, 140, 100, 0.02) 3px, rgba(160, 140, 100, 0.02) 4px
+    ),
+    radial-gradient(ellipse at 50% 50%, transparent 40%, rgba(0, 0, 0, 0.35) 100%),
+    linear-gradient(to bottom, #1a150e, #16120b 30%, #12100a 60%, #0e0c07);
+}
+
+.endpaper-frame-outer {
+  position: absolute;
+  inset: 16px;
+  border: 2px solid rgba(var(--book-gold-rgb), 0.22);
+  pointer-events: none;
+}
+.endpaper-frame-outer::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+.endpaper-frame-inner {
+  position: absolute;
+  inset: 24px;
+  border: 1px solid rgba(var(--book-gold-rgb), 0.14);
+  pointer-events: none;
+}
+
+.endpaper-center {
+  position: absolute;
+  inset: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow:
+    inset 0 0 40px rgba(0, 0, 0, 0.30),
+    inset 0 0 8px rgba(0, 0, 0, 0.15),
+    0 0 12px rgba(0, 0, 0, 0.3);
+}
+
+.endpaper-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.5;
+  filter: sepia(0.1) contrast(0.85) brightness(1) saturate(0.9);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.endpaper-center::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 50%, transparent 25%, rgba(0, 0, 0, 0.45) 100%);
+}
+
+.endpaper-ornament {
+  position: relative;
+  z-index: 2;
+  font-size: 28px;
+  color: rgba(var(--book-gold-rgb), 0.18);
+  text-shadow: 0 0 25px rgba(var(--book-gold-rgb), 0.06);
+}
+
+
+/* ══════════════════════════════════════════
+   BROTHERHOOD PAGE
+   ══════════════════════════════════════════ */
+.brotherhood-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.brotherhood-symbol {
+  font-size: 36px;
+  color: rgba(var(--book-gold-rgb), 0.35);
+  margin-bottom: 24px;
+}
+
+.brotherhood-title {
+  font-family: var(--ff-display);
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: 8px;
+  color: rgba(var(--book-text-rgb), 0.8);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.brotherhood-sub {
+  font-family: var(--ff-body);
+  font-style: italic;
+  font-size: 16px;
+  font-weight: 300;
+  color: rgba(var(--book-gold-rgb), 0.55);
+  letter-spacing: 3px;
+  margin-bottom: 28px;
+}
+
+.brotherhood-rule {
+  width: 50px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(var(--book-gold-rgb), 0.25), transparent);
+  margin-bottom: 28px;
+}
+
+.brotherhood-cta {
+  font-family: var(--ff-display);
+  font-size: 12px;
+  letter-spacing: 6px;
+  color: rgba(var(--book-text-rgb), 0.65);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.brotherhood-coords {
+  font-family: var(--ff-body);
+  font-size: 12px;
+  font-weight: 300;
+  letter-spacing: 4px;
+  color: rgba(var(--book-gold-rgb), 0.35);
+}
+
+
+/* ══════════════════════════════════════════
+   PAGE EDGE HIGHLIGHTS — COVERS ONLY
+   ══════════════════════════════════════════ */
+.page-edge-right,
+.page-edge-left {
+  position: absolute;
+  top: 0;
+  width: 2px;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+}
+.page-edge-right { right: 0; }
+.page-edge-left  { left: 0; }
+
+.page-edge-right::before,
+.page-edge-left::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1s ease;
+  background: linear-gradient(to bottom,
+    transparent 5%,
+    rgba(198, 180, 88, 0.386) 20%,
+    rgba(203, 186, 100, 0.54) 50%,
+    rgba(133, 135, 30, 0.396) 80%,
+    transparent 95%
+  );
+}
+
+.page-edge-right::after,
+.page-edge-left::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 1s ease;
+  background: linear-gradient(to bottom,
+    transparent 5%,
+    rgba(213, 213, 83, 0.718) 20%,
+    rgb(205, 174, 48) 50%,
+    rgba(167, 145, 32, 0.716) 80%,
+    transparent 95%
+  );
+}
+
+/* Front cover — always on */
+.book-cover-front .page-edge-right::before { opacity: 1; }
+.book-cover-front .page-edge-right::after {
+  opacity: 1;
+  animation: edge-breathe 1.8s ease-in-out infinite;
+}
+
+/* Hover right */
+.book-container.book-hover-right .book-page-cover:not(.flipped) .book-page-front .page-edge-right::before { opacity: 1; }
+.book-container.book-hover-right .book-page-cover:not(.flipped) .book-page-front .page-edge-right::after {
+  opacity: 1;
+  animation: edge-breathe 1.8s ease-in-out infinite;
+}
+
+/* Hover left */
+.book-container.book-hover-left .book-page-cover.flipped .book-page-back .page-edge-left::before { opacity: 1; }
+.book-container.book-hover-left .book-page-cover.flipped .book-page-back .page-edge-left::after {
+  opacity: 1;
+  animation: edge-breathe 1.8s ease-in-out infinite;
+}
+
+
+/* ══════════════════════════════════════════
+   NAV HINT
+   ══════════════════════════════════════════ */
+.book-nav-hint {
+  position: fixed;
+  bottom: 36px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  opacity: 0;
+  animation: book-hint-fade 6s ease 2s forwards;
+}
+
+.book-hint-text {
+  font-family: var(--ff-body);
+  font-style: italic;
+  font-size: 16px;
+  font-weight: 300;
+  letter-spacing: 2px;
+  color: rgba(var(--book-gold-rgb), 0.3);
+}
+
+
+/* ══════════════════════════════════════════
+   KEYFRAMES
+   ══════════════════════════════════════════ */
+@keyframes edge-breathe {
+  0%   { transform: scaleX(0.4); opacity: 0; }
+  50%  { transform: scaleX(1.2); opacity: 1; }
+  100% { transform: scaleX(0.4); opacity: 0; }
+}
+
+@keyframes book-hint-fade {
+  0%   { opacity: 0; }
+  20%  { opacity: 1; }
+  80%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+
+/* ══════════════════════════════════════════
+   ACCESSIBILITY
+   ══════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  .book-page {
+    transition-duration: 0.01ms !important;
+  }
+  .page-edge-right::after,
+  .page-edge-left::after {
+    animation: none !important;
+  }
+  .book-nav-hint {
+    animation: none !important;
+    opacity: 1;
+  }
+}
+
+
+/* ══════════════════════════════════════════
+   RESPONSIVE — TABLET
+   ══════════════════════════════════════════ */
+@media (max-width: 850px) {
+  .endpaper-frame-outer { inset: 12px; }
+  .endpaper-frame-inner { inset: 18px; }
+  .endpaper-center      { inset: 24px; }
+  .endpaper-ornament    { font-size: 22px; }
+
+  .book-container {
+    width: 94vw;
+    height: 70vh;
+    max-height: 550px;
+  }
+
+  .book-spine { width: 20px; }
+
+  .page-content { padding: 26px 22px; }
+
+  .page-text {
+    font-size: 14px;
+    line-height: 1.8;
+  }
+  .page-text::first-letter { font-size: 1.8em; }
+
+  .cover-title {
+    font-size: 18px;
+    letter-spacing: 6px;
+  }
+
+  .cover-image-container {
+    width: 145px;
+    height: 108px;
+  }
+
+  .page-heading {
+    font-size: 15px;
+    letter-spacing: 5px;
+  }
+
+  .brotherhood-title {
+    font-size: 15px;
+    letter-spacing: 5px;
+  }
+  .brotherhood-sub { font-size: 14px; }
+}
+
+
+/* ══════════════════════════════════════════
+   RESPONSIVE — MOBILE
+   ══════════════════════════════════════════ */
+@media (max-width: 500px) {
+  .endpaper-frame-outer { inset: 8px; border-width: 1px; }
+  .endpaper-frame-inner { inset: 12px; }
+  .endpaper-center      { inset: 16px; }
+  .endpaper-ornament    { font-size: 18px; }
+
+  .book-container {
+    width: 98vw;
+    height: 65vh;
+  }
+
+  .book-spine { width: 16px; }
+  .book-page::after { width: 2px; }
+  .book-page-cover::after { width: 3px; }
+
+  .page-content { padding: 18px 16px; }
+
+  .page-text {
+    font-size: 13px;
+    line-height: 1.75;
+  }
+
+  .cover-title {
+    font-size: 15px;
+    letter-spacing: 4px;
+  }
+
+  .cover-image-container {
+    width: 115px;
+    height: 86px;
+    margin-bottom: 14px;
+    margin-top: -12px;
+  }
+
+  .cover-ornament-top { margin-bottom: 16px; }
+  .cover-sub {
+    font-size: 11px;
+    margin-bottom: 16px;
+  }
+
+  .page-heading {
+    font-size: 13px;
+    letter-spacing: 4px;
+  }
+
+  .brotherhood-title {
+    font-size: 13px;
+    letter-spacing: 4px;
+  }
+  .brotherhood-symbol {
+    font-size: 28px;
+    margin-bottom: 16px;
+  }
+}

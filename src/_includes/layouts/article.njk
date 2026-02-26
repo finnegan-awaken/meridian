@@ -1,0 +1,131 @@
+---
+layout: base.njk
+bodyClass: page-dest page-article
+---
+
+{%- set authorList = collections.author | filterBy("data.key", author) -%}
+{%- set genreList = genres | filterBy("key", genre) -%}
+{%- set issueArticles = collections.article | filterBy("data.issue", issue) -%}
+{%- set sortedArticles = issueArticles | sort(false, false, "data.order") -%}
+<a class="back-link" href="/issue/{{ issueSlug }}/"
+   data-transition data-label="{{ issueTitle }}" data-symbol="🕮">
+  <span>←</span>Брой {{ issue }} · {{ issueTitle }}
+</a>
+
+<a class="back-link-right" href="/"
+   data-transition data-label="МЕРИДИАН" data-symbol="✦">
+  към звездите<span>→</span>
+</a>
+
+{# ── HEADER ── #}
+<div class="article-top">
+  <header class="article-header">
+    <div class="article-genre-label">{{ genre }}</div>
+    <h1 class="article-title">{{ title }}</h1>
+    {%- if subtitle %}
+    <div class="article-subtitle">{{ subtitle }}</div>
+    {%- endif %}
+    <div class="article-header-meta">
+      {% if authorList.length > 0 %}
+      <a href="{{ authorList[0].url }}" class="article-header-author"
+         data-transition data-label="{{ authorList[0].data.name }}" data-symbol="🖋">{{ authorList[0].data.name }}</a>
+      <span class="article-header-sep">·</span>
+      {% endif %}
+      <span class="article-header-date">
+        {{ date | formatDate("month-year", "bg-BG") }}
+      </span>
+      <span class="article-header-sep">·</span>
+      <a href="/issue/{{ issueSlug }}/" class="article-header-issue"
+         data-transition data-label="{{ issueTitle }}" data-symbol="🕮">Брой {{ issue }}</a>
+    </div>
+  </header>
+</div>
+
+{# ── TWO-COLUMN: Text left, Stars right ── #}
+<div class="article-columns">
+
+  <article class="article-text-col">
+    <div class="article-body">
+      {{ content | safe }}
+    </div>
+
+    <footer class="article-footer">
+      <div class="codex-sigil">· ◇ · ◇ · ◇ ·</div>
+
+      {% if authorList.length > 0 %}
+      <div class="article-author-card-left">
+        <div class="author-card-name-left">
+          <a href="{{ authorList[0].url }}"
+             data-transition data-label="{{ authorList[0].data.name }}" data-symbol="🖋">
+            {{ authorList[0].data.name }}
+          </a>
+        </div>
+        <div class="author-card-location-left">{{ authorList[0].data.location }}</div>
+        <div class="author-card-bio-left">{{ authorList[0].data.bio }}</div>
+        <a href="{{ authorList[0].url }}" class="author-card-all-works-left"
+           data-transition data-label="{{ authorList[0].data.name }}" data-symbol="🖋">
+          Към всички творби →
+        </a>
+      </div>
+      {% endif %}
+
+      <nav class="article-nav">
+        {%- for a in sortedArticles -%}
+          {%- if a.url == page.url -%}
+            {%- if loop.index0 > 0 -%}
+              {%- set prevA = sortedArticles[loop.index0 - 1] -%}
+              <a href="{{ prevA.url }}" class="article-nav-link prev"
+                 data-transition data-label="{{ prevA.data.title }}" data-symbol="✧">
+                <span class="article-nav-dir">Предишен</span>
+                <span class="article-nav-title">{{ prevA.data.title }}</span>
+              </a>
+            {%- else -%}
+              <div class="article-nav-link prev empty"></div>
+            {%- endif -%}
+            {%- if loop.index0 < sortedArticles.length - 1 -%}
+              {%- set nextA = sortedArticles[loop.index0 + 1] -%}
+              <a href="{{ nextA.url }}" class="article-nav-link next"
+                 data-transition data-label="{{ nextA.data.title }}" data-symbol="✧">
+                <span class="article-nav-dir">Следващ</span>
+                <span class="article-nav-title">{{ nextA.data.title }}</span>
+              </a>
+            {%- else -%}
+              <div class="article-nav-link next empty"></div>
+            {%- endif -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </nav>
+    </footer>
+  </article>
+
+  <nav class="article-sidebar" aria-label="Issue contents">
+    <a href="/issue/{{ issueSlug }}/" class="sidebar-issue-link"
+       data-transition data-label="{{ issueTitle }}" data-symbol="🕮">
+      {{ issueTitle }}
+    </a>
+
+    <div class="sidebar-constellation">
+      <div class="sidebar-line"></div>
+
+      {%- for a in sortedArticles -%}
+      <a href="{{ a.url }}"
+         class="sidebar-star {% if a.url == page.url %}current{% endif %}"
+         {% if a.url != page.url %}data-transition data-label="{{ a.data.title }}" data-symbol="✧"{% endif %}>
+        <div class="sidebar-node">
+          {% if a.url == page.url %}<div class="sidebar-pulse"></div>{% endif %}
+          <div class="sidebar-glow"></div>
+          <div class="sidebar-core"></div>
+        </div>
+        <div class="sidebar-info">
+          <span class="sidebar-title">{{ a.data.title }}</span>
+          {%- set aAuthor = collections.author | filterBy("data.key", a.data.author) -%}
+          {% if aAuthor.length > 0 %}
+          <span class="sidebar-author">{{ aAuthor[0].data.name }}</span>
+          {% endif %}
+        </div>
+      </a>
+      {%- endfor -%}
+    </div>
+  </nav>
+
+</div>

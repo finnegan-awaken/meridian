@@ -1,0 +1,17 @@
+{# Inject card data and article data for JS #}
+<script type="application/json" id="tarot-card-data">
+{{ tarot | dump | safe }}
+</script>
+
+<script type="application/json" id="tarot-article-data">
+[
+  {%- for article in collections.article -%}
+  {
+    "title": {{ article.data.title | dump | safe }},
+    "url": {{ article.url | dump | safe }},
+    "author": {{ article.data.author | dump | safe }},
+    "tarot": {{ article.data.tarot | dump | safe }}
+  }{% if not loop.last %},{% endif %}
+  {%- endfor -%}
+]
+</script>

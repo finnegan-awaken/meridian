@@ -1,0 +1,4 @@
+{
+  "layout": "layouts/author.njk",
+  "tags": "author"
+}
