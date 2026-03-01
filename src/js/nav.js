@@ -19,7 +19,7 @@
     {
       id: 'codex', name: 'КОДЕКС', symbol: 'moon', num: 'III',
       sub: 'Lasciate ogne speranza voi ch\'entrate',
-      desc: 'Отвъд първия предел. Кои сме ние и какво търсим.',
+      desc: 'Отвъд първия предел.<br>Кои сме ние и какво търсим.',
       coords: 'α 18h 36m · δ +38° 47′',
       x: 76, y: 36, mag: 2, href: window.BASE + 'codex/'
     }
@@ -122,24 +122,32 @@
       var right = s.x > 50, gw = 250, offset = 40;
 
       /* On mobile, position gloss below the star */
-      if (isMobile()) {
-        gw = Math.min(220, window.innerWidth - 32);
-        g.style.width = gw + 'px';
-        var gl = p.x - gw / 2;
-        var gt = p.y + 50;
-        gl = Math.max(16, Math.min(window.innerWidth - gw - 16, gl));
-        gt = Math.min(window.innerHeight - 200, gt);
-        g.style.left = gl + 'px';
-        g.style.top = gt + 'px';
-        right = false;
-      } else {
-        var gl = right ? p.x - offset - gw : p.x + offset;
-        var gt = p.y - 35;
-        gl = Math.max(16, Math.min(window.innerWidth - gw - 16, gl));
-        gt = Math.max(16, Math.min(window.innerHeight - 180, gt));
-        g.style.left = gl + 'px';
-        g.style.top = gt + 'px';
-      }
+if (isMobile()) {
+  gw = Math.min(220, window.innerWidth - 32);
+  g.style.width = gw + 'px';
+  var gl = p.x - gw / 2;
+  var gt = p.y + 50;
+
+  gl = Math.max(16, Math.min(window.innerWidth - gw - 16, gl));
+  gt = Math.min(window.innerHeight - 200, gt);
+
+  if (gt + 180 > window.innerHeight) {
+    gt = p.y - 180;
+    gt = Math.max(16, gt);
+  }
+
+  g.style.left = gl + 'px';
+  g.style.top = gt + 'px';
+
+  right = p.x > window.innerWidth / 2;
+} else {
+  var gl = right ? p.x - offset - gw : p.x + offset;
+  var gt = p.y - 35;
+  gl = Math.max(16, Math.min(window.innerWidth - gw - 16, gl));
+  gt = Math.max(16, Math.min(window.innerHeight - 180, gt));
+  g.style.left = gl + 'px';
+  g.style.top = gt + 'px';
+}
 
       g.innerHTML =
         '<div class="gloss-inner' + (right ? ' align-right' : '') + '">' +
@@ -170,26 +178,40 @@
       if (g) {
         var right = s.x > 50, gw = 250, offset = 40;
 
-        if (isMobile()) {
-          gw = Math.min(220, window.innerWidth - 32);
-          g.style.width = gw + 'px';
-          var gl = p.x - gw / 2;
-          var gt = p.y + 50;
-          gl = Math.max(16, Math.min(window.innerWidth - gw - 16, gl));
-          gt = Math.min(window.innerHeight - 200, gt);
-          g.style.left = gl + 'px';
-          g.style.top = gt + 'px';
-        } else {
-          g.style.width = '';
-          var gl = right ? p.x - offset - gw : p.x + offset;
-          var gt = p.y - 35;
-          gl = Math.max(16, Math.min(window.innerWidth - gw - 16, gl));
-          gt = Math.max(16, Math.min(window.innerHeight - 180, gt));
-          g.style.left = gl + 'px';
-          g.style.top = gt + 'px';
-        }
-      }
-    });
+if (isMobile()) {
+  gw = Math.min(220, window.innerWidth - 32);
+  g.style.width = gw + 'px';
+  var gl = p.x - gw / 2;
+  var gt = p.y + 50;
+
+  gl = Math.max(16, Math.min(window.innerWidth - gw - 16, gl));
+  gt = Math.min(window.innerHeight - 200, gt);
+
+  if (gt + 180 > window.innerHeight) {
+    gt = p.y - 180;
+    gt = Math.max(16, gt);
+  }
+
+  g.style.left = gl + 'px';
+  g.style.top = gt + 'px';
+
+  var inner = g.querySelector('.gloss-inner');
+  if (inner) {
+    if (p.x > window.innerWidth / 2) {
+      inner.classList.add('align-right');
+    } else {
+      inner.classList.remove('align-right');
+    }
+  }
+} else {
+  g.style.width = '';
+  var gl = right ? p.x - offset - gw : p.x + offset;
+  var gt = p.y - 35;
+  gl = Math.max(16, Math.min(window.innerWidth - gw - 16, gl));
+  gt = Math.max(16, Math.min(window.innerHeight - 180, gt));
+  g.style.left = gl + 'px';
+  g.style.top = gt + 'px';
+}}});
   }
 
   /* ══════════════════════════════════════

@@ -343,7 +343,7 @@ body.constellation-hover .star:not(.hovered) .star-label { color: rgba(var(--sta
   padding: 16px 0 16px 20px;
 
   /* ── left border only ── */
-  border-left: 1px solid var(--copper-soft);
+  border-left: 2px solid var(--copper-soft);
 
   /* ── faux glass ── */
   background: linear-gradient(
@@ -373,6 +373,13 @@ body.constellation-hover .star:not(.hovered) .star-label { color: rgba(var(--sta
   border-right: 1px solid var(--copper-soft);
   padding: 16px 20px 16px 0;
   text-align: right;
+
+  /* ── mirrored gradient ── */
+  background: linear-gradient(
+    225deg,
+    rgba(26, 22, 61, 0.5),
+    rgba(3, 4, 7, 0.5)
+  );
 }
 
 .gloss-numeral {
