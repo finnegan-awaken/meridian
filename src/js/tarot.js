@@ -92,6 +92,14 @@
   }
 
   /* ══════════════════════════════════════
+     TOUCH DETECTION
+     ══════════════════════════════════════ */
+  var isTouch = (
+    ('ontouchstart' in window) ||
+    (navigator.maxTouchPoints > 0 && window.matchMedia('(hover: none)').matches)
+  );
+
+  /* ══════════════════════════════════════
      FOCUS TRAP
      ══════════════════════════════════════ */
   function getFocusable() {
@@ -122,10 +130,25 @@
     }
   }
 
-   /* ══════════════════════════════════════
+  /* ══════════════════════════════════════
+     TRIGGER CARD INNER HTML
+     ══════════════════════════════════════ */
+  function triggerCardInner() {
+    return (
+      '<img src="' + assetUrl('/img/tarot/card-back.png') + '" alt=""' +
+        ' onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">' +
+      '<div class="tarot-trigger-fallback">' +
+        '<div class="tarot-trigger-fb-symbol">✦</div>' +
+        '<div class="tarot-trigger-fb-ornament">· · ·</div>' +
+      '</div>'
+    );
+  }
+
+  /* ══════════════════════════════════════
      BUILD TRIGGER
      ══════════════════════════════════════ */
   var triggerTapState = 'idle';
+  var lastTapTime = 0;
 
   function buildTrigger() {
     trigger = document.createElement('button');
@@ -148,36 +171,40 @@
       '<div class="tarot-trigger-text" aria-hidden="true">Питай съдбата</div>';
     document.body.appendChild(trigger);
 
-    var isTouch = ('ontouchstart' in window || navigator.maxTouchPoints > 0);
-    console.log('Tarot trigger built. Touch device:', isTouch);
-
     if (isTouch) {
       trigger.addEventListener('touchend', function (e) {
         e.preventDefault();
-        
-        console.log('Touch detected. State:', triggerTapState);
+
+        /* Debounce rapid double-taps */
+        var now = Date.now();
+        if (now - lastTapTime < 300) return;
+        lastTapTime = now;
 
         if (triggerTapState === 'idle') {
           triggerTapState = 'label-shown';
           trigger.classList.add('touch-active');
-          console.log('Added touch-active class');
         } else {
           triggerTapState = 'idle';
           trigger.classList.remove('touch-active');
-          console.log('Opening tarot');
           openTarot();
         }
-      });
+      }, { passive: false });
 
+      /* Dismiss label on outside tap */
       document.addEventListener('touchend', function (e) {
         if (!e.target.closest('.tarot-trigger')) {
           triggerTapState = 'idle';
           if (trigger) trigger.classList.remove('touch-active');
         }
       });
-    } else {
-      trigger.addEventListener('click', openTarot);
     }
+
+    /* Always bind click as fallback.
+       On touch devices, e.preventDefault() in touchend
+       suppresses the synthetic click, so this won't double-fire. */
+    trigger.addEventListener('click', function () {
+      if (!isTouch) openTarot();
+    });
 
     setTimeout(function () {
       trigger.classList.add('visible');
@@ -397,7 +424,7 @@
           '<span class="tarot-article-title">' + esc(article.title) + '</span>' +
         '</a>';
     }
-    
+
     el.innerHTML =
       '<div class="tarot-revealed-position">' + posLabel + '</div>' +
       '<div class="tarot-card tarot-card-large">' +
