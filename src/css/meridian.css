@@ -328,18 +328,51 @@ body.constellation-hover .star:not(.hovered) .star-label { color: rgba(var(--sta
 /* ══════════════════════════════════════════
    6. NAV — GLOSS PANELS
    ══════════════════════════════════════════ */
+/* ══════════════════════════════════════════
+   6. NAV — GLOSS PANELS
+   ══════════════════════════════════════════ */
 .gloss {
-  position: fixed; z-index: 20;
+  position: fixed;
+  z-index: 9990;                     /* above everything except transition overlay */
   pointer-events: none;
-  width: 250px; opacity: 0;
-  transition: opacity .55s ease, transform .55s ease;
+  width: 250px;
+  visibility: hidden;                /* hidden but won't break compositing */
 }
-.gloss.visible { opacity: 1; transform: translateY(0); }
+.gloss.visible {
+  visibility: visible;
+}
 
 .gloss-inner {
+  position: relative;
   padding: 16px 0 16px 20px;
   border-left: 1px solid var(--copper-soft);
+  border-radius: 3px;
+
+  /* ── faux glass ── */
+  background: linear-gradient(
+    135deg,
+    rgba(21, 19, 47, 0.88),
+    rgba(14, 9, 26, 0.88)
+  );
+  border: 1px solid rgba(203, 186, 100, 0.07);
+  box-shadow:
+    0 4px 30px rgba(0, 0, 0, 0.4),
+    0 0 60px rgba(10, 10, 20, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.03);
+
+  /* ── fade animation lives here, not on parent ── */
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity .55s ease, transform .55s ease;
 }
+
+/* ── show when parent gets .visible ── */
+.gloss.visible .gloss-inner {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── right-aligned variant ── */
 .gloss-inner.align-right {
   border-left: none;
   border-right: 1px solid var(--copper-soft);
@@ -348,7 +381,7 @@ body.constellation-hover .star:not(.hovered) .star-label { color: rgba(var(--sta
 }
 
 .gloss-numeral {
-  font-family: var(--ff-display);  
+  font-family: var(--ff-display);
   display: flex;
   font-size: 14px; color: var(--copper);
   letter-spacing: 2px; margin-bottom: 6px; opacity: .85;
@@ -2536,7 +2569,7 @@ a:focus-visible {
     padding: 0 20px 35px;
   }
   .issue-cover {
-    max-width: 400px;
+    max-width: 360px;
   }
   .issue-description {
     padding: 0 20px 30px;
