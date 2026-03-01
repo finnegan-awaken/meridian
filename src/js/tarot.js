@@ -122,13 +122,10 @@
     }
   }
 
-  /* ══════════════════════════════════════
+   /* ══════════════════════════════════════
      BUILD TRIGGER
      ══════════════════════════════════════ */
-  /* ══════════════════════════════════════
-     BUILD TRIGGER
-     ══════════════════════════════════════ */
-  var triggerTapState = 'idle'; // 'idle' or 'label-shown'
+  var triggerTapState = 'idle';
 
   function buildTrigger() {
     trigger = document.createElement('button');
@@ -151,28 +148,28 @@
       '<div class="tarot-trigger-text" aria-hidden="true">Питай съдбата</div>';
     document.body.appendChild(trigger);
 
-    /* Detect touch device */
     var isTouch = ('ontouchstart' in window || navigator.maxTouchPoints > 0);
+    console.log('Tarot trigger built. Touch device:', isTouch);
 
     if (isTouch) {
-      trigger.addEventListener('click', function (e) {
+      trigger.addEventListener('touchend', function (e) {
         e.preventDefault();
-        e.stopPropagation();
+        
+        console.log('Touch detected. State:', triggerTapState);
 
         if (triggerTapState === 'idle') {
-          /* First tap: show label */
           triggerTapState = 'label-shown';
           trigger.classList.add('touch-active');
+          console.log('Added touch-active class');
         } else {
-          /* Second tap: open tarot */
           triggerTapState = 'idle';
           trigger.classList.remove('touch-active');
+          console.log('Opening tarot');
           openTarot();
         }
       });
 
-      /* Tap anywhere else: dismiss label */
-      document.addEventListener('click', function (e) {
+      document.addEventListener('touchend', function (e) {
         if (!e.target.closest('.tarot-trigger')) {
           triggerTapState = 'idle';
           if (trigger) trigger.classList.remove('touch-active');
@@ -185,17 +182,6 @@
     setTimeout(function () {
       trigger.classList.add('visible');
     }, 3500);
-  }
-
-  function triggerCardInner() {
-    return (
-      '<img src="' + assetUrl('/img/tarot/card-back.png') + '" alt=""' +
-        ' onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">' +
-      '<div class="tarot-trigger-fallback">' +
-        '<div class="tarot-trigger-fb-symbol">✦</div>' +
-        '<div class="tarot-trigger-fb-ornament">· · ·</div>' +
-      '</div>'
-    );
   }
 
   /* ══════════════════════════════════════
