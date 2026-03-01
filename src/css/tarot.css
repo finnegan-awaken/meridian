@@ -499,6 +499,8 @@
    9. RESPONSIVE
    ══════════════════════════════════════════ */
 @media (max-width: 700px) {
+
+  /* ── Overlay layout ── */
   .tarot-overlay {
     flex-direction: column-reverse;
     justify-content: flex-start;
@@ -506,54 +508,97 @@
     -webkit-overflow-scrolling: touch;
   }
 
-  .tarot-close { position: fixed; }
-
-  .tarot-spread-section { order: -1; flex-shrink: 0; }
-
-  .tarot-revealed {
-    order: 0; flex-direction: column;
-    align-items: center; gap: 20px;
-    padding: 60px 30px 20px;
-    flex: 0 0 auto; min-height: 0;
+  .tarot-close {
+    position: fixed;
   }
 
-  .tarot-revealed-card { width: 180px; }
-
-  .tarot-revealed-card.pos-left,
-  .tarot-revealed-card.pos-center,
-  .tarot-revealed-card.pos-right { order: unset; }
-
-  .tarot-revealed.count-2 .pos-left.entered,
-  .tarot-revealed.count-3 .pos-left.entered,
-  .tarot-revealed.count-3 .pos-right.entered {
-    transform: none; opacity: 1;
+  /* ── Trigger: same height as #hint ── */
+  .tarot-trigger {
+    bottom: 54px !important;
+    top: auto !important;
+    right: 24px;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    background: none !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
   }
 
-  .tarot-revealed-info { max-width: 170px; }
+  .tarot-trigger-text {
+    order: -1 !important;
+    opacity: .7 !important;
+    transform: translateY(0) !important;
+    font-size: 14px;
+    letter-spacing: 2px;
+    white-space: normal !important;
+    max-width: 50px !important;
+    text-align: center !important;
+    line-height: 1 !important;
+    margin-bottom: 4px !important;
+  }
 
-  .tarot-card-large { width: 110px; height: 189px; }
+  .tarot-trigger-stack {
+    order: 0 !important;
+    width: 38px;
+    height: 65px;
+  }
+
+  .tarot-trigger-card {
+    width: 38px;
+    height: 65px;
+  }
+
+  .tarot-trigger-glow {
+    order: 1 !important;
+  }
+
+  /* ── Spread section ── */
+  .tarot-spread-section {
+    order: -1;
+    flex-shrink: 0;
+  }
+
+  .tarot-spread {
+    height: 120px;
+  }
 
   .tarot-spread-card {
-    width: 48px; height: 82px; margin: 0 -16px;
-  }
-  .tarot-spread { height: 120px; }
-
-  .tarot-trigger { bottom: 24px; right: 24px; }
-  .tarot-trigger-stack { width: 38px; height: 65px; }
-  .tarot-trigger-card  { width: 38px; height: 65px; }
-  .tarot-revealed-card {
-    width: 180px;
-    min-height: auto;
+    width: 48px;
+    height: 82px;
+    margin: 0 -12px;
   }
 
+  /* ── Revealed cards: stack vertically ── */
   .tarot-revealed {
+    order: 0;
+    flex-direction: column;
+    align-items: center;
     gap: 24px;
     padding: 60px 20px 20px;
+    flex: 0 0 auto;
+    min-height: 0;
   }
 
   .tarot-revealed-card {
     width: 200px;
     min-height: auto;
+  }
+
+  .tarot-revealed-card.pos-left,
+  .tarot-revealed-card.pos-center,
+  .tarot-revealed-card.pos-right {
+    order: unset;
+  }
+
+  .tarot-revealed.count-2 .pos-left.entered,
+  .tarot-revealed.count-3 .pos-left.entered,
+  .tarot-revealed.count-3 .pos-right.entered {
+    transform: none;
+    opacity: 1;
   }
 
   .tarot-revealed-info {
@@ -568,5 +613,76 @@
 
   .tarot-article-title {
     max-width: 140px;
+  }
+
+  .tarot-card-large {
+    width: 110px;
+    height: 189px;
+  }
+}
+
+/* ── Smaller screens: match #hint at 36px ── */
+@media (max-width: 600px) {
+  .tarot-trigger {
+    bottom: 40px !important;
+    right: 20px;
+  }
+
+  .tarot-trigger-text {
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    max-width: 45px !important;
+  }
+}
+
+/* ── Even smaller screens ── */
+@media (max-width: 400px) {
+
+  .tarot-trigger {
+    right: 16px;
+  }
+
+  .tarot-trigger-stack {
+    width: 34px;
+    height: 58px;
+  }
+
+  .tarot-trigger-card {
+    width: 34px;
+    height: 58px;
+  }
+
+  .tarot-spread {
+    height: 100px;
+  }
+
+  .tarot-spread-card {
+    width: 42px;
+    height: 72px;
+    margin: 0 -10px;
+  }
+
+  .tarot-revealed {
+    padding: 50px 16px 16px;
+    gap: 20px;
+  }
+
+  .tarot-revealed-card {
+    width: 180px;
+  }
+
+  .tarot-revealed-info {
+    max-width: 170px;
+  }
+
+  .tarot-card-large {
+    width: 95px;
+    height: 163px;
+  }
+
+  .tarot-close {
+    top: 20px;
+    right: 20px;
+    font-size: 14px;
   }
 }
