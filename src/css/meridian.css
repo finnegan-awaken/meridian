@@ -41,7 +41,6 @@
   --night:          #0c1221;
   --twilight:       #161233;
   --transition: #06090f;
-  --glass: rgba(51, 31, 149, 0.545);
 
 
   /* ── Accent: Copper / Gold
@@ -328,9 +327,6 @@ body.constellation-hover .star:not(.hovered) .star-label { color: rgba(var(--sta
 /* ══════════════════════════════════════════
    6. NAV — GLOSS PANELS
    ══════════════════════════════════════════ */
-/* ══════════════════════════════════════════
-   6. NAV — GLOSS PANELS
-   ══════════════════════════════════════════ */
 .gloss {
   position: fixed;
   z-index: 9990;                     /* above everything except transition overlay */
@@ -346,20 +342,21 @@ body.constellation-hover .star:not(.hovered) .star-label { color: rgba(var(--sta
   position: relative;
   padding: 16px 0 16px 20px;
   border-left: 1px solid var(--copper-soft);
-  border-radius: 3px;
+  border-radius: 6px;
 
-  /* ── faux glass ── */
-  background: linear-gradient(
+  /* ── faux glass ── #0c1221*/
+  background: 
+  linear-gradient(
     135deg,
-    rgba(21, 19, 47, 0.88),
-    rgba(14, 9, 26, 0.88)
+    rgba(26, 22, 61, 0.5), 
+    rgba(3, 4, 7, 0.5)
   );
   border: 1px solid rgba(203, 186, 100, 0.07);
   box-shadow:
     0 4px 30px rgba(0, 0, 0, 0.4),
     0 0 60px rgba(10, 10, 20, 0.3),
     inset 0 1px 0 rgba(255, 255, 255, 0.03);
-
+   backdrop-filter: blur(2px);
   /* ── fade animation lives here, not on parent ── */
   opacity: 0;
   transform: translateY(8px);
