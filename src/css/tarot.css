@@ -515,7 +515,9 @@
 }
 
 .tarot-trigger.touch-active .tarot-trigger-glow {
-  opacity: .15;
+  opacity: .1;
+  width: 60px;
+  height: 80px;
 }
 
 }
@@ -538,11 +540,11 @@
     position: fixed;
   }
 
-  /* ── Trigger: same height as #hint ── */
+  /* ── Trigger: reset button + text above cards ── */
   .tarot-trigger {
-    bottom: 54px !important;
+    bottom: 56px !important;
     top: auto !important;
-    right: 24px;
+    right: 34px !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
@@ -556,15 +558,15 @@
 
   .tarot-trigger-text {
     order: -1 !important;
-    opacity: .7 !important;
-    transform: translateY(0) !important;
+    opacity: 0 !important;
+    transform: translateY(-4px) !important;
     font-size: 14px;
     letter-spacing: 2px;
     white-space: normal !important;
     max-width: 50px !important;
     text-align: center !important;
     line-height: 1 !important;
-    margin-bottom: 4px !important;
+    margin-bottom: 6px !important;
   }
 
   .tarot-trigger-stack {
@@ -578,8 +580,14 @@
     height: 65px;
   }
 
+  /* ── Glow: positioned on cards only, from bottom ── */
   .tarot-trigger-glow {
-    order: 1 !important;
+    width: 56px;
+    height: 80px;
+    top: auto !important;
+    bottom: 0 !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
   }
 
   /* ── Spread section ── */
@@ -647,10 +655,10 @@
   }
 }
 
-/* ── Smaller screens: match #hint at 36px ── */
+/* ── Match #hint at 36px on smaller screens ── */
 @media (max-width: 600px) {
   .tarot-trigger {
-    bottom: 40px !important;
+    bottom: 36px !important;
     right: 20px;
   }
 
@@ -676,6 +684,15 @@
   .tarot-trigger-card {
     width: 34px;
     height: 58px;
+  }
+
+  .tarot-trigger-glow {
+    width: 48px;
+    height: 70px;
+    top: auto !important;
+    bottom: 0 !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
   }
 
   .tarot-spread {
