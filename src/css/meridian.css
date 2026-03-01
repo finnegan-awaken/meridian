@@ -41,6 +41,7 @@
   --night:          #0c1221;
   --twilight:       #161233;
   --transition: #06090f;
+  --glass: rgba(51, 31, 149, 0.545);
 
 
   /* ── Accent: Copper / Gold
@@ -331,7 +332,6 @@ body.constellation-hover .star:not(.hovered) .star-label { color: rgba(var(--sta
   position: fixed; z-index: 20;
   pointer-events: none;
   width: 250px; opacity: 0;
-  transform: translateY(12px);
   transition: opacity .55s ease, transform .55s ease;
 }
 .gloss.visible { opacity: 1; transform: translateY(0); }
@@ -1663,7 +1663,7 @@ a.mini-star { display: flex; }
 
 .issue-cover {
   width: 100%;
-  max-width: 280px;
+  max-width: 360px;
   aspect-ratio: 3 / 4;
   border: 1px solid var(--copper-ghost);
   overflow: hidden;
@@ -1799,15 +1799,15 @@ a.mini-star { display: flex; }
 .toc-meta {
   display: flex; gap: 16px;
   font-family: var(--ff-body);
-  font-size: 18px; color: var(--moon); opacity: .85;
+  font-size: 18px; color: var(--moon);
 }
 .toc-author {
-  color: var(--moon); opacity: .9;
+  color: var(--copper); opacity: .8;
   transition: color .4s ease, opacity .4s ease;
 }
 .toc-author:hover,
 .toc-author:focus-visible { color: var(--copper); opacity: 1; }
-.toc-genre { font-style: italic; color: var(--moon); opacity: .9; }
+.toc-genre { font-style: italic; color: var(--copper); opacity: .9; }
 
 .toc-dots {
   flex: 0 0 auto; align-self: center;
@@ -1830,7 +1830,7 @@ a.mini-star { display: flex; }
 .article-genre-label {
   font-family: var(--ff-body);
   font-style: italic; font-size: 18px; font-weight: 300;
-  color: var(--moon);
+  color: var(--copper);opacity: 0.8;
   letter-spacing: 1px; margin-bottom: 15px;
 }
 .article-title {
@@ -1849,18 +1849,18 @@ a.mini-star { display: flex; }
   margin-top: 14px;
   font-family: var(--ff-body);
   font-size: 18px; font-weight: 300;
-  color: var(--moon);
+  color: var(--copper);
 }
 .article-header-sep   { margin: 5px; color: var(--copper-medium); font-size: 13px; }
 .article-header-author {
-  color: var(--moon);
-  transition: color .4s ease;
+  color: var(--copper);opacity: 0.8;
+  transition: color .4s ease, opacity .4s ease;
 }
 .article-header-author:hover,
-.article-header-author:focus-visible { color: var(--copper); }
-.article-header-date  { color: var(--moon); }
+.article-header-author:focus-visible { color: var(--copper); opacity: 1; }
+.article-header-date  { color: var(--copper); opacity: 0.8;}
 .article-header-issue {
-  color: var(--moon);
+  color: var(--copper);opacity: 0.8;
   transition: color .4s ease, opacity .4s ease;
 }
 .article-header-issue:hover,
@@ -2336,55 +2336,151 @@ a:focus-visible {
 
 /* ── Tablet (≤ 900px) ── */
 @media (max-width: 900px) {
-  .article-columns { flex-direction: column; gap: 40px; }
-  .article-text-col { max-width: 100%; }
 
+  /* ── Article layout: stack columns ── */
+  .article-columns {
+    flex-direction: column;
+    gap: 40px;
+  }
+  .article-text-col {
+    max-width: 100%;
+  }
+
+  /* ── Sidebar: move above text ── */
   .article-sidebar {
-    position: relative; top: 0;
-    flex: none; width: 100%;
-    order: -1; padding-top: 0;
+    position: relative;
+    top: 0;
+    flex: none;
+    width: 100%;
+    order: -1;
+    padding-top: 0;
+    overflow: hidden;
   }
 
+  /* ── Constellation: horizontal scroll row ── */
   .sidebar-constellation {
-    display: flex; align-items: center; overflow-x: auto;
-  }
-  .sidebar-line { display: none; }
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity;
+    gap: 0;
+    padding: 10px 0 16px;
 
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .sidebar-constellation::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* ── Line: JS controls position on mobile ── */
+  .sidebar-line {
+    left: auto;
+    top: auto;
+    bottom: auto;
+    width: auto;
+    height: 1px;
+    z-index: 0;
+  }
+
+  /* ── Each star: column layout, original sizes ── */
   .sidebar-star {
     flex-direction: column;
-    padding: 12px 16px; min-width: 110px;
+    flex: 0 0 auto;
+    min-width: 140px;
+    padding: 12px 16px;
+    scroll-snap-align: start;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
   }
-  .sidebar-info { align-items: center; text-align: center; }
+
+  /* ── Node: keep original size, fix spacing ── */
+  .sidebar-node {
+    flex-shrink: 0;
+    margin-bottom: 10px;
+  }
+
+  /* ── Info: center text, fill height evenly ── */
+  .sidebar-info {
+    align-items: center;
+    text-align: center;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    min-height: 0;
+  }
+
+  /* ── Scroll hint: fade on right edge ── */
+  .sidebar-constellation::after {
+    content: '';
+    position: sticky;
+    right: 0;
+    flex: 0 0 40px;
+    min-height: 100%;
+    background: linear-gradient(to left,
+      var(--night) 0%,
+      transparent 100%);
+    pointer-events: none;
+    z-index: 2;
+  }
 }
 
 /* ── Medium (≤ 768px) ── */
 @media (max-width: 768px) {
-  .atlas-grid-astrologer { grid-template-columns: 1fr 1fr; }
+  .atlas-grid-astrologer {
+    grid-template-columns: 1fr 1fr;
+  }
 
-  .issue-grid { grid-template-columns: repeat(2, 1fr); gap: 18px; }
+  .issue-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+  }
 
-  .page-header { padding: 80px 24px 0; }
-  .page-header h2 { font-size: 28px; }
+  .page-header {
+    padding: 80px 24px 0;
+  }
+  .page-header h2 {
+    font-size: 28px;
+  }
 
-  .article-top { padding: 100px 24px 30px; }
-  .article-columns { padding: 0 24px 80px; }
-  .article-title { font-size: 28px; }
+  .article-top {
+    padding: 100px 24px 30px;
+  }
+  .article-columns {
+    padding: 0 24px 80px;
+  }
+  .article-title {
+    font-size: 28px;
+  }
 
   .codex-content,
   .archive-content,
-  .atlas-content { padding-left: 20px; padding-right: 20px; }
+  .atlas-content {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
 
-  .contact-row { flex-direction: column; gap: 6px; }
+  .contact-row {
+    flex-direction: column;
+    gap: 6px;
+  }
 
-  body::before, body::after { left: 20px; right: 20px; }
+  body::before, body::after {
+    left: 20px;
+    right: 20px;
+  }
+
   .issue-cover-wrapper {
     padding: 0 24px 40px;
   }
-
   .issue-cover {
-    max-width: 240px;
+    max-width: 360px;
   }
-
   .issue-description {
     padding: 0 24px 35px;
   }
@@ -2413,7 +2509,9 @@ a:focus-visible {
     letter-spacing: 3px;
   }
 
-  .edge { display: none; }
+  .edge {
+    display: none;
+  }
 
   .star-label {
     font-size: 12px;
@@ -2433,14 +2531,13 @@ a:focus-visible {
   .gloss-subtitle {
     font-size: 14px;
   }
+
   .issue-cover-wrapper {
     padding: 0 20px 35px;
   }
-
   .issue-cover {
-    max-width: 200px;
+    max-width: 400px;
   }
-
   .issue-description {
     padding: 0 20px 30px;
     font-size: 16px;
@@ -2450,9 +2547,20 @@ a:focus-visible {
 /* ── Small mobile (≤ 600px) ── */
 @media (max-width: 600px) {
   /* Archive controls */
-  .archive-controls { flex-direction: column; gap: 16px; }
-  .archive-tabs { flex-wrap: wrap; justify-content: center; gap: 4px; }
-  .archive-tab { padding: 6px 14px; font-size: 10px; letter-spacing: 1.5px; }
+  .archive-controls {
+    flex-direction: column;
+    gap: 16px;
+  }
+  .archive-tabs {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4px;
+  }
+  .archive-tab {
+    padding: 6px 14px;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+  }
 
   /* Grid */
   .issue-grid {
@@ -2471,8 +2579,15 @@ a:focus-visible {
   }
 
   /* Genre */
-  .genre-filter-bar { flex-wrap: wrap; gap: 4px; }
-  .genre-filter-btn { padding: 8px 16px; font-size: 8px; letter-spacing: 3px; }
+  .genre-filter-bar {
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .genre-filter-btn {
+    padding: 8px 16px;
+    font-size: 8px;
+    letter-spacing: 3px;
+  }
   .genre-issue-articles {
     margin-left: 10px;
     padding-left: 12px;
@@ -2489,44 +2604,97 @@ a:focus-visible {
   }
 
   /* Atlas */
-  .atlas-grid-cartographer { grid-template-columns: 1fr; }
-  .atlas-grid-astrologer   { grid-template-columns: 1fr; }
+  .atlas-grid-cartographer {
+    grid-template-columns: 1fr;
+  }
+  .atlas-grid-astrologer {
+    grid-template-columns: 1fr;
+  }
 
   /* Issue page */
-  .toc { padding: 0 20px 40px; }
-  .issue-bottom-nav { padding: 0 20px 80px; flex-direction: column; }
+  .toc {
+    padding: 0 20px 40px;
+  }
+  .issue-bottom-nav {
+    padding: 0 20px 80px;
+    flex-direction: column;
+  }
 
   /* Back links */
-  .back-link       { left: 16px; font-size: 10px; }
-  .back-link-right { right: 16px; font-size: 10px; }
+  .back-link {
+    left: 16px;
+    font-size: 10px;
+  }
+  .back-link-right {
+    right: 16px;
+    font-size: 10px;
+  }
 
   /* Pagination */
-  .archive-pagination { gap: 4px; }
-  .archive-page-btn { padding: 4px 10px; font-size: 12px; }
+  .archive-pagination {
+    gap: 4px;
+  }
+  .archive-page-btn {
+    padding: 4px 10px;
+    font-size: 12px;
+  }
 }
 
 /* ── Tiny (≤ 400px) ── */
 @media (max-width: 400px) {
-  .mini-nav { transform: scale(.85); }
-  .mini-sep { width: 40px; }
+  .mini-nav {
+    transform: scale(.85);
+  }
+  .mini-sep {
+    width: 40px;
+  }
 
-  .page-header h2 { font-size: 22px; letter-spacing: 1px; }
-  .issue-page-title { font-size: 26px; }
-  .article-title { font-size: 24px; }
+  .page-header h2 {
+    font-size: 22px;
+    letter-spacing: 1px;
+  }
+  .issue-page-title {
+    font-size: 26px;
+  }
+  .article-title {
+    font-size: 24px;
+  }
 
-  #cartouche h1 { font-size: 20px; letter-spacing: 2px; }
+  #cartouche h1 {
+    font-size: 20px;
+    letter-spacing: 2px;
+  }
 
-  body::before, body::after { left: 12px; right: 12px; }
+  body::before, body::after {
+    left: 12px;
+    right: 12px;
+  }
 
-  .star.mag-1 { width: 60px; height: 60px; }
-  .star.mag-1 .star-core { width: 6px; height: 6px; }
-  .star.mag-1 .star-glow { width: 40px; height: 40px; }
-  .star.mag-1 .star-pulse { width: 52px; height: 52px; }
+  .star.mag-1 {
+    width: 60px; height: 60px;
+  }
+  .star.mag-1 .star-core {
+    width: 6px; height: 6px;
+  }
+  .star.mag-1 .star-glow {
+    width: 40px; height: 40px;
+  }
+  .star.mag-1 .star-pulse {
+    width: 52px; height: 52px;
+  }
 
-  .star.mag-2 { width: 50px; height: 50px; }
-  .star.mag-2 .star-core { width: 4.5px; height: 4.5px; }
-  .star.mag-2 .star-glow { width: 30px; height: 30px; }
-  .star.mag-2 .star-pulse { width: 42px; height: 42px; }
+  .star.mag-2 {
+    width: 50px; height: 50px;
+  }
+  .star.mag-2 .star-core {
+    width: 4.5px; height: 4.5px;
+  }
+  .star.mag-2 .star-glow {
+    width: 30px; height: 30px;
+  }
+  .star.mag-2 .star-pulse {
+    width: 42px; height: 42px;
+  }
 
   .star-label {
     font-size: 10px;
@@ -2539,20 +2707,17 @@ a:focus-visible {
     display: none;
   }
 
-    .issue-cover {
+  .issue-cover {
     max-width: 160px;
   }
-
   .issue-cover-fb-number {
     font-size: 26px;
     letter-spacing: 4px;
   }
-
   .issue-cover-fb-symbol img {
     width: 22px;
     height: 22px;
   }
-
   .issue-description {
     font-size: 15px;
   }

@@ -78,7 +78,7 @@ bodyClass: page-dest page-article
         {%- endfor -%}
       </nav>
 
-      <div class="codex-sigil">- ✦ -</div>
+      <div class="codex-sigil">✦</div>
 
       {% if authorList.length > 0 %}
       <div class="article-author-card-left">
@@ -127,6 +127,92 @@ bodyClass: page-dest page-article
       </a>
       {%- endfor -%}
     </div>
+
+<script>
+(function () {
+  'use strict';
+
+  var line = document.querySelector('.sidebar-line');
+  var constellation = document.querySelector('.sidebar-constellation');
+  if (!constellation) return;
+
+  var timer;
+
+  /* ── Update connecting line position ── */
+  function updateLine() {
+    if (!line) return;
+
+    if (window.innerWidth > 900) {
+      line.removeAttribute('style');
+      return;
+    }
+
+    var nodes = constellation.querySelectorAll('.sidebar-node');
+    if (nodes.length < 2) return;
+
+    var first     = nodes[0];
+    var last      = nodes[nodes.length - 1];
+    var parent    = constellation.getBoundingClientRect();
+    var scroll    = constellation.scrollLeft;
+
+    var firstRect = first.getBoundingClientRect();
+    var startX    = firstRect.left + firstRect.width / 2
+                    - parent.left + scroll;
+
+    var lastRect  = last.getBoundingClientRect();
+    var endX      = lastRect.left + lastRect.width / 2
+                    - parent.left + scroll;
+
+    var centerY   = firstRect.top + firstRect.height / 2
+                    - parent.top;
+
+    line.style.position = 'absolute';
+    line.style.left     = startX + 'px';
+    line.style.top      = centerY + 'px';
+    line.style.bottom   = 'auto';
+    line.style.width    = (endX - startX) + 'px';
+    line.style.height   = '1px';
+  }
+
+  /* ── Scroll current star into view ── */
+  function scrollToCurrent() {
+    if (window.innerWidth > 900) return;
+
+    var current = constellation.querySelector('.sidebar-star.current');
+    if (!current) return;
+
+    var conRect     = constellation.getBoundingClientRect();
+    var starRect    = current.getBoundingClientRect();
+    var conCenter   = conRect.left + conRect.width / 2;
+    var starCenter  = starRect.left + starRect.width / 2;
+    var offset      = starCenter - conCenter;
+
+    constellation.scrollBy({
+      left: offset,
+      behavior: 'smooth'
+    });
+  }
+
+  /* ── Run after layout settles ── */
+  setTimeout(function () {
+    scrollToCurrent();
+    updateLine();
+  }, 150);
+
+  /* ── Re-run on resize ── */
+  window.addEventListener('resize', function () {
+    clearTimeout(timer);
+    timer = setTimeout(function () {
+      scrollToCurrent();
+      updateLine();
+    }, 150);
+  });
+
+  /* ── Keep line accurate on scroll ── */
+  constellation.addEventListener('scroll', updateLine);
+})();
+</script>
+
   </nav>
 
 </div>
