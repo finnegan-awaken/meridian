@@ -558,8 +558,8 @@
 
   .tarot-trigger-text {
     order: -1 !important;
-    opacity: 0 !important;
-    transform: translateY(-4px) !important;
+    opacity: 0;
+    transform: translateY(-4px);
     font-size: 14px;
     letter-spacing: 2px;
     white-space: normal !important;
@@ -567,6 +567,12 @@
     text-align: center !important;
     line-height: 1 !important;
     margin-bottom: 6px !important;
+  }
+
+  /* ── Touch: first tap shows label ── */
+  .tarot-trigger.touch-active .tarot-trigger-text {
+    opacity: .7 !important;
+    transform: translateY(0) !important;
   }
 
   .tarot-trigger-stack {
@@ -667,6 +673,12 @@
     letter-spacing: 1.5px;
     max-width: 45px !important;
   }
+
+  /* ── Touch: first tap shows label ── */
+  .tarot-trigger.touch-active .tarot-trigger-text {
+    opacity: .7 !important;
+    transform: translateY(0) !important;
+  }
 }
 
 /* ── Even smaller screens ── */
@@ -727,5 +739,11 @@
     top: 20px;
     right: 20px;
     font-size: 14px;
+  }
+
+  /* ── Touch: first tap shows label ── */
+  .tarot-trigger.touch-active .tarot-trigger-text {
+    opacity: .7 !important;
+    transform: translateY(0) !important;
   }
 }
