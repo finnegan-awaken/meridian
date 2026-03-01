@@ -125,6 +125,11 @@
   /* ══════════════════════════════════════
      BUILD TRIGGER
      ══════════════════════════════════════ */
+  /* ══════════════════════════════════════
+     BUILD TRIGGER
+     ══════════════════════════════════════ */
+  var triggerTapState = 'idle'; // 'idle' or 'label-shown'
+
   function buildTrigger() {
     trigger = document.createElement('button');
     trigger.type = 'button';
@@ -145,7 +150,37 @@
       '</div>' +
       '<div class="tarot-trigger-text" aria-hidden="true">Питай съдбата</div>';
     document.body.appendChild(trigger);
-    trigger.addEventListener('click', openTarot);
+
+    /* Detect touch device */
+    var isTouch = ('ontouchstart' in window || navigator.maxTouchPoints > 0);
+
+    if (isTouch) {
+      trigger.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        if (triggerTapState === 'idle') {
+          /* First tap: show label */
+          triggerTapState = 'label-shown';
+          trigger.classList.add('touch-active');
+        } else {
+          /* Second tap: open tarot */
+          triggerTapState = 'idle';
+          trigger.classList.remove('touch-active');
+          openTarot();
+        }
+      });
+
+      /* Tap anywhere else: dismiss label */
+      document.addEventListener('click', function (e) {
+        if (!e.target.closest('.tarot-trigger')) {
+          triggerTapState = 'idle';
+          if (trigger) trigger.classList.remove('touch-active');
+        }
+      });
+    } else {
+      trigger.addEventListener('click', openTarot);
+    }
 
     setTimeout(function () {
       trigger.classList.add('visible');

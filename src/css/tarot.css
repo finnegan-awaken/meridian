@@ -492,6 +492,32 @@
     opacity: .6;
     transform: translateY(0);
   }
+
+  .tarot-trigger.touch-active .tarot-trigger-text {
+  opacity: .7 !important;
+  transform: translateY(0) !important;
+}
+
+.tarot-trigger.touch-active .tarot-trigger-card-top {
+  transform: translateY(-4px);
+  border-color: var(--copper-soft);
+  box-shadow: 0 8px 30px rgba(var(--copper-rgb), .15);
+}
+
+.tarot-trigger.touch-active .tarot-trigger-card-back-1 {
+  transform: rotate(-5deg) translate(-4px, 1px);
+  opacity: .8;
+}
+
+.tarot-trigger.touch-active .tarot-trigger-card-back-2 {
+  transform: rotate(-10deg) translate(-8px, 2px);
+  opacity: .6;
+}
+
+.tarot-trigger.touch-active .tarot-trigger-glow {
+  opacity: .15;
+}
+
 }
 
 
