@@ -11,7 +11,7 @@
    5. Spread Cards
    6. Revealed Area
    7. Nav Element Hiding
-   8. Accessibility
+   8. Accessibility & Touch States
    9. Responsive
   10. Reduced Motion
    ══════════════════════════════════════════ */
@@ -63,7 +63,7 @@
   background: radial-gradient(ellipse, var(--copper) 0%, transparent 70%);
   border-radius: 50%;
   opacity: 0;
-  transition: opacity .5s ease;
+  transition: opacity .5s ease, width .4s ease, height .4s ease;
   pointer-events: none;
 }
 
@@ -86,7 +86,8 @@
   height: 110px;
   border: 1px solid var(--copper-subtle);
   overflow: hidden;
-  transition: border-color .4s ease, transform .4s ease, box-shadow .4s ease;
+  transition: border-color .4s ease, transform .4s ease,
+              box-shadow .4s ease, opacity .4s ease;
 }
 
 .tarot-trigger-card img {
@@ -165,6 +166,11 @@
   transition: opacity .4s ease, transform .4s ease;
   pointer-events: none;
   white-space: nowrap;
+}
+
+/* Hide <br> on desktop — single line */
+.tarot-trigger-text br {
+  display: none;
 }
 
 .tarot-trigger:hover .tarot-trigger-text,
@@ -638,7 +644,13 @@
 
 
 /* ══════════════════════════════════════════
-   8. ACCESSIBILITY
+   8. ACCESSIBILITY & TOUCH STATES
+   ══════════════════════════════════════════
+   touch-active is set by JS on first tap.
+   These rules live OUTSIDE media queries so
+   they fire on every device regardless of
+   which (hover) or (max-width) query matches.
+   !important overrides any competing rule.
    ══════════════════════════════════════════ */
 
 /* Focus outlines */
@@ -657,37 +669,31 @@
   outline-offset: 2px;
 }
 
-/* Touch devices: show label hint without hover */
-@media (hover: none) {
-  .tarot-trigger.visible .tarot-trigger-text {
-    opacity: .5;
-    transform: translateY(0);
-  }
+/* ── Touch-active: label + spread + glow — all at once ── */
+.tarot-trigger.touch-active .tarot-trigger-text {
+  opacity: .85 !important;
+  transform: translateY(0) !important;
+}
 
-  .tarot-trigger.touch-active .tarot-trigger-text {
-    opacity: .85 !important;
-    transform: translateY(0) !important;
-  }
+.tarot-trigger.touch-active .tarot-trigger-card-back-2 {
+  transform: rotate(-10deg) translate(-8px, 2px) !important;
+  opacity: .6 !important;
+}
 
-  .tarot-trigger.touch-active .tarot-trigger-card-top {
-    transform: translateY(-4px);
-    border-color: var(--copper-soft);
-    box-shadow: 0 8px 30px rgba(var(--copper-rgb), .15);
-  }
+.tarot-trigger.touch-active .tarot-trigger-card-back-1 {
+  transform: rotate(-5deg) translate(-4px, 1px) !important;
+  opacity: .8 !important;
+}
 
-  .tarot-trigger.touch-active .tarot-trigger-card-back-1 {
-    transform: rotate(-5deg) translate(-4px, 1px);
-    opacity: .8;
-  }
+.tarot-trigger.touch-active .tarot-trigger-card-top {
+  transform: translateY(-4px) !important;
+  border-color: var(--copper-soft) !important;
+  box-shadow: 0 8px 30px rgba(var(--copper-rgb), .15) !important;
+}
 
-  .tarot-trigger.touch-active .tarot-trigger-card-back-2 {
-    transform: rotate(-10deg) translate(-8px, 2px);
-    opacity: .6;
-  }
-
-  .tarot-trigger.touch-active .tarot-trigger-glow {
-    opacity: .12;
-  }
+.tarot-trigger.touch-active .tarot-trigger-glow {
+  opacity: .18 !important;
+  animation: shimmer 3s ease-in-out infinite alternate !important;
 }
 
 
@@ -722,6 +728,7 @@
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
+    gap: 4px !important;
     appearance: none !important;
     -webkit-appearance: none !important;
     background: none !important;
@@ -730,26 +737,26 @@
     margin: 0 !important;
   }
 
+  /* ── Label: two lines, above cards ── */
   .tarot-trigger-text {
     order: -1 !important;
     opacity: 0;
     transform: translateY(-4px);
-    font-size: 13px;
+    font-size: 15px;
     letter-spacing: 2px;
+    line-height: 1;
     white-space: normal !important;
-    max-width: 90px !important;
+    max-width: none !important;
     text-align: center !important;
-    line-height: 1.35 !important;
-    margin-bottom: 8px !important;
+    margin-bottom: 0 !important;
   }
 
-  /* Touch-active: belt-and-suspenders for devices
-     where (hover: none) doesn't match */
-  .tarot-trigger.touch-active .tarot-trigger-text {
-    opacity: .85 !important;
-    transform: translateY(0) !important;
+  /* Show <br> on mobile — two lines */
+  .tarot-trigger-text br {
+    display: block;
   }
 
+  /* ── Card stack ── */
   .tarot-trigger-stack {
     order: 0 !important;
     width: 38px;
@@ -761,10 +768,10 @@
     height: 65px;
   }
 
-  /* Glow: anchored to card stack */
+  /* ── Glow: centered on cards like desktop ── */
   .tarot-trigger-glow {
-    width: 56px;
-    height: 80px;
+    width: 60px;
+    height: 85px;
     top: auto !important;
     bottom: 0 !important;
     left: 50% !important;
@@ -845,9 +852,8 @@
   }
 
   .tarot-trigger-text {
-    font-size: 11px;
-    letter-spacing: 1.5px;
-    max-width: 85px !important;
+    font-size: 14px;
+    letter-spacing: 2px;
   }
 }
 
@@ -858,9 +864,8 @@
   }
 
   .tarot-trigger-text {
-    font-size: 10px;
-    letter-spacing: 1px;
-    max-width: 80px !important;
+    font-size: 13px;
+    letter-spacing: 1.5px;
   }
 
   .tarot-trigger-stack {
@@ -874,8 +879,8 @@
   }
 
   .tarot-trigger-glow {
-    width: 48px;
-    height: 70px;
+    width: 52px;
+    height: 74px;
     top: auto !important;
     bottom: 0 !important;
     left: 50% !important;

@@ -154,7 +154,7 @@
     trigger = document.createElement('button');
     trigger.type = 'button';
     trigger.className = 'tarot-trigger';
-    trigger.setAttribute('aria-label', 'Питай съдбата — отвори таро');
+    trigger.setAttribute('aria-label', 'Попитай съдбата — отвори таро');
     trigger.innerHTML =
       '<div class="tarot-trigger-glow"></div>' +
       '<div class="tarot-trigger-stack">' +
@@ -168,7 +168,7 @@
           triggerCardInner() +
         '</div>' +
       '</div>' +
-      '<div class="tarot-trigger-text" aria-hidden="true">Питай съдбата</div>';
+      '<div class="tarot-trigger-text" aria-hidden="true">Попитай <br>съдбата</div>';
     document.body.appendChild(trigger);
 
     if (isTouch) {
@@ -181,16 +181,18 @@
         lastTapTime = now;
 
         if (triggerTapState === 'idle') {
+          /* First tap: show label + spread cards + glow */
           triggerTapState = 'label-shown';
           trigger.classList.add('touch-active');
         } else {
+          /* Second tap: open overlay */
           triggerTapState = 'idle';
           trigger.classList.remove('touch-active');
           openTarot();
         }
       }, { passive: false });
 
-      /* Dismiss label on outside tap */
+      /* Dismiss on outside tap */
       document.addEventListener('touchend', function (e) {
         if (!e.target.closest('.tarot-trigger')) {
           triggerTapState = 'idle';
