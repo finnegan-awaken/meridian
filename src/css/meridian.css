@@ -329,10 +329,10 @@ body.constellation-hover .star:not(.hovered) .star-label { color: rgba(var(--sta
    ══════════════════════════════════════════ */
 .gloss {
   position: fixed;
-  z-index: 9990;                     /* above everything except transition overlay */
+  z-index: 9990;
   pointer-events: none;
   width: 250px;
-  visibility: hidden;                /* hidden but won't break compositing */
+  visibility: hidden;
 }
 .gloss.visible {
   visibility: visible;
@@ -341,35 +341,33 @@ body.constellation-hover .star:not(.hovered) .star-label { color: rgba(var(--sta
 .gloss-inner {
   position: relative;
   padding: 16px 0 16px 20px;
-  border-left: 1px solid var(--copper-soft);
-  border-radius: 6px;
 
-  /* ── faux glass ── #0c1221*/
-  background: 
-  linear-gradient(
+  /* ── left border only ── */
+  border-left: 1px solid var(--copper-soft);
+
+  /* ── faux glass ── */
+  background: linear-gradient(
     135deg,
-    rgba(26, 22, 61, 0.5), 
+    rgba(26, 22, 61, 0.5),
     rgba(3, 4, 7, 0.5)
   );
-  border: 1px solid rgba(203, 186, 100, 0.07);
   box-shadow:
     0 4px 30px rgba(0, 0, 0, 0.4),
-    0 0 60px rgba(10, 10, 20, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.03);
-   backdrop-filter: blur(2px);
-  /* ── fade animation lives here, not on parent ── */
+    0 0 60px rgba(10, 10, 20, 0.3);
+  backdrop-filter: blur(2px);
+
+  /* ── fade ── */
   opacity: 0;
   transform: translateY(8px);
   transition: opacity .55s ease, transform .55s ease;
 }
 
-/* ── show when parent gets .visible ── */
 .gloss.visible .gloss-inner {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* ── right-aligned variant ── */
+/* ── right-aligned: border on right side instead ── */
 .gloss-inner.align-right {
   border-left: none;
   border-right: 1px solid var(--copper-soft);
