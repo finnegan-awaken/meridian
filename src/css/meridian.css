@@ -2612,13 +2612,7 @@ a:focus-visible {
     font-size: 11px;
     letter-spacing: 3px;
   }
-.article-body {
-    font-size: 18px;
-  }
-  
-  .article-body pre.poetry {
-    font-size: 18px;
-  }
+
   #hint {
     bottom: 36px;
     font-size: 10px;
@@ -2806,6 +2800,11 @@ a:focus-visible {
   }
 }
 
+@media (max-width: 500px) {
+  .article-body pre.small-poetry {
+    font-size: 17px;
+  }
+}
 /* ── Tiny (≤ 400px) ── */
 @media (max-width: 400px) {
   .mini-nav {
@@ -2825,13 +2824,7 @@ a:focus-visible {
   .article-title {
     font-size: 24px;
   }
-    .article-body {
-    font-size: 18px;
-  }
-  
-  .article-body pre.poetry {
-    font-size: 18px;
-  }
+
   #cartouche h1 {
     font-size: 20px;
     letter-spacing: 2px;

@@ -10,26 +10,7 @@ tarot:
   - "the-devil"
   - "the-tower"
   - "the-world"
-  - "the-chariot"
-  - "the-lovers"
-  - "strenght"
-  - "justice"
-  - "wheel-of-fortune"
-  - "the-hanged-man"
-  - "temperance"
-  - "the-star"
-  - "the-moon"
-  - "judgement"
-  - "the-high-priestess"
-  - "the-empress"
-  - "the-emperor"
-  - "death"
-  - "the-fool"
-  - "the-magician"
-  - "the-world"
-  - "the-sun"
-  - "the-hierophant"
-  - "the-hermit"
+
 ---
 
 ## 0. За възможната посока на поезията
@@ -60,7 +41,7 @@ tarot:
 
 Всичко това са отворени въпроси! Аз не търся отговори, нито целя да подценявам и осмивам цялата поетична история. Търся само любопитни пътища за извървяване, и подканвам и други да се присъединят! И понеже всичко това звучи доста отвлечено, смятам да опитам да опиша намеренията си малко по-веществено.
 ## 1. В небето
-<pre class="poetry">
+<pre class="poetry small-poetry">
     Ето ги, извисени, 
     хвърлени петна в небето,
     ето ги, омърсени,
@@ -95,7 +76,7 @@ tarot:
     купчини, лавини мръсна прах.
 </pre>
 ## 2. Отвлечени тотеми
-<pre class="poetry">
+<pre class="poetry small-poetry">
     Нека бъдат три, 
     и един, който вижда тъмнина,
     нека бъдат три,
