@@ -5,7 +5,6 @@
   <script>window.BASE = "{{ '/' | url }}";</script>
 </head>
 <body class="{{ bodyClass | default('page-dest') }}">
-  {% include "mobile-header.njk" %}
   {% include "partials/grain.njk" %}
 
   {{ content | safe }}

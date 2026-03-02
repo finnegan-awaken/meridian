@@ -1,0 +1,10 @@
+<header class="mobile-header">
+  <a href="{{ '/' | url }}" class="back-link mobile-back-link" data-transition data-label="МЕРИДИ|АН" data-symbol="✦">
+    <span>←</span> към звездите
+  </a>
+  {% if backLinkRight %}
+  <a href="{{ backLinkRight.url }}" class="back-link-right mobile-back-link-right" {% if backLinkRight.transition %}data-transition data-label="{{ backLinkRight.label }}" data-symbol="{{ backLinkRight.symbol }}"{% endif %}>
+    {{ backLinkRight.text }} <span>→</span>
+  </a>
+  {% endif %}
+</header>
