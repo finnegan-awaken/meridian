@@ -1972,7 +1972,7 @@ a.mini-star { display: flex; }
 .article-body p { margin-bottom: 28px; text-indent: 2em; }
 .article-body h2 {
   font-family: var(--ff-display);
-  font-size: 25px; font-weight: 500;
+  font-size: 22px; font-weight: 500;
   color: var(--star);
   text-align: center; margin: 50px 0 30px;
   text-indent: 0;
@@ -2777,7 +2777,7 @@ a:focus-visible {
   }
   .issue-bottom-nav {
     padding: 0 20px 80px;
-    flex-direction: column;
+    gap: 12px;
   }
 
   /* ── Back links ── */
