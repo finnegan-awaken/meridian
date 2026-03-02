@@ -1767,12 +1767,13 @@ a.mini-star { display: flex; }
 .issue-cover-wrapper {
   display: flex;
   justify-content: center;
-  padding: 0 40px 20px;
+  padding: 0 40px 10px;
+  max-width: 540px;
+  margin: 0 auto;
 }
 
 .issue-cover {
-  width: 100%;
-  max-width: 360px;
+  width: 75%;
   aspect-ratio: 3 / 4;
   border: 1px solid var(--copper-ghost);
   overflow: hidden;
@@ -2177,14 +2178,14 @@ a.mini-star { display: flex; }
 
 .sidebar-title {
   font-family: var(--ff-display);
-  font-size: 16px; letter-spacing: 3px;
+  font-size: 16px; letter-spacing: 2px;
   color: rgba(var(--star-rgb), .5);
   line-height: 1.4;
   transition: color .4s ease, letter-spacing .4s ease;
 }
 .sidebar-star.current .sidebar-title {
   color: rgba(var(--star-rgb), .85);
-  letter-spacing: 3.5px;
+  letter-spacing: 2px;
 }
 
 .sidebar-author {
@@ -2622,9 +2623,6 @@ a:focus-visible {
   .issue-cover-wrapper {
     padding: 0 24px 40px;
   }
-  .issue-cover {
-    max-width: 360px;
-  }
   .issue-description {
     padding: 0 24px 35px;
   }
@@ -2735,10 +2733,7 @@ a:focus-visible {
 
   /* ── Issue cover ── */
   .issue-cover-wrapper {
-    padding: 0 20px 35px;
-  }
-  .issue-cover {
-    max-width: 360px;
+    padding: 0 20px 20px;
   }
   .issue-description {
     padding: 0 20px 30px;
@@ -2913,9 +2908,9 @@ font-size: 23px;
     display: none;
   }
 
-  .issue-cover {
-    max-width: 160px;
-  }
+.issue-cover {
+  max-width: 75%;
+}
   .issue-cover-fb-number {
     font-size: 26px;
     letter-spacing: 4px;

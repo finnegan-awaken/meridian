@@ -738,7 +738,7 @@
   bottom: 56px !important;
   bottom: calc(56px + env(safe-area-inset-bottom, 0px)) !important;
   top: auto !important;
-  right: 34px !important;
+  right: 50px !important;
   right: calc(34px + env(safe-area-inset-right, 0px)) !important;
   display: flex !important;
   flex-direction: column !important;
@@ -777,27 +777,25 @@
   transform: translateY(0) !important;   /* ← just make visible, gap handles spacing */
 }
 
-  /* ── Card stack ── */
-  .tarot-trigger-stack {
-    order: 0 !important;
-    width: 38px;
-    height: 65px;
-  }
+.tarot-trigger-stack {
+  order: 0 !important;
+  width: 50px;                     /* ← bigger than 38 */
+  height: 85px;                    /* ← bigger than 65 */
+}
 
-  .tarot-trigger-card {
-    width: 38px;
-    height: 65px;
-  }
+.tarot-trigger-card {
+  width: 50px;
+  height: 85px;
+}
 
-  /* ── Glow: centered on cards ── */
-  .tarot-trigger-glow {
-    width: 60px;
-    height: 85px;
-    top: auto !important;
-    bottom: 0 !important;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
-  }
+.tarot-trigger-glow {
+  width: 68px;
+  height: 98px;
+  top: auto !important;
+  bottom: 0 !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+}
 
   /* ── Spread section ── */
   .tarot-spread-section {
@@ -866,7 +864,8 @@
 
 @media (max-width: 600px) {
   .tarot-trigger {
-    bottom: 36px !important;
+  bottom: 36px !important;
+  right: 44px !important;
     bottom: calc(36px + env(safe-area-inset-bottom, 0px)) !important;
     right: 20px !important;
     right: calc(20px + env(safe-area-inset-right, 0px)) !important;
@@ -880,28 +879,27 @@
 
 @media (max-width: 400px) {
   .tarot-trigger {
-    right: 16px !important;
-    right: calc(16px + env(safe-area-inset-right, 0px)) !important;
+    right: 32px !important;
   }
 
   .tarot-trigger-text {
-    font-size: 14px;
+    font-size: 12px;
     letter-spacing: 1.5px;
   }
 
   .tarot-trigger-stack {
-    width: 34px;
-    height: 58px;
+    width: 44px;
+    height: 75px;
   }
 
   .tarot-trigger-card {
-    width: 34px;
-    height: 58px;
+    width: 44px;
+    height: 75px;
   }
 
   .tarot-trigger-glow {
-    width: 52px;
-    height: 74px;
+    width: 60px;
+    height: 88px;
     top: auto !important;
     bottom: 0 !important;
     left: 50% !important;
