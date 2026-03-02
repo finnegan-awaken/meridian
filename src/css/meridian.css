@@ -2620,9 +2620,13 @@ a:focus-visible {
     right: 20px;
   }
 
-  .issue-cover-wrapper {
-    padding: 0 24px 40px;
-  }
+.issue-cover-wrapper {
+  padding: 0 24px 40px;
+}
+.issue-cover {
+  width: 75%;
+  max-width: none;
+}
   .issue-description {
     padding: 0 24px 35px;
   }
@@ -2909,7 +2913,8 @@ font-size: 23px;
   }
 
 .issue-cover {
-  max-width: 75%;
+  width: 75%;
+  max-width: none;
 }
   .issue-cover-fb-number {
     font-size: 26px;
@@ -2931,6 +2936,70 @@ font-size: 23px;
   }
   .gloss-inner.align-right .gloss-go-arrow {
     left: 10px;
+  }
+}
+
+/* ══════════════════════════════════════════
+   MOBILE HEADER
+══════════════════════════════════════════ */
+.mobile-header {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  /* Hide original fixed back links on mobile */
+  .back-link,
+  .back-link-right {
+    display: none;
+  }
+
+  /* Show mobile header */
+  .mobile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 12px 16px;
+    background: var(--night);
+    border-bottom: 1px solid var(--copper-faint);
+    transform: translateY(0);
+    transition: transform 0.3s ease, background 0.3s ease;
+  }
+
+  .mobile-header.hidden {
+    transform: translateY(-100%);
+  }
+
+  .mobile-header .mobile-back-link,
+  .mobile-header .mobile-back-link-right {
+    position: static;
+    font-family: var(--ff-display);
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--copper);
+    text-transform: uppercase;
+    transition: color 0.4s ease;
+  }
+
+  .mobile-header .mobile-back-link span {
+    display: inline-block;
+    margin-right: 6px;
+    font-size: 11px;
+  }
+
+  .mobile-header .mobile-back-link-right span {
+    display: inline-block;
+    margin-left: 6px;
+    font-size: 11px;
+  }
+
+  /* Add padding to body so content isn't hidden behind header */
+  body.page-dest {
+    padding-top: 50px;
   }
 }
 

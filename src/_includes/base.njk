@@ -5,7 +5,7 @@
   <script>window.BASE = "{{ '/' | url }}";</script>
 </head>
 <body class="{{ bodyClass | default('page-dest') }}">
-
+  {% include "mobile-header.njk" %}
   {% include "partials/grain.njk" %}
 
   {{ content | safe }}
@@ -29,5 +29,6 @@
   {% if "page-dest" in bodyClass %}
   <script src="/js/archive.js"></script>
   {% endif %}
+  <script src="{{ '/js/mobile-header.js' | url }}"></script>
 </body>
 </html>
