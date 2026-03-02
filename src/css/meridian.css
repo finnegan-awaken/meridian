@@ -2226,7 +2226,7 @@ a.mini-star { display: flex; }
 
 /* ══════════════════════════════════════════
    19. AUTHOR PAGE
-   ══════════════════════════════════════════ */
+══════════════════════════════════════════ */
 .author-page-content {
   max-width: 540px; margin: 0 auto;
   padding: 40px 40px 120px;
@@ -2287,12 +2287,13 @@ a.mini-star { display: flex; }
   text-align: center; margin-bottom: 30px;
 }
 
+/* ── Issue groups ── */
 .author-issue-group { margin-bottom: 35px; }
 
 .author-issue-heading {
-  display: block; padding: 12px 0; margin-bottom: 8px;
-  border-bottom: 1px solid var(--copper-faint);
-  transition: border-color .4s ease;
+  display: block; 
+  padding: 12px 0; 
+  margin-bottom: 0;
 }
 .author-issue-heading:hover,
 .author-issue-heading:focus-visible {
@@ -2327,15 +2328,28 @@ a.mini-star { display: flex; }
   color: var(--copper); opacity: .9; letter-spacing: 2px;
 }
 
-.author-article-entry {
-  display: flex; justify-content: space-between; align-items: baseline;
-  padding: 12px 0 12px 18px;
+/* ── Articles list wrapper ── */
+.author-articles-list {
+  margin-left: 10px;
   border-left: 1px solid var(--copper-subtle);
+  padding-left: 0;
+}
+
+/* ── Individual article entries ── */
+.author-article-entry {
+  display: flex; 
+  justify-content: space-between; 
+  align-items: baseline;
+  padding: 10px 0 10px 12px;
+  border-bottom: 1px solid var(--copper-faint);
   transition: border-color .4s ease;
+}
+.author-article-entry:last-child {
+  border-bottom: none;
 }
 .author-article-entry:hover,
 .author-article-entry:focus-visible {
-  border-color: var(--copper-mid);
+  border-color: var(--copper-soft);
 }
 
 .author-article-title {
@@ -2353,7 +2367,6 @@ a.mini-star { display: flex; }
   font-style: italic; font-size: 16px;
   color: var(--copper); opacity: .9;
 }
-
 
 /* ══════════════════════════════════════════
    20. OVERLAYS — RIPPLE, TRANSITION, GRAIN

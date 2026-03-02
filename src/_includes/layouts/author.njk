@@ -71,13 +71,15 @@ currentNav: archive
         <span class="author-issue-season">{{ issue.data.season }} · {{ issue.data.year }}</span>
       </a>
 
-      {%- for article in articlesInIssue | sort(false, false, "data.order") -%}
-      <a href="{{ article.url }}" class="author-article-entry"
-         data-transition data-label="{{ article.data.title }}" data-symbol="✧">
-        <span class="author-article-title">{{ article.data.title }}</span>
-        <span class="author-article-genre">{{ article.data.genre }}</span>
-      </a>
-      {%- endfor -%}
+      <div class="author-articles-list">
+        {%- for article in articlesInIssue | sort(false, false, "data.order") -%}
+        <a href="{{ article.url }}" class="author-article-entry"
+           data-transition data-label="{{ article.data.title }}" data-symbol="✧">
+          <span class="author-article-title">{{ article.data.title }}</span>
+          <span class="author-article-genre">{{ article.data.genre }}</span>
+        </a>
+        {%- endfor -%}
+      </div>
     </div>
     {%- endif -%}
   {%- endfor -%}
