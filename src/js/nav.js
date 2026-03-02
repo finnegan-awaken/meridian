@@ -89,78 +89,78 @@
     );
   }
 
-  /* ══════════════════════════════════════
-     BUILD STARS — Called once on init
-     ══════════════════════════════════════ */
-  function buildStars() {
-    STARS.forEach(function (s, i) {
-      var p = pos(s);
+/* ══════════════════════════════════════
+   BUILD STARS — Called once on init
+══════════════════════════════════════ */
+function buildStars() {
+  STARS.forEach(function (s, i) {
+    var p = pos(s);
 
-      var el = document.createElement('div');
-      el.className = 'star mag-' + s.mag;
-      el.dataset.id = s.id;
-      el.setAttribute('role', 'button');
-      el.setAttribute('tabindex', '0');
-      el.setAttribute('aria-label', s.name + ' — ' + s.sub);
-      el.setAttribute('aria-describedby', 'gloss-' + s.id);
-      el.style.left = p.x + 'px';
-      el.style.top = p.y + 'px';
-      el.style.animationDelay = (0.2 + i * 0.25) + 's';
-      el.innerHTML =
-        '<div class="star-pulse" style="animation-delay:' + (i * 1.1) + 's"></div>' +
-        '<div class="star-glow" style="animation-delay:' + (i * 0.7) + 's"></div>' +
-        '<div class="star-core"></div>' +
-        '<span class="star-label" aria-hidden="true">' + s.name + '</span>';
-      document.body.appendChild(el);
+    var el = document.createElement('div');
+    el.className = 'star mag-' + s.mag;
+    el.dataset.id = s.id;
+    el.setAttribute('role', 'button');
+    el.setAttribute('tabindex', '0');
+    el.setAttribute('aria-label', s.name + ' — ' + s.sub);
+    el.setAttribute('aria-describedby', 'gloss-' + s.id);
+    el.style.left = p.x + 'px';
+    el.style.top = p.y + 'px';
+    el.style.animationDelay = (0.2 + i * 0.25) + 's';
+    el.innerHTML =
+      '<div class="star-pulse" style="animation-delay:' + (i * 1.1) + 's"></div>' +
+      '<div class="star-glow" style="animation-delay:' + (i * 0.7) + 's"></div>' +
+      '<div class="star-core"></div>' +
+      '<span class="star-label" aria-hidden="true">' + s.name + '</span>';
+    document.body.appendChild(el);
 
-      var g = document.createElement('div');
-      g.className = 'gloss';
-      g.id = 'gloss-' + s.id;
-      g.dataset.for = s.id;
-      g.setAttribute('role', 'tooltip');
+    var g = document.createElement('div');
+    g.className = 'gloss';
+    g.id = 'gloss-' + s.id;
+    g.dataset.for = s.id;
+    g.setAttribute('role', 'tooltip');
 
-      var right = s.x > 50, gw = 250, offset = 40;
+    var right = s.x > 50, gw = 250, offset = 40;
 
-      /* On mobile, position gloss below the star */
-if (isMobile()) {
-  gw = Math.min(220, window.innerWidth - 32);
-  g.style.width = gw + 'px';
-  var gl = p.x - gw / 2;
-  var gt = p.y + 50;
+    /* On mobile, position gloss below the star */
+    if (isMobile()) {
+      gw = Math.min(220, window.innerWidth - 32);
+      g.style.width = gw + 'px';
+      var gl = p.x - gw / 2;
+      var gt = p.y + 50;
 
-  gl = Math.max(16, Math.min(window.innerWidth - gw - 16, gl));
-  gt = Math.min(window.innerHeight - 200, gt);
+      gl = Math.max(16, Math.min(window.innerWidth - gw - 16, gl));
+      gt = Math.min(window.innerHeight - 200, gt);
 
-  if (gt + 180 > window.innerHeight) {
-    gt = p.y - 180;
-    gt = Math.max(16, gt);
-  }
+      if (gt + 180 > window.innerHeight) {
+        gt = p.y - 180;
+        gt = Math.max(16, gt);
+      }
 
-  g.style.left = gl + 'px';
-  g.style.top = gt + 'px';
+      g.style.left = gl + 'px';
+      g.style.top = gt + 'px';
 
-  right = p.x > window.innerWidth / 2;
-} else {
-  var gl = right ? p.x - offset - gw : p.x + offset;
-  var gt = p.y - 35;
-  gl = Math.max(16, Math.min(window.innerWidth - gw - 16, gl));
-  gt = Math.max(16, Math.min(window.innerHeight - 180, gt));
-  g.style.left = gl + 'px';
-  g.style.top = gt + 'px';
+      right = p.x > window.innerWidth / 2;
+    } else {
+      var gl = right ? p.x - offset - gw : p.x + offset;
+      var gt = p.y - 35;
+      gl = Math.max(16, Math.min(window.innerWidth - gw - 16, gl));
+      gt = Math.max(16, Math.min(window.innerHeight - 180, gt));
+      g.style.left = gl + 'px';
+      g.style.top = gt + 'px';
+    }
+
+    g.innerHTML =
+      '<div class="gloss-inner' + (right ? ' align-right' : '') + '">' +
+        '<span class="gloss-go-arrow" aria-hidden="true">›</span>' +
+        '<div class="gloss-numeral">' + s.num + ' · ' + renderSymbol(s.symbol) + '</div>' +
+        '<div class="gloss-title">' + s.name + '</div>' +
+        '<div class="gloss-subtitle">' + s.sub + '</div>' +
+        '<div class="gloss-desc">' + s.desc + '</div>' +
+        '<div class="gloss-coords">' + s.coords + '</div>' +
+      '</div>';
+    document.body.appendChild(g);
+  });
 }
-
-      g.innerHTML =
-        '<div class="gloss-inner' + (right ? ' align-right' : '') + '">' +
-          '<div class="gloss-numeral">' + s.num + ' · ' + renderSymbol(s.symbol) + '</div>' +
-          '<div class="gloss-title">' + s.name + '</div>' +
-          '<div class="gloss-subtitle">' + s.sub + '</div>' +
-          '<div class="gloss-desc">' + s.desc + '</div>' +
-          '<div class="gloss-coords">' + s.coords + '</div>' +
-        '</div>';
-      document.body.appendChild(g);
-    });
-  }
-
   /* ══════════════════════════════════════
      UPDATE — Called on resize (debounced)
      ══════════════════════════════════════ */
@@ -287,51 +287,106 @@ if (isMobile()) {
     }, 400);
   }
 
-  /* ══════════════════════════════════════
-     BIND EVENTS — Called once after build
-     ══════════════════════════════════════ */
-  function bindEvents() {
-    var stars = document.querySelectorAll('.star');
-    for (var i = 0; i < stars.length; i++) {
-      (function (el) {
-        if (isTouchDevice) {
-          /* Touch: first tap shows gloss, second tap navigates */
-          el.addEventListener('click', function (e) {
-            e.preventDefault();
-            handleTouchActivate(el);
-          });
-        } else {
-          /* Mouse */
-          el.addEventListener('mouseenter', function () { handleEnter(el); });
-          el.addEventListener('mouseleave', function () { handleLeave(el); });
-          el.addEventListener('click', function (e) {
-            var star = findStar(el.dataset.id);
-            if (star) handleNavigate(el, star, e);
-          });
-        }
-
-        /* Keyboard — works on both touch and desktop */
-        el.addEventListener('focus', function () { handleEnter(el); });
-        el.addEventListener('blur', function () { handleLeave(el); });
-        el.addEventListener('keydown', function (e) {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            var star = findStar(el.dataset.id);
-            if (star) handleNavigate(el, star, e);
-          }
+/* ══════════════════════════════════════
+   BIND EVENTS — Called once after build
+══════════════════════════════════════ */
+function bindEvents() {
+  var stars = document.querySelectorAll('.star');
+  for (var i = 0; i < stars.length; i++) {
+    (function (el) {
+      if (isTouchDevice) {
+        /* Touch: first tap shows gloss, second tap navigates */
+        el.addEventListener('click', function (e) {
+          e.preventDefault();
+          handleTouchActivate(el);
         });
-      })(stars[i]);
+      } else {
+        /* Mouse */
+        el.addEventListener('mouseenter', function () { handleEnter(el); });
+        el.addEventListener('mouseleave', function () { handleLeave(el); });
+        el.addEventListener('click', function (e) {
+          var star = findStar(el.dataset.id);
+          if (star) handleNavigate(el, star, e);
+        });
+      }
+
+      /* Keyboard — works on both touch and desktop */
+      el.addEventListener('focus', function () { handleEnter(el); });
+      el.addEventListener('blur', function () { handleLeave(el); });
+      el.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          var star = findStar(el.dataset.id);
+          if (star) handleNavigate(el, star, e);
+        }
+      });
+    })(stars[i]);
+  }
+
+  /* Make gloss panels clickable — MOBILE/TOUCH ONLY */
+  if (isTouchDevice) {
+    var glosses = document.querySelectorAll('.gloss');
+    for (var j = 0; j < glosses.length; j++) {
+      (function (g) {
+        /* Use both click and touchend for better mobile support */
+        var handleGlossClick = function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          
+          var starId = g.dataset.for;
+          var star = findStar(starId);
+          if (!star) return;
+
+          /* Get the star element for ripple position */
+          var starEl = document.querySelector('.star[data-id="' + starId + '"]');
+          
+          /* Get click/touch position */
+          var rect = g.getBoundingClientRect();
+          var cx, cy;
+          
+          if (e.changedTouches && e.changedTouches.length > 0) {
+            cx = e.changedTouches[0].clientX;
+            cy = e.changedTouches[0].clientY;
+          } else if (e.clientX) {
+            cx = e.clientX;
+            cy = e.clientY;
+          } else {
+            cx = rect.left + rect.width / 2;
+            cy = rect.top + rect.height / 2;
+          }
+
+          /* Create ripples from touch position */
+          for (var i = 0; i < 3; i++) {
+            (function (delay) {
+              setTimeout(function () {
+                var r = document.createElement('div');
+                r.className = 'ripple';
+                r.style.left = cx + 'px';
+                r.style.top = cy + 'px';
+                document.body.appendChild(r);
+                setTimeout(function () { r.remove(); }, 1700);
+              }, delay);
+            })(i * 140);
+          }
+
+          /* Navigate after ripple animation starts */
+          setTimeout(function () {
+            window.meridianTransition(star.href, star.name, star.symbol);
+          }, 400);
+        };
+
+        g.addEventListener('click', handleGlossClick);
+      })(glosses[j]);
     }
 
     /* Tap anywhere else to dismiss gloss on touch */
-    if (isTouchDevice) {
-      document.addEventListener('click', function (e) {
-        if (!e.target.closest('.star')) {
-          clearAllActive();
-        }
-      });
-    }
+    document.addEventListener('click', function (e) {
+      if (!e.target.closest('.star') && !e.target.closest('.gloss')) {
+        clearAllActive();
+      }
+    });
   }
+}
 
   /* ══════════════════════════════════════
      INIT

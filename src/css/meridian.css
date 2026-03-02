@@ -381,6 +381,57 @@ body.constellation-hover .star:not(.hovered) .star-label { color: rgba(var(--sta
   );
 }
 
+/* ── Go arrow indicator ── */
+.gloss-go-arrow {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  font-family: var(--ff-display);
+  font-size: 20px;
+  font-weight: 300;
+  color: var(--copper);
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity .4s ease, transform .4s ease;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.gloss-inner.align-right .gloss-go-arrow {
+  right: auto;
+  left: 12px;
+}
+
+/* Show arrow when gloss is visible */
+.gloss.visible .gloss-go-arrow {
+  opacity: .6;
+  transform: translateX(0);
+}
+
+/* Hover/active feedback on the gloss */
+.gloss.visible:hover .gloss-go-arrow,
+.gloss.visible:active .gloss-go-arrow {
+  opacity: 1;
+  transform: translateX(3px);
+}
+
+.gloss.visible.align-right:hover .gloss-go-arrow,
+.gloss.visible.align-right:active .gloss-go-arrow {
+  transform: translateX(-3px);
+}
+
+.gloss.visible:hover .gloss-inner {
+  border-color: var(--copper-mid);
+}
+
+.gloss.visible:active .gloss-inner {
+  background: linear-gradient(
+    135deg,
+    rgba(26, 22, 61, 0.65),
+    rgba(3, 4, 7, 0.65)
+  );
+}
+
 .gloss-numeral {
   font-family: var(--ff-display);
   display: flex;
@@ -2366,7 +2417,14 @@ a:focus-visible {
 
 /* ══════════════════════════════════════════
    22. RESPONSIVE
-   ══════════════════════════════════════════ */
+══════════════════════════════════════════ */
+
+/* ── Desktop: hide gloss arrow ── */
+@media (min-width: 601px) {
+  .gloss-go-arrow {
+    display: none;
+  }
+}
 
 /* ── Tablet (≤ 900px) ── */
 @media (max-width: 900px) {
@@ -2402,7 +2460,6 @@ a:focus-visible {
     scroll-snap-type: x proximity;
     gap: 0;
     padding: 10px 0 16px;
-
     scrollbar-width: none;
     -ms-overflow-style: none;
   }
@@ -2552,6 +2609,7 @@ a:focus-visible {
     letter-spacing: 1.5px;
   }
 
+  /* ── Gloss panel adjustments ── */
   .gloss {
     width: 220px;
   }
@@ -2566,6 +2624,54 @@ a:focus-visible {
     font-size: 14px;
   }
 
+  /* ── Gloss clickable on mobile ── */
+  .gloss.visible {
+    pointer-events: auto;
+    cursor: pointer;
+  }
+
+  /* ── Go arrow indicator ── */
+  .gloss-go-arrow {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    font-family: var(--ff-display);
+    font-size: 20px;
+    font-weight: 300;
+    color: var(--copper);
+    opacity: 0;
+    transform: translateX(-4px);
+    transition: opacity .4s ease, transform .4s ease;
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .gloss-inner.align-right .gloss-go-arrow {
+    right: auto;
+    left: 12px;
+  }
+
+  /* Show arrow when gloss is visible */
+  .gloss.visible .gloss-go-arrow {
+    opacity: .6;
+    transform: translateX(0);
+  }
+
+  /* Active/tap feedback */
+  .gloss.visible:active .gloss-go-arrow {
+    opacity: 1;
+    transform: translateX(3px);
+  }
+
+  .gloss-inner.align-right:active .gloss-go-arrow {
+    transform: translateX(-3px);
+  }
+
+  .gloss.visible:active .gloss-inner {
+    border-color: var(--copper-mid);
+  }
+
+  /* ── Issue cover ── */
   .issue-cover-wrapper {
     padding: 0 20px 35px;
   }
@@ -2576,11 +2682,8 @@ a:focus-visible {
     padding: 0 20px 30px;
     font-size: 16px;
   }
-}
 
-/* ── Small mobile (≤ 600px) ── */
-@media (max-width: 600px) {
-  /* Archive controls */
+  /* ── Archive controls ── */
   .archive-controls {
     flex-direction: column;
     gap: 16px;
@@ -2596,14 +2699,14 @@ a:focus-visible {
     letter-spacing: 1.5px;
   }
 
-  /* Grid */
+  /* ── Grid ── */
   .issue-grid {
     grid-template-columns: 1fr;
     max-width: 300px;
     margin: 0 auto;
   }
 
-  /* Timeline */
+  /* ── Timeline ── */
   .timeline-card-banner {
     height: 100px;
   }
@@ -2612,7 +2715,7 @@ a:focus-visible {
     gap: 4px 14px;
   }
 
-  /* Genre */
+  /* ── Genre ── */
   .genre-filter-bar {
     flex-wrap: wrap;
     gap: 4px;
@@ -2631,13 +2734,13 @@ a:focus-visible {
     gap: 4px 14px;
   }
 
-  /* Author */
+  /* ── Author ── */
   .archive-author-articles {
     margin-left: 10px;
     padding-left: 12px;
   }
 
-  /* Atlas */
+  /* ── Atlas ── */
   .atlas-grid-cartographer {
     grid-template-columns: 1fr;
   }
@@ -2645,7 +2748,7 @@ a:focus-visible {
     grid-template-columns: 1fr;
   }
 
-  /* Issue page */
+  /* ── Issue page ── */
   .toc {
     padding: 0 20px 40px;
   }
@@ -2654,7 +2757,7 @@ a:focus-visible {
     flex-direction: column;
   }
 
-  /* Back links */
+  /* ── Back links ── */
   .back-link {
     left: 16px;
     font-size: 10px;
@@ -2664,7 +2767,7 @@ a:focus-visible {
     font-size: 10px;
   }
 
-  /* Pagination */
+  /* ── Pagination ── */
   .archive-pagination {
     gap: 4px;
   }
@@ -2754,6 +2857,16 @@ a:focus-visible {
   }
   .issue-description {
     font-size: 15px;
+  }
+
+  /* ── Gloss adjustments for tiny screens ── */
+  .gloss-go-arrow {
+    font-size: 18px;
+    top: 6px;
+    right: 10px;
+  }
+  .gloss-inner.align-right .gloss-go-arrow {
+    left: 10px;
   }
 }
 
