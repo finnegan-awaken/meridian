@@ -1,7 +1,7 @@
 ---
 title: Division as Unity
 subtitle: On the Paradox of the Meridian
-author: samuel-okafor
+author: nikola-dimitrov
 genre: есеистика
 order: 2
 date: 2025-03-20

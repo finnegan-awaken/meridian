@@ -1,6 +1,6 @@
 ---
 title: allt
-author: maren-licht
+author: qna-jasminova
 genre: поезия
 order: 4
 date: 2025-03-22

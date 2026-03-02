@@ -1937,7 +1937,7 @@ a.mini-star { display: flex; }
   font-size: 18px; font-weight: 300;
   color: var(--copper);
 }
-.article-header-sep   { margin: 5px; color: var(--copper-medium); font-size: 13px; }
+.article-header-sep   { margin: 5px; color: var(--copper); opacity: 0.8;; font-size: 12px; }
 .article-header-author {
   color: var(--copper);opacity: 0.8;
   transition: color .4s ease, opacity .4s ease;
@@ -1963,17 +1963,19 @@ a.mini-star { display: flex; }
   align-self: flex-start;
 }
 
+/* Keep this - for normal article text */
 .article-body {
   font-family: var(--ff-body);
   font-size: 20px; font-weight: 300;
   line-height: 1.8; color: var(--bright);
 }
-.article-body p { margin-bottom: 28px; }
+.article-body p { margin-bottom: 28px; text-indent: 2em; }
 .article-body h2 {
   font-family: var(--ff-display);
-  font-size: 14px; font-weight: 500;
-  letter-spacing: 6px; color: var(--star);
+  font-size: 25px; font-weight: 500;
+  color: var(--star);
   text-align: center; margin: 50px 0 30px;
+  text-indent: 0;
 }
 .article-body em { color: var(--star); opacity: 1; }
 .article-body blockquote {
@@ -1985,7 +1987,23 @@ a.mini-star { display: flex; }
 .article-body hr::after {
   content: '✦';
   font-size: 10px; letter-spacing: 6px;
-  color: var(--copper); opacity: 0.8;;
+  color: var(--copper); opacity: 0.8;
+}
+
+/* ADD this - for poetry only */
+.article-body pre.poetry {
+  font-family: var(--ff-body);
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--bright);
+  margin-bottom: 28px;
+  white-space: pre-wrap;
+  text-indent: 0;
+  background: none;
+  border: none;
+  padding: 0;
+  overflow: visible;
 }
 
 .article-footer { margin-top: 60px; }
