@@ -2332,15 +2332,14 @@ a.mini-star { display: flex; }
 .author-articles-list {
   margin-left: 10px;
   border-left: 1px solid var(--copper-subtle);
-  padding-left: 0;
+  padding-left: 12px;
 }
 
-/* ── Individual article entries ── */
 .author-article-entry {
   display: flex; 
   justify-content: space-between; 
   align-items: baseline;
-  padding: 10px 0 10px 12px;
+  padding: 10px 0;
   border-bottom: 1px solid var(--copper-faint);
   transition: border-color .4s ease;
 }
