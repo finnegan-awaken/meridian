@@ -154,7 +154,7 @@
     trigger = document.createElement('button');
     trigger.type = 'button';
     trigger.className = 'tarot-trigger';
-    trigger.setAttribute('aria-label', 'Попитай съдбата — отвори таро');
+    trigger.setAttribute('aria-label', 'Питай съдбата');
     trigger.innerHTML =
       '<div class="tarot-trigger-glow"></div>' +
       '<div class="tarot-trigger-stack">' +
@@ -168,7 +168,7 @@
           triggerCardInner() +
         '</div>' +
       '</div>' +
-      '<div class="tarot-trigger-text" aria-hidden="true">Попитай <br>съдбата</div>';
+      '<div class="tarot-trigger-text" aria-hidden="true">Питай <br>съдбата</div>';
     document.body.appendChild(trigger);
 
     if (isTouch) {
@@ -221,7 +221,7 @@
     overlay.className = 'tarot-overlay';
     overlay.setAttribute('role', 'dialog');
     overlay.setAttribute('aria-modal', 'true');
-    overlay.setAttribute('aria-label', 'Таро — Избери три карти');
+    overlay.setAttribute('aria-label', 'Избери три карти');
     overlay.setAttribute('aria-hidden', 'true');
     overlay.innerHTML =
       '<button class="tarot-close" aria-label="Затвори таро">✕</button>' +

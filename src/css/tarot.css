@@ -22,14 +22,14 @@
    ══════════════════════════════════════════ */
 .tarot-trigger {
   position: fixed;
-  bottom: 40px;
+  bottom: 46px;
   right: 40px;
   z-index: 90;
   cursor: pointer;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   opacity: 0;
   transform: translateY(20px);
   transition: opacity .8s ease, transform .8s ease;
@@ -38,7 +38,9 @@
   border: none;
   padding: 0;
   font: inherit;
-  color: inherit;
+  color: inherit;  
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
 }
 
 .tarot-trigger.visible {
@@ -157,10 +159,10 @@
 .tarot-trigger-text {
   font-family: var(--ff-body);
   font-style: italic;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 300;
   color: var(--copper);
-  letter-spacing: 3px;
+  letter-spacing: 2px;
   opacity: 0;
   transform: translateY(-4px);
   transition: opacity .4s ease, transform .4s ease;
@@ -232,6 +234,8 @@
   z-index: 10;
   padding: 8px;
   transition: opacity .4s ease, transform .3s ease;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
 }
 
 .tarot-close:hover,
@@ -450,6 +454,7 @@
   transform: translateY(60px) rotate(var(--spread-rotation, 0deg));
   transition: opacity .5s ease, transform .5s ease, margin .4s ease;
   transform-origin: bottom center;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .tarot-spread-card.dealt {
@@ -669,12 +674,14 @@
   outline-offset: 2px;
 }
 
-/* ── Touch-active: label + spread + glow — all at once ── */
-.tarot-trigger.touch-active .tarot-trigger-text {
-  opacity: .85 !important;
-  transform: translateY(0) !important;
+/* Kill tap highlight boxes on mobile */
+.tarot-trigger,
+.tarot-close,
+.tarot-spread-card {
+  -webkit-tap-highlight-color: transparent;
 }
 
+/* ── Touch-active: card spread + glow (all screens) ── */
 .tarot-trigger.touch-active .tarot-trigger-card-back-2 {
   transform: rotate(-10deg) translate(-8px, 2px) !important;
   opacity: .6 !important;
@@ -694,6 +701,14 @@
 .tarot-trigger.touch-active .tarot-trigger-glow {
   opacity: .18 !important;
   animation: shimmer 3s ease-in-out infinite alternate !important;
+}
+
+/* ── Touch-active: label — desktop only ── */
+@media (min-width: 701px) {
+  .tarot-trigger.touch-active .tarot-trigger-text {
+    opacity: .85 !important;
+    transform: translateY(0) !important;
+  }
 }
 
 
@@ -719,42 +734,48 @@
   }
 
   /* ── Trigger ── */
-  .tarot-trigger {
-    bottom: 56px !important;
-    bottom: calc(56px + env(safe-area-inset-bottom, 0px)) !important;
-    top: auto !important;
-    right: 34px !important;
-    right: calc(34px + env(safe-area-inset-right, 0px)) !important;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    gap: 4px !important;
-    appearance: none !important;
-    -webkit-appearance: none !important;
-    background: none !important;
-    border: none !important;
-    padding: 0 !important;
-    margin: 0 !important;
-  }
+.tarot-trigger {
+  bottom: 56px !important;
+  bottom: calc(56px + env(safe-area-inset-bottom, 0px)) !important;
+  top: auto !important;
+  right: 34px !important;
+  right: calc(34px + env(safe-area-inset-right, 0px)) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 14px !important;              /* ← was 4px, controls label-to-cards distance */
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  background: none !important;
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
 
-  /* ── Label: two lines, above cards ── */
-  .tarot-trigger-text {
-    order: -1 !important;
-    opacity: 0;
-    transform: translateY(-4px);
-    font-size: 15px;
-    letter-spacing: 2px;
-    line-height: 1;
-    white-space: normal !important;
-    max-width: none !important;
-    text-align: center !important;
-    margin-bottom: 0 !important;
-  }
+  /* ── Label: two lines, above cards, raised ── */
+.tarot-trigger-text {
+  order: -1 !important;
+  opacity: 0;
+  transform: translateY(0);          /* ← clean, no offset needed */
+  font-size: 15px;
+  letter-spacing: 2px;
+  line-height: 1;
+  white-space: normal !important;
+  max-width: none !important;
+  text-align: center !important;
+  margin-bottom: 0 !important;
+}
 
   /* Show <br> on mobile — two lines */
   .tarot-trigger-text br {
     display: block;
   }
+
+  /* Touch-active: mobile-only offset */
+.tarot-trigger.touch-active .tarot-trigger-text {
+  opacity: .85 !important;
+  transform: translateY(0) !important;   /* ← just make visible, gap handles spacing */
+}
 
   /* ── Card stack ── */
   .tarot-trigger-stack {
@@ -768,7 +789,7 @@
     height: 65px;
   }
 
-  /* ── Glow: centered on cards like desktop ── */
+  /* ── Glow: centered on cards ── */
   .tarot-trigger-glow {
     width: 60px;
     height: 85px;
