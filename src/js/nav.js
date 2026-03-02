@@ -147,9 +147,11 @@
         g.style.top  = gt + 'px';
       }
 
+      var arrowSymbol = right ? '‹' : '›';
+      
       g.innerHTML =
         '<div class="gloss-inner' + (right ? ' align-right' : '') + '">' +
-          '<span class="gloss-go-arrow" aria-hidden="true">›</span>' +
+          '<span class="gloss-go-arrow" aria-hidden="true">' + arrowSymbol + '</span>' +
           '<div class="gloss-numeral">' + s.num + ' · ' + renderSymbol(s.symbol) + '</div>' +
           '<div class="gloss-title">' + s.name + '</div>' +
           '<div class="gloss-subtitle">' + s.sub + '</div>' +

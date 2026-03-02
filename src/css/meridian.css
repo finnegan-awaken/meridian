@@ -184,19 +184,35 @@ body.page-dest > *:not(.back-link):not(.back-link-right):not(#transition):not(#g
 /* ══════════════════════════════════════════
    3. LAYOUT — EDGE RULES
    ══════════════════════════════════════════ */
-body::before,
-body::after {
+
+body {
+  position: relative;
+  min-height: 100vh;
+}
+
+body::before {
   content: '';
-  position: fixed;
-  left: 40px; right: 40px;
+  position: absolute;
+  top: 18px;
+  left: 40px; 
+  right: 40px;
   height: 1px;
   background: var(--rule-bg-dim);
   z-index: 50;
   pointer-events: none;
 }
-body::before { top: 18px; }
-body::after  { bottom: 18px; }
 
+body::after {
+  content: '';
+  position: absolute;
+  bottom: 18px;
+  left: 40px; 
+  right: 40px;
+  height: 1px;
+  background: var(--rule-bg-dim);
+  z-index: 50;
+  pointer-events: none;
+}
 
 /* ══════════════════════════════════════════
    4. NAV — CONSTELLATION BACKGROUND
@@ -393,7 +409,7 @@ body.constellation-hover .star:not(.hovered) .star-label { color: rgba(var(--sta
   top: 8px;
   right: 12px;
   font-family: var(--ff-display);
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 300;
   color: var(--copper);
   opacity: 0;
@@ -2682,7 +2698,7 @@ a:focus-visible {
     top: 8px;
     right: 12px;
     font-family: var(--ff-display);
-    font-size: 20px;
+    font-size: 25px;
     font-weight: 300;
     color: var(--copper);
     opacity: 0;
@@ -2914,8 +2930,8 @@ font-size: 23px;
 
   /* ── Gloss adjustments for tiny screens ── */
   .gloss-go-arrow {
-    font-size: 18px;
-    top: 6px;
+    font-size: 25px;
+    top: 8px;
     right: 10px;
   }
   .gloss-inner.align-right .gloss-go-arrow {
