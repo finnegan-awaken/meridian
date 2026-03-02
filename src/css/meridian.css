@@ -336,6 +336,7 @@ body.constellation-hover .star:not(.hovered) .star-label { color: rgba(var(--sta
 }
 .gloss.visible {
   visibility: visible;
+  pointer-events: auto;
 }
 
 .gloss-inner {
@@ -2612,6 +2613,10 @@ a:focus-visible {
   /* ── Gloss panel adjustments ── */
   .gloss {
     width: 220px;
+  }
+    .gloss.visible .gloss-inner {
+    pointer-events: auto;
+    cursor: pointer;
   }
   .gloss-title {
     font-size: 14px;
