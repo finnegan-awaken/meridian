@@ -2612,7 +2612,13 @@ a:focus-visible {
     font-size: 11px;
     letter-spacing: 3px;
   }
-
+.article-body {
+    font-size: 18px;
+  }
+  
+  .article-body pre.poetry {
+    font-size: 18px;
+  }
   #hint {
     bottom: 36px;
     font-size: 10px;
@@ -2819,7 +2825,13 @@ a:focus-visible {
   .article-title {
     font-size: 24px;
   }
-
+    .article-body {
+    font-size: 16px;
+  }
+  
+  .article-body pre.poetry {
+    font-size: 16px;
+  }
   #cartouche h1 {
     font-size: 20px;
     letter-spacing: 2px;
