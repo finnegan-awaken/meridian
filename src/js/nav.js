@@ -25,7 +25,6 @@
     }
   ];
 
-  /* SVG symbols (lowercase keys) vs Unicode symbols */
   var SVG_SYMBOLS = ['book', 'pen', 'moon', 'compass'];
 
   function isSvgSymbol(symbol) {
@@ -39,7 +38,6 @@
     return symbol;
   }
 
-  /* Mobile-adjusted positions — more vertical spread */
   var MOBILE_STARS = {
     archive: { x: 50, y: 65 },
     atlas:   { x: 30, y: 32 },
@@ -91,7 +89,7 @@
   }
 
   /* ══════════════════════════════════════
-     BUILD STARS — Called once on init
+     BUILD STARS
   ══════════════════════════════════════ */
   function buildStars() {
     STARS.forEach(function (s, i) {
@@ -122,7 +120,6 @@
 
       var right = s.x > 50, gw = 250, offset = 40;
 
-      /* On mobile, position gloss below the star */
       if (isMobile()) {
         gw = Math.min(220, window.innerWidth - 32);
         g.style.width = gw + 'px';
@@ -164,7 +161,7 @@
   }
 
   /* ══════════════════════════════════════
-     UPDATE — Called on resize (debounced)
+     UPDATE POSITIONS
   ══════════════════════════════════════ */
   function updatePositions() {
     STARS.forEach(function (s) {
@@ -252,7 +249,6 @@
   function handleTouchActivate(el) {
     var id = el.dataset.id;
 
-    /* Second tap on same star — navigate */
     if (activeStarId === id) {
       var star = findStar(id);
       if (star) {
@@ -261,7 +257,6 @@
       return;
     }
 
-    /* First tap — show gloss */
     clearAllActive();
     activeStarId = id;
     handleEnter(el);
@@ -292,7 +287,7 @@
 
   /* ══════════════════════════════════════
      Helper: check if a point is inside
-     any visible gloss-inner bounding box
+     any visible gloss bounding box
   ══════════════════════════════════════ */
   function findGlossAtPoint(x, y) {
     var glosses = document.querySelectorAll('.gloss.visible');
@@ -309,21 +304,19 @@
   }
 
   /* ══════════════════════════════════════
-     BIND EVENTS — Called once after build
+     BIND EVENTS
   ══════════════════════════════════════ */
   function bindEvents() {
     var stars = document.querySelectorAll('.star');
     for (var i = 0; i < stars.length; i++) {
       (function (el) {
         if (isTouchDevice) {
-          /* Touch: first tap shows gloss, second tap navigates */
           el.addEventListener('click', function (e) {
             e.preventDefault();
             e.stopPropagation();
             handleTouchActivate(el);
           });
         } else {
-          /* Mouse */
           el.addEventListener('mouseenter', function () { handleEnter(el); });
           el.addEventListener('mouseleave', function () { handleLeave(el); });
           el.addEventListener('click', function (e) {
@@ -332,7 +325,6 @@
           });
         }
 
-        /* Keyboard — works on both touch and desktop */
         el.addEventListener('focus', function () { handleEnter(el); });
         el.addEventListener('blur',  function () { handleLeave(el); });
         el.addEventListener('keydown', function (e) {
@@ -345,57 +337,44 @@
       })(stars[i]);
     }
 
-    /* MOBILE/TOUCH: Use touchstart to detect gloss taps by coordinates
-       This bypasses pointer-events: none completely */
     if (isTouchDevice) {
 
-      document.addEventListener('touchstart', function (e) {
-        var touch = e.touches[0];
+      /* Intercept touches on the gloss and redirect as a
+         click on the corresponding star.  Because activeStarId
+         is already set, handleTouchActivate treats it as a
+         second tap and navigates normally. */
+      document.addEventListener('touchend', function (e) {
+        if (!activeStarId) return;
+
+        var touch = e.changedTouches[0];
         if (!touch) return;
 
-        /* Ignore if touching a star */
-        var targetEl = document.elementFromPoint(touch.clientX, touch.clientY);
-        if (targetEl && targetEl.closest('.star')) return;
+        /* Ignore if the touch landed on a star */
+        if (e.target.closest && e.target.closest('.star')) return;
 
-        /* Check if touch is inside a visible gloss */
+        /* Was the touch inside a visible gloss? */
         var glossEl = findGlossAtPoint(touch.clientX, touch.clientY);
-        if (glossEl) {
-          /* Mark that we tapped a gloss so click handler knows */
-          glossTapped = true;
+        if (!glossEl) return;
 
-          var starId = glossEl.dataset.for;
+        var starId = glossEl.dataset.for;
+        if (starId !== activeStarId) return;
+
+        /* Prevent the subsequent click from dismissing */
+        glossTapped = true;
+        e.preventDefault();
+
+        /* Find the star and trigger second-tap navigation */
+        var starEl = document.querySelector('.star[data-id="' + starId + '"]');
+        if (starEl) {
           var star = findStar(starId);
-          if (!star) return;
-
-          e.preventDefault();
-
-          var cx = touch.clientX;
-          var cy = touch.clientY;
-
-          /* Create ripples */
-          for (var i = 0; i < 3; i++) {
-            (function (delay) {
-              setTimeout(function () {
-                var r = document.createElement('div');
-                r.className = 'ripple';
-                r.style.left = cx + 'px';
-                r.style.top  = cy + 'px';
-                document.body.appendChild(r);
-                setTimeout(function () { r.remove(); }, 1700);
-              }, delay);
-            })(i * 140);
+          if (star) {
+            handleNavigate(starEl, star, null);
           }
-
-          /* Navigate after ripple starts */
-          setTimeout(function () {
-            window.meridianTransition(star.href, star.name, star.symbol);
-          }, 400);
         }
-      }, true); /* capture phase — fires first */
+      }, true);
 
-      /* Tap anywhere else to dismiss gloss */
+      /* Dismiss gloss when tapping elsewhere */
       document.addEventListener('click', function (e) {
-        /* If we just tapped a gloss, don't dismiss */
         if (glossTapped) {
           glossTapped = false;
           return;
