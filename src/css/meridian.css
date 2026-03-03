@@ -35,18 +35,26 @@
    ══════════════════════════════════════════ */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
+/* Disable tap highlight on mobile */
 * {
   -webkit-tap-highlight-color: transparent;
 }
 
 :root {
-  /* ── Background ── */
-  --bg-base: #0a0710;
+  /* ── Backgrounds ── */
+  --void:           #0b101b;
+  --night:          #0c1221;
+  --twilight:       #161233;
+  --transition: #06090f;
 
-  /* ── Accent: Copper / Gold ── */
+
+  /* ── Accent: Copper / Gold
+       IMPORTANT: --copper-rgb MUST match --copper hex.
+       #cbba64 = rgb(203, 186, 100)
+       All transparent variants derive from these values. ── */
   --copper:         #cbba64;
   --copper-rgb:     203, 186, 100;
-  --copper-ghost2:  rgba(203, 186, 100, 0.061);
+  --copper-ghost2:   rgba(203, 186, 100, 0.061);
   --copper-ghost:   rgba(203, 186, 100, 0.27);
   --copper-faint:   rgba(203, 186, 100, 0.08);
   --copper-subtle:  rgba(203, 186, 100, 0.12);
@@ -58,14 +66,32 @@
   --copper-full:    rgba(203, 186, 100, 1.00);
   --gold:           var(--copper);
 
-  /* ── Text ── */
+  /* ── Text
+       IMPORTANT: --*-rgb values MUST match their hex counterparts.
+       --bright base: #d5d1c6 = rgb(213, 209, 198)
+       --star:  #bebdba = rgb(190, 189, 186)
+       --moon:  #a7936f = rgb(167, 147, 111) ── */
   --bright:         rgb(216 213 205 / 86%);
   --bright-rgb:     213, 209, 198;
   --star:           #bebdba;
-  --star-rgb:       237, 228, 212;
+  --star-rgb:       237,228,212;
   --star-label:     rgba(203, 186, 100, 0.66);
   --moon:           #a7936f;
   --moon-rgb:       167, 147, 111;
+
+  /* ── Atmospheric ── */
+  --atmo-deep:          rgba(22, 18, 51, 0.45);
+  --atmo-deep-zero:     rgba(22, 18, 51, 0);
+
+  --atmo-mid:           rgba(18, 12, 42, 0.35);
+  --atmo-mid-zero:      rgba(18, 12, 42, 0);
+
+  --atmo-vignette:      rgba(10, 7, 13, 0.85);
+  --atmo-vignette-zero: rgba(10, 7, 13, 0);
+
+  --atmo-page:          rgba(38, 23, 65, 0.5);
+  --atmo-page-zero:     rgba(38, 23, 65, 0);
+
 
   /* ── Fonts ── */
   --ff-display:     'Cormorant Infant', Georgia, serif;
@@ -89,7 +115,7 @@
 html {
   width: 100%;
   min-height: 100%;
-  background: var(--bg-base);
+  background: var(--void);
   scrollbar-gutter: stable;
 }
 
@@ -99,16 +125,8 @@ body {
   color: var(--star);
   font-family: var(--ff-body);
   background:
-    radial-gradient(
-      ellipse at center,
-      rgb(18, 17, 43)  0%,
-      rgb(17, 15, 38) 25%,
-      rgb(15, 13, 32) 50%,
-      rgb(13, 11, 25) 65%,
-      rgb(12, 9, 18)  80%,
-      rgb(10, 7, 14) 100%
-    );
-  background-color: rgb(10, 7, 14);
+    radial-gradient(ellipse at 50% 0%, var(--atmo-page) 0%, transparent 40%),
+    linear-gradient(to bottom, var(--night), var(--twilight));
 }
 
 a { color: inherit; text-decoration: none; }
@@ -131,9 +149,21 @@ body.page-dest {
   overflow-y: scroll;
   scrollbar-gutter: stable;
   scrollbar-width: none;
+  background:
+    radial-gradient(ellipse at 25% 20%,
+      var(--atmo-deep) 0%, var(--atmo-deep-zero) 50%),
+    radial-gradient(ellipse at 75% 40%,
+      var(--atmo-mid) 0%, var(--atmo-mid-zero) 50%),
+    radial-gradient(ellipse at 50% 0%,
+      var(--atmo-page) 0%, var(--atmo-page-zero) 40%),
+    radial-gradient(ellipse at 50% 50%,
+      var(--atmo-vignette-zero) 0%, var(--atmo-vignette) 70%),
+    linear-gradient(to bottom, var(--night), var(--twilight));
+  box-shadow: inset 0 0 160px 70px var(--atmo-shadow);
 }
 body.page-dest::-webkit-scrollbar { display: none; }
 
+/* Ensure all direct children stretch to full width */
 body.page-dest > *:not(.back-link):not(.back-link-right):not(#transition):not(#grain) {
   width: 100%;
 }
@@ -145,6 +175,7 @@ body.page-dest > *:not(.back-link):not(.back-link-right):not(#transition):not(#g
   width: 100%;
 }
 
+/* Same rule for page-main children */
 .page-main > * {
   width: 100%;
 }
@@ -163,7 +194,7 @@ body::before {
   content: '';
   position: absolute;
   top: 18px;
-  left: 40px;
+  left: 40px; 
   right: 40px;
   height: 1px;
   background: var(--rule-bg-dim);
@@ -175,7 +206,7 @@ body::after {
   content: '';
   position: absolute;
   bottom: 18px;
-  left: 40px;
+  left: 40px; 
   right: 40px;
   height: 1px;
   background: var(--rule-bg-dim);
@@ -191,7 +222,10 @@ body::after {
 #atmosphere {
   position: fixed; inset: 0; z-index: 1;
   pointer-events: none;
-  background: none;
+  background:
+    radial-gradient(ellipse at 25% 35%, var(--atmo-deep) 0%, transparent 55%),
+    radial-gradient(ellipse at 75% 60%, var(--atmo-mid) 0%, transparent 55%),
+    radial-gradient(ellipse at 50% 50%, transparent 0%, var(--atmo-vignette) 75%);
 }
 
 #lines {
@@ -329,7 +363,11 @@ body.constellation-hover .star:not(.hovered) .star-label { color: rgba(var(--sta
 .gloss-inner {
   position: relative;
   padding: 16px 0 16px 20px;
+
+  /* ── left border only ── */
   border-left: 2px solid var(--copper-soft);
+
+  /* ── faux glass ── */
   background: linear-gradient(
     135deg,
     rgba(26, 22, 61, 0.5),
@@ -339,6 +377,8 @@ body.constellation-hover .star:not(.hovered) .star-label { color: rgba(var(--sta
     0 4px 30px rgba(0, 0, 0, 0.4),
     0 0 60px rgba(10, 10, 20, 0.3);
   backdrop-filter: blur(2px);
+
+  /* ── fade ── */
   opacity: 0;
   transform: translateY(8px);
   transition: opacity .55s ease, transform .55s ease;
@@ -349,18 +389,21 @@ body.constellation-hover .star:not(.hovered) .star-label { color: rgba(var(--sta
   transform: translateY(0);
 }
 
+/* ── right-aligned: border on right side instead ── */
 .gloss-inner.align-right {
   border-left: none;
   border-right: 2px solid var(--copper-soft);
   padding: 16px 20px 16px 0;
   text-align: right;
-  background: linear-gradient(
+  
+    background: linear-gradient(
     225deg,
     rgba(26, 22, 61, 0.5),
     rgba(3, 4, 7, 0.5)
   );
 }
 
+/* ── Go arrow indicator ── */
 .gloss-go-arrow {
   position: absolute;
   top: 8px;
@@ -381,11 +424,13 @@ body.constellation-hover .star:not(.hovered) .star-label { color: rgba(var(--sta
   left: 12px;
 }
 
+/* Show arrow when gloss is visible */
 .gloss.visible .gloss-go-arrow {
   opacity: .6;
   transform: translateX(0);
 }
 
+/* Hover/active feedback on the gloss */
 .gloss.visible:hover .gloss-go-arrow,
 .gloss.visible:active .gloss-go-arrow {
   opacity: 1;
@@ -588,6 +633,7 @@ a.mini-star { display: flex; }
   animation: mini-pulse 6s ease-in-out infinite;
 }
 
+/* Current star crosshair */
 .mini-star.current::before,
 .mini-star.current::after {
   content: ''; position: absolute;
@@ -790,6 +836,7 @@ a.mini-star { display: flex; }
   flex: 1 1 auto;
 }
 
+/* ── Controls ── */
 .archive-controls {
   display: flex;
   align-items: center;
@@ -828,6 +875,7 @@ a.mini-star { display: flex; }
   background: var(--copper-ghost);
 }
 
+/* ── View container ── */
 .archive-view {
   display: none;
 }
@@ -844,6 +892,7 @@ a.mini-star { display: flex; }
   animation: archive-view-enter .35s ease forwards;
 }
 
+/* ── Stagger items ── */
 .archive-stagger-item {
   opacity: 0;
   transform: translateY(12px);
@@ -854,6 +903,7 @@ a.mini-star { display: flex; }
   transform: translateY(0);
 }
 
+/* ── Pagination ── */
 .archive-pagination {
   display: flex;
   align-items: center;
@@ -956,12 +1006,8 @@ a.mini-star { display: flex; }
   justify-content: center;
   gap: 12px;
   background:
-    radial-gradient(
-      ellipse at center,
-      rgb(18, 17, 43)  0%,
-      rgb(15, 13, 32) 50%,
-      rgb(12, 9, 18) 100%
-    );
+    radial-gradient(ellipse at 50% 30%, var(--atmo-deep) 0%, transparent 60%),
+    linear-gradient(to bottom, var(--night), var(--twilight));
 }
 
 .issue-grid-fallback-symbol {
@@ -1152,12 +1198,16 @@ a.mini-star { display: flex; }
 /* ══════════════════════════════════════════
    13c. ARCHIVE — GENRE VIEW
    ══════════════════════════════════════════ */
+/* ══════════════════════════════════════════
+   13c. ARCHIVE — GENRE VIEW
+   ══════════════════════════════════════════ */
 .genre-filter-bar {
   display: flex;
   justify-content: center;
   gap: 2px;
   margin-bottom: 35px;
 }
+
 
 .genre-filter-btn {
   background: none;
@@ -1187,6 +1237,7 @@ a.mini-star { display: flex; }
 .genre-article-list        { display: none; }
 .genre-article-list.active { display: block; }
 
+/* ── Issue groups within genre ── */
 .genre-issue-group {
   margin-bottom: 24px;
 }
@@ -1224,6 +1275,7 @@ a.mini-star { display: flex; }
   letter-spacing: 5px;
 }
 
+/* ── Articles within issue ── */
 .genre-issue-articles {
   margin-left: 18px;
   border-left: 1px solid var(--copper-subtle);
@@ -1267,6 +1319,7 @@ a.mini-star { display: flex; }
   flex-shrink: 0;
 }
 
+/* ── Empty state ── */
 .genre-empty {
   text-align: center;
   padding: 60px 0;
@@ -1288,7 +1341,7 @@ a.mini-star { display: flex; }
 
 
 /* ══════════════════════════════════════════
-   13a. ARCHIVE — TIMELINE VIEW
+   13a. ARCHIVE — TIMELINE VIEW (Хронология)
    ══════════════════════════════════════════ */
 .timeline-card {
   padding: 32px 0;
@@ -1304,6 +1357,7 @@ a.mini-star { display: flex; }
   gap: 0;
 }
 
+/* ── Banner (top) ── */
 .timeline-card-banner {
   width: 100%;
   height: 160px;
@@ -1339,12 +1393,8 @@ a.mini-star { display: flex; }
   justify-content: center;
   gap: 8px;
   background:
-    radial-gradient(
-      ellipse at center,
-      rgb(18, 17, 43)  0%,
-      rgb(15, 13, 32) 50%,
-      rgb(12, 9, 18) 100%
-    );
+    radial-gradient(ellipse at 50% 30%, var(--atmo-deep) 0%, transparent 60%),
+    linear-gradient(to bottom, var(--night), var(--twilight));
 }
 
 .timeline-card-fb-symbol {
@@ -1371,6 +1421,7 @@ a.mini-star { display: flex; }
   opacity: .8;
 }
 
+/* ── Info ── */
 .timeline-card-info {
   flex: 1;
   min-width: 0;
@@ -1423,6 +1474,7 @@ a.mini-star { display: flex; }
   color: var(--bright);
 }
 
+/* ── Articles list ── */
 .timeline-card-articles {
   margin-top: 20px;
   padding-top: 16px;
@@ -1711,6 +1763,7 @@ a.mini-star { display: flex; }
   color: var(--copper); letter-spacing: 3px; opacity: 0.9;
 }
 
+/* ── Issue Cover ── */
 .issue-cover-wrapper {
   display: flex;
   justify-content: center;
@@ -1731,6 +1784,7 @@ a.mini-star { display: flex; }
   border-color: var(--copper-soft);
 }
 
+/* ── Cover image ── */
 .issue-cover-img {
   width: 100%;
   height: 100%;
@@ -1744,6 +1798,7 @@ a.mini-star { display: flex; }
   transform: scale(1.03);
 }
 
+/* ── Fallback ── */
 .issue-cover-fallback {
   width: 100%;
   height: 100%;
@@ -1753,12 +1808,8 @@ a.mini-star { display: flex; }
   justify-content: center;
   gap: 12px;
   background:
-    radial-gradient(
-      ellipse at center,
-      rgb(18, 17, 43)  0%,
-      rgb(15, 13, 32) 50%,
-      rgb(12, 9, 18) 100%
-    );
+    radial-gradient(ellipse at 50% 30%, var(--atmo-deep) 0%, transparent 60%),
+    linear-gradient(to bottom, var(--night), var(--twilight));
 }
 
 .issue-cover-fb-symbol {
@@ -1889,7 +1940,7 @@ a.mini-star { display: flex; }
 .article-genre-label {
   font-family: var(--ff-body);
   font-style: italic; font-size: 18px; font-weight: 300;
-  color: var(--copper); opacity: 0.8;
+  color: var(--copper);opacity: 0.8;
   letter-spacing: 1px; margin-bottom: 15px;
 }
 .article-title {
@@ -1921,16 +1972,16 @@ a.mini-star { display: flex; }
   white-space: nowrap;
 }
 
-.article-header-sep { white-space: pre; margin: 5px; color: var(--copper); opacity: 0.8; font-size: 12px; }
+.article-header-sep {  white-space: pre; margin: 5px; color: var(--copper); opacity: 0.8;; font-size: 12px; }
 .article-header-author {
-  color: var(--copper); opacity: 0.8;
+  color: var(--copper);opacity: 0.8;
   transition: color .4s ease, opacity .4s ease;
 }
 .article-header-author:hover,
 .article-header-author:focus-visible { color: var(--copper); opacity: 1; }
-.article-header-date  { color: var(--copper); opacity: 0.8; }
+.article-header-date  { color: var(--copper); opacity: 0.8;}
 .article-header-issue {
-  color: var(--copper); opacity: 0.8;
+  color: var(--copper);opacity: 0.8;
   transition: color .4s ease, opacity .4s ease;
 }
 .article-header-issue:hover,
@@ -1947,6 +1998,7 @@ a.mini-star { display: flex; }
   align-self: flex-start;
 }
 
+/* Keep this - for normal article text */
 .article-body {
   font-family: var(--ff-body);
   font-size: 20px; font-weight: 300;
@@ -1973,6 +2025,7 @@ a.mini-star { display: flex; }
   color: var(--copper); opacity: 0.8;
 }
 
+/* ADD this - for poetry only */
 .article-body pre.poetry {
   font-family: var(--ff-body);
   font-size: 20px;
@@ -2038,7 +2091,7 @@ a.mini-star { display: flex; }
   display: block;
   font-family: var(--ff-display);
   font-size: 16px; letter-spacing: 4px;
-  color: var(--copper); opacity: 0.9;
+  color: var(--copper); opacity: 0.9px;
   text-transform: uppercase; margin-bottom: 28px;
   transition: color .4s ease;
 }
@@ -2145,6 +2198,7 @@ a.mini-star { display: flex; }
   color: rgba(var(--copper-rgb), .65);
 }
 
+/* Sidebar hover & focus */
 .sidebar-star:not(.current):hover .sidebar-glow,
 .sidebar-star:not(.current):focus-visible .sidebar-glow {
   opacity: .5; transform: scale(1.3);
@@ -2163,6 +2217,7 @@ a.mini-star { display: flex; }
   color: rgba(var(--copper-rgb), .65);
 }
 
+/* Sidebar dim-others on hover */
 .sidebar-constellation:hover .sidebar-star:not(:hover):not(.current) .sidebar-glow   { opacity: .04; }
 .sidebar-constellation:hover .sidebar-star:not(:hover):not(.current) .sidebar-core    { opacity: .2; }
 .sidebar-constellation:hover .sidebar-star:not(:hover):not(.current) .sidebar-title   { color: rgba(var(--star-rgb), .12); }
@@ -2171,13 +2226,14 @@ a.mini-star { display: flex; }
 
 /* ══════════════════════════════════════════
    19. AUTHOR PAGE
-   ══════════════════════════════════════════ */
+══════════════════════════════════════════ */
 .author-page-content {
   max-width: 540px; margin: 0 auto;
   padding: 40px 40px 120px;
   flex: 1 1 auto;
 }
 
+/* ── Author photo ── */
 .author-photo {
   width: 100%;
   max-width: 280px;
@@ -2231,11 +2287,12 @@ a.mini-star { display: flex; }
   text-align: center; margin-bottom: 30px;
 }
 
+/* ── Issue groups ── */
 .author-issue-group { margin-bottom: 35px; }
 
 .author-issue-heading {
-  display: block;
-  padding: 12px 0;
+  display: block; 
+  padding: 12px 0; 
   margin-bottom: 0;
 }
 .author-issue-heading:hover,
@@ -2271,6 +2328,7 @@ a.mini-star { display: flex; }
   color: var(--copper); opacity: .9; letter-spacing: 2px;
 }
 
+/* ── Articles list wrapper ── */
 .author-articles-list {
   margin-left: 10px;
   border-left: 1px solid var(--copper-subtle);
@@ -2278,8 +2336,8 @@ a.mini-star { display: flex; }
 }
 
 .author-article-entry {
-  display: flex;
-  justify-content: space-between;
+  display: flex; 
+  justify-content: space-between; 
   align-items: baseline;
   padding: 10px 0;
   border-bottom: 1px solid var(--copper-faint);
@@ -2319,6 +2377,7 @@ a.mini-star { display: flex; }
   animation: ripple-out 1.6s ease-out forwards;
   pointer-events: none; z-index: 15;
 }
+/* Prevent content flash during page transition */
 
 #transition {
   position: fixed; inset: 0; z-index: 900;
@@ -2327,15 +2386,11 @@ a.mini-star { display: flex; }
   opacity: 0; pointer-events: none;
   transition: opacity .9s ease;
   background:
-    radial-gradient(
-      ellipse at center,
-      rgb(18, 17, 43)  0%,
-      rgb(17, 15, 38) 25%,
-      rgb(15, 13, 32) 50%,
-      rgb(13, 11, 25) 65%,
-      rgb(12, 9, 18)  80%,
-      rgb(10, 7, 14) 100%
-    );
+    radial-gradient(ellipse at 25% 20%, var(--atmo-deep) 0%, transparent 50%),
+    radial-gradient(ellipse at 75% 40%, var(--atmo-mid) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, transparent 0%, var(--atmo-vignette) 70%),
+    linear-gradient(to bottom, var(--night), var(--twilight));
+  box-shadow: inset 0 0 200px 100px var(--transition);
 }
 #transition.active { opacity: 1; pointer-events: auto; }
 #transition.no-transition,
@@ -2373,45 +2428,38 @@ a.mini-star { display: flex; }
 }
 #transition.active #transition-text { opacity: 1; transform: translateY(0); }
 
-#grain {
-  position: fixed;
-  inset: 0;
-  z-index: 999;
-  pointer-events: none;
-  opacity: 0.03;
-  mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-repeat: repeat;
-  background-size: 180px 180px;
-}
-
 
 /* ══════════════════════════════════════════
    21. ACCESSIBILITY
    ══════════════════════════════════════════ */
 
+/* ── Focus-visible styles ── */
 :focus-visible {
   outline: 1px solid var(--copper-soft);
   outline-offset: 4px;
 }
 
+/* Stars use glow instead of outline */
 .star:focus-visible,
 .mini-star:focus-visible,
 .sidebar-star:focus-visible {
   outline: none;
 }
 
+/* Buttons and tabs */
 .archive-tab:focus-visible,
 .genre-filter-btn:focus-visible {
   outline: 1px solid var(--copper-mid);
   outline-offset: 2px;
 }
 
+/* Links */
 a:focus-visible {
   outline: 1px solid var(--copper-soft);
   outline-offset: 3px;
 }
 
+/* ── Touch devices: reveal hover-dependent content ── */
 @media (hover: none) {
   .issue-card .issue-desc {
     opacity: 1;
@@ -2423,6 +2471,7 @@ a:focus-visible {
   }
 }
 
+/* ── Reduced motion ── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: .01ms !important;
@@ -2434,15 +2483,19 @@ a:focus-visible {
 
 /* ══════════════════════════════════════════
    22. RESPONSIVE
-   ══════════════════════════════════════════ */
+══════════════════════════════════════════ */
 
+/* ── Desktop: hide gloss arrow ── */
 @media (min-width: 601px) {
   .gloss-go-arrow {
     display: none;
   }
 }
 
+/* ── Tablet (≤ 900px) ── */
 @media (max-width: 900px) {
+
+  /* ── Article layout: stack columns ── */
   .article-columns {
     flex-direction: column;
     gap: 40px;
@@ -2451,6 +2504,7 @@ a:focus-visible {
     max-width: 100%;
   }
 
+  /* ── Sidebar: move above text ── */
   .article-sidebar {
     position: relative;
     top: 0;
@@ -2461,6 +2515,7 @@ a:focus-visible {
     overflow: hidden;
   }
 
+  /* ── Constellation: horizontal scroll row ── */
   .sidebar-constellation {
     position: relative;
     display: flex;
@@ -2478,6 +2533,7 @@ a:focus-visible {
     display: none;
   }
 
+  /* ── Line: JS controls position on mobile ── */
   .sidebar-line {
     left: auto;
     top: auto;
@@ -2487,6 +2543,7 @@ a:focus-visible {
     z-index: 0;
   }
 
+  /* ── Each star: column layout, original sizes ── */
   .sidebar-star {
     flex-direction: column;
     flex: 0 0 auto;
@@ -2498,11 +2555,13 @@ a:focus-visible {
     justify-content: flex-start;
   }
 
+  /* ── Node: keep original size, fix spacing ── */
   .sidebar-node {
     flex-shrink: 0;
     margin-bottom: -4px;
   }
 
+  /* ── Info: center text, fill height evenly ── */
   .sidebar-info {
     align-items: center;
     text-align: center;
@@ -2513,6 +2572,7 @@ a:focus-visible {
     min-height: 0;
   }
 
+  /* ── Scroll hint: fade on right edge ── */
   .sidebar-constellation::after {
     content: '';
     position: sticky;
@@ -2520,40 +2580,15 @@ a:focus-visible {
     flex: 0 0 40px;
     min-height: 100%;
     background: linear-gradient(to left,
-      rgb(12, 9, 18) 0%,
+      var(--night) 0%,
       transparent 100%);
     pointer-events: none;
     z-index: 2;
   }
 }
 
+/* ── Medium (≤ 768px) ── */
 @media (max-width: 768px) {
-  body {
-    background:
-      radial-gradient(
-        circle 65vh at center,
-        rgb(18, 17, 43)  0%,
-        rgb(17, 15, 38) 25%,
-        rgb(15, 13, 32) 50%,
-        rgb(13, 11, 25) 65%,
-        rgb(12, 9, 18)  80%,
-        rgb(10, 7, 14) 100%
-      );
-    background-color: rgb(10, 7, 14);
-  }
-   #transition {
-    background:
-      radial-gradient(
-        circle 65vh at center,
-        rgb(18, 17, 43)  0%,
-        rgb(17, 15, 38) 25%,
-        rgb(15, 13, 32) 50%,
-        rgb(13, 11, 25) 65%,
-        rgb(12, 9, 18)  80%,
-        rgb(10, 7, 14) 100%
-      );
-    background-color: rgb(10, 7, 14);
-  }
   .atlas-grid-astrologer {
     grid-template-columns: 1fr 1fr;
   }
@@ -2597,20 +2632,21 @@ a:focus-visible {
     right: 20px;
   }
 
-  .issue-cover-wrapper {
-    padding: 0 24px 40px;
-  }
-  .issue-cover {
-    width: 75%;
-    max-width: none;
-  }
+.issue-cover-wrapper {
+  padding: 0 24px 40px;
+}
+.issue-cover {
+  width: 75%;
+  max-width: none;
+}
   .issue-description {
     padding: 0 24px 35px;
   }
 }
 
+/* ── Nav page mobile (≤ 600px) ── */
 @media (max-width: 600px) {
-  .article-nav-link:hover .article-nav-title,
+   .article-nav-link:hover .article-nav-title,
   .article-nav-link:focus-visible .article-nav-title {
     letter-spacing: 2px;
     color: var(--star);
@@ -2627,8 +2663,8 @@ a:focus-visible {
     align-items: center;
     padding: 25px 16px;
     background: linear-gradient(
-      rgb(18, 17, 43, 0.90),
-      rgba(12, 9, 18, 0.90)
+    rgb(19, 12, 28, 0.90),
+    rgba(10, 9, 18, 0.90)
     );
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
@@ -2648,7 +2684,7 @@ a:focus-visible {
   body.page-dest {
     padding-top: 46px;
   }
-
+  
   #cartouche {
     top: 20px;
   }
@@ -2679,10 +2715,11 @@ a:focus-visible {
     letter-spacing: 1.5px;
   }
 
+  /* ── Gloss panel adjustments ── */
   .gloss {
     width: 220px;
   }
-  .gloss.visible .gloss-inner {
+    .gloss.visible .gloss-inner {
     pointer-events: auto;
     cursor: pointer;
   }
@@ -2697,11 +2734,13 @@ a:focus-visible {
     font-size: 14px;
   }
 
+  /* ── Gloss clickable on mobile ── */
   .gloss.visible {
     pointer-events: auto;
     cursor: pointer;
   }
 
+  /* ── Go arrow indicator ── */
   .gloss-go-arrow {
     position: absolute;
     top: 8px;
@@ -2722,11 +2761,13 @@ a:focus-visible {
     left: 12px;
   }
 
+  /* Show arrow when gloss is visible */
   .gloss.visible .gloss-go-arrow {
     opacity: .6;
     transform: translateX(0);
   }
 
+  /* Active/tap feedback */
   .gloss.visible:active .gloss-go-arrow {
     opacity: 1;
     transform: translateX(3px);
@@ -2740,6 +2781,7 @@ a:focus-visible {
     border-color: var(--copper-mid);
   }
 
+  /* ── Issue cover ── */
   .issue-cover-wrapper {
     padding: 0 20px 20px;
   }
@@ -2748,6 +2790,7 @@ a:focus-visible {
     font-size: 16px;
   }
 
+  /* ── Archive controls ── */
   .archive-controls {
     flex-direction: column;
     gap: 16px;
@@ -2763,12 +2806,14 @@ a:focus-visible {
     letter-spacing: 1.5px;
   }
 
+  /* ── Grid ── */
   .issue-grid {
     grid-template-columns: 1fr;
     max-width: 300px;
     margin: 0 auto;
   }
 
+  /* ── Timeline ── */
   .timeline-card-banner {
     height: 100px;
   }
@@ -2777,6 +2822,7 @@ a:focus-visible {
     gap: 4px 14px;
   }
 
+  /* ── Genre ── */
   .genre-filter-bar {
     flex-wrap: wrap;
     gap: 4px;
@@ -2795,11 +2841,13 @@ a:focus-visible {
     gap: 4px 14px;
   }
 
+  /* ── Author ── */
   .archive-author-articles {
     margin-left: 10px;
     padding-left: 12px;
   }
 
+  /* ── Atlas ── */
   .atlas-grid-cartographer {
     grid-template-columns: 1fr;
   }
@@ -2807,6 +2855,7 @@ a:focus-visible {
     grid-template-columns: 1fr;
   }
 
+  /* ── Issue page ── */
   .toc {
     padding: 0 20px 40px;
   }
@@ -2815,6 +2864,7 @@ a:focus-visible {
     gap: 12px;
   }
 
+  /* ── Back links ── */
   .back-link {
     left: 16px;
     font-size: 10px;
@@ -2824,6 +2874,7 @@ a:focus-visible {
     font-size: 10px;
   }
 
+  /* ── Pagination ── */
   .archive-pagination {
     gap: 4px;
   }
@@ -2838,7 +2889,7 @@ a:focus-visible {
     font-size: 17px;
   }
 }
-
+/* ── Tiny (≤ 400px) ── */
 @media (max-width: 400px) {
   .mini-nav {
     transform: scale(.85);
@@ -2846,9 +2897,9 @@ a:focus-visible {
   .mini-sep {
     width: 40px;
   }
-  .codex-section-title {
-    font-size: 23px;
-  }
+.codex-section-title {
+font-size: 23px;
+}
   .page-header h2 {
     font-size: 22px;
     letter-spacing: 1px;
@@ -2907,10 +2958,10 @@ a:focus-visible {
     display: none;
   }
 
-  .issue-cover {
-    width: 75%;
-    max-width: none;
-  }
+.issue-cover {
+  width: 75%;
+  max-width: none;
+}
   .issue-cover-fb-number {
     font-size: 26px;
     letter-spacing: 4px;
@@ -2923,6 +2974,7 @@ a:focus-visible {
     font-size: 15px;
   }
 
+  /* ── Gloss adjustments for tiny screens ── */
   .gloss-go-arrow {
     font-size: 25px;
     top: 8px;
@@ -2932,6 +2984,7 @@ a:focus-visible {
     left: 10px;
   }
 }
+
 
 
 /* ══════════════════════════════════════════
