@@ -3,7 +3,7 @@ title: Разказ без думи
 author: katq-drozova
 genre: проза
 order: 1
-date: 2023-09-22
+date: 2026-09-22
 permalink: /issue/01/razkaz-bez-dumi/
 excerpt: "Before the word, there was the spark."
 tarot:

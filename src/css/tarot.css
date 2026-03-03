@@ -200,7 +200,7 @@
   overflow-y: auto;
   overflow-x: hidden;
   background:
-    radial-gradient(ellipse at 50% 60%, rgba(22, 18, 51, .85) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 60%, rgba(22, 18, 51, .85) 0%, rgba(22, 18, 51, 0) 50%),
     rgba(6, 9, 15, .92);
   transition: opacity .7s ease;
   scrollbar-width: none;
