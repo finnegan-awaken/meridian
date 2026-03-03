@@ -42,10 +42,10 @@
 
 :root {
   /* ── Backgrounds ── */
-  --void:           #0b101b;
-  --night:          #0c1221;
-  --twilight:       #161233;
-  --transition: #06090f;
+  --void:           #120b1b;
+  --night:          #140c21;
+  --twilight:       #201233;
+  --transition: #0a060f;
 
 
   /* ── Accent: Copper / Gold
@@ -2547,10 +2547,11 @@ a:focus-visible {
   /* ── Each star: column layout, original sizes ── */
   .sidebar-star {
     flex-direction: column;
-    flex: 0 0 auto;
-    min-width: 140px;
-    padding: 12px 16px;
+    flex: 0 0 33.333%;
+    min-width: 0;
+    padding: 12px 8px;
     scroll-snap-align: start;
+    box-sizing: border-box;
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -2579,7 +2580,8 @@ a:focus-visible {
     position: sticky;
     right: 0;
     flex: 0 0 40px;
-    min-height: 100%;
+    margin-left: -40px;
+    align-self: stretch;
     background: linear-gradient(to left,
       var(--night) 0%,
       transparent 100%);

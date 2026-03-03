@@ -178,20 +178,37 @@ bodyClass: page-dest page-article
   }
 
   /* ── Scroll current star into view ── */
-  function scrollToCurrent() {
+    function scrollToCurrent() {
     if (window.innerWidth > 900) return;
 
-    var current = constellation.querySelector('.sidebar-star.current');
-    if (!current) return;
+    var stars = constellation.querySelectorAll('.sidebar-star');
+    if (stars.length < 2) return;
 
-    var conRect     = constellation.getBoundingClientRect();
-    var starRect    = current.getBoundingClientRect();
-    var conCenter   = conRect.left + conRect.width / 2;
-    var starCenter  = starRect.left + starRect.width / 2;
-    var offset      = starCenter - conCenter;
+    var currentIndex = -1;
+    for (var i = 0; i < stars.length; i++) {
+      if (stars[i].classList.contains('current')) {
+        currentIndex = i;
+        break;
+      }
+    }
+    if (currentIndex === -1) return;
 
-    constellation.scrollBy({
-      left: offset,
+    var starWidth = stars[0].offsetWidth;
+    var scrollTarget;
+
+    if (currentIndex === 0) {
+      // First star: show 1, 2, 3 — no scroll
+      scrollTarget = 0;
+    } else if (currentIndex >= stars.length - 1) {
+      // Last star: scroll so last 3 are visible
+      scrollTarget = starWidth * (stars.length - 3);
+    } else {
+      // Center current: show prev, current, next
+      scrollTarget = starWidth * (currentIndex - 1);
+    }
+
+    constellation.scrollTo({
+      left: Math.max(0, scrollTarget),
       behavior: 'smooth'
     });
   }
