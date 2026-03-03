@@ -7,6 +7,7 @@ bodyClass: page-dest page-article
 {%- set genreList = genres | filterBy("key", genre) -%}
 {%- set issueArticles = collections.article | filterBy("data.issue", issue) -%}
 {%- set sortedArticles = issueArticles | sort(false, false, "data.order") -%}
+
 <a class="back-link" href="/issue/{{ issueSlug }}/"
    data-transition data-label="{{ issueTitle }}" data-symbol="book">
   <span>←</span>Брой {{ issue }} · {{ issueTitle }}
@@ -17,8 +18,10 @@ bodyClass: page-dest page-article
   към звездите<span>→</span>
 </a>
 
-{# ── HEADER ── #}
-<div class="article-top">
+<div class="page-main">
+
+  {# ── HEADER ── #}
+  <div class="article-top">
   <header class="article-header">
     <div class="article-genre-label">{{ genre }}</div>
     <h1 class="article-title">{{ title }}</h1>
@@ -215,4 +218,5 @@ bodyClass: page-dest page-article
 
   </nav>
 
-</div>
+</div>  
+</div>  
