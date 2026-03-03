@@ -41,26 +41,15 @@
 }
 
 :root {
-  /* ── Backgrounds ── */
---void:           #090421;
---core:           rgb(24, 16, 52);
---core-zero:      rgba(84, 31, 145, 0);
---mid:            rgb(29, 20, 57);
---mid-zero:       rgba(84, 31, 145, 0);
---edge:           rgb(11, 9, 17);
---edge-zero:      rgba(12, 3, 33, 0);
---transition-bg:  #06020e;
 
-/* Article page */
---article-top:    rgba(19, 11, 37, 0.804);
---article-bottom: rgba(14, 12, 21, 0.881);
 
   /* ── Accent: Copper / Gold
-       --copper-rgb MUST match --copper hex.
-       #cbba64 = rgb(203, 186, 100) ── */
+       IMPORTANT: --copper-rgb MUST match --copper hex.
+       #cbba64 = rgb(203, 186, 100)
+       All transparent variants derive from these values. ── */
   --copper:         #cbba64;
   --copper-rgb:     203, 186, 100;
-  --copper-ghost2:  rgba(203, 186, 100, 0.061);
+  --copper-ghost2:   rgba(203, 186, 100, 0.061);
   --copper-ghost:   rgba(203, 186, 100, 0.27);
   --copper-faint:   rgba(203, 186, 100, 0.08);
   --copper-subtle:  rgba(203, 186, 100, 0.12);
@@ -72,23 +61,28 @@
   --copper-full:    rgba(203, 186, 100, 1.00);
   --gold:           var(--copper);
 
-  /* ── Text ── */
+  /* ── Text
+       IMPORTANT: --*-rgb values MUST match their hex counterparts.
+       --bright base: #d5d1c6 = rgb(213, 209, 198)
+       --star:  #bebdba = rgb(190, 189, 186)
+       --moon:  #a7936f = rgb(167, 147, 111) ── */
   --bright:         rgb(216 213 205 / 86%);
-  --bright-rgb:     216, 213, 205;
+  --bright-rgb:     213, 209, 198;
   --star:           #bebdba;
-  --star-rgb:       190, 189, 186;
+  --star-rgb:       237,228,212;
   --star-label:     rgba(203, 186, 100, 0.66);
   --moon:           #a7936f;
   --moon-rgb:       167, 147, 111;
 
+
   /* ── Fonts ── */
-  --ff-display:    'Cormorant Infant', Georgia, serif;
-  --ff-decorative: 'Bona Nova', 'Cormorant Infant', serif;
-  --ff-body:       'Cormorant Infant', Georgia, serif;
+  --ff-display:     'Cormorant Infant', Georgia, serif;
+  --ff-decorative:  'Bona Nova', 'Cormorant Infant', serif;
+  --ff-body:        'Cormorant Infant', Georgia, serif;
 
   /* ── Shared Rules ── */
-  --rule-bg:     linear-gradient(to right, transparent, var(--copper-soft), transparent);
-  --rule-bg-dim: linear-gradient(to right, transparent, var(--copper-faint), transparent);
+  --rule-bg:        linear-gradient(to right, transparent, var(--copper-soft), transparent);
+  --rule-bg-dim:    linear-gradient(to right, transparent, var(--copper-faint), transparent);
 
   /* ── Transitions ── */
   --t-fast: .3s ease;
@@ -112,11 +106,16 @@ body {
   min-height: 100vh;
   color: var(--star);
   font-family: var(--ff-body);
-  /* Default: radial gradient for all pages */
   background:
-    radial-gradient(circle at 50% 50%,
-      var(--core) 0%,
-      var(--edge) 100%);
+    radial-gradient(
+      ellipse at center,
+      rgb(18, 17, 43)  0%,
+      rgb(17, 15, 38) 25%,
+      rgb(15, 13, 32) 50%,
+      rgb(13, 11, 25) 65%,
+      rgb(12, 9, 18)  80%,
+      rgb(10, 7, 14) 100%
+    );
 }
 
 a { color: inherit; text-decoration: none; }
@@ -139,23 +138,21 @@ body.page-dest {
   overflow-y: scroll;
   scrollbar-gutter: stable;
   scrollbar-width: none;
-  /* Same radial gradient — no shadows, no box-shadow */
   background:
-    radial-gradient(circle at 50% 50%,
-      var(--core) 0%,
-      var(--mid) 50%,
-      var(--edge) 100%);
+    radial-gradient(ellipse at 25% 20%,
+      var(--atmo-deep) 0%, var(--atmo-deep-zero) 50%),
+    radial-gradient(ellipse at 75% 40%,
+      var(--atmo-mid) 0%, var(--atmo-mid-zero) 50%),
+    radial-gradient(ellipse at 50% 0%,
+      var(--atmo-page) 0%, var(--atmo-page-zero) 40%),
+    radial-gradient(ellipse at 50% 50%,
+      var(--atmo-vignette-zero) 0%, var(--atmo-vignette) 70%),
+    linear-gradient(to bottom, var(--night), var(--twilight));
+  box-shadow: inset 0 0 160px 70px var(--atmo-shadow);
 }
 body.page-dest::-webkit-scrollbar { display: none; }
 
-/* Article pages get a linear gradient instead */
-body.page-article {
-  background:
-    linear-gradient(to bottom,
-      var(--article-top) 0%,
-      var(--article-bottom) 100%);
-}
-
+/* Ensure all direct children stretch to full width */
 body.page-dest > *:not(.back-link):not(.back-link-right):not(#transition):not(#grain) {
   width: 100%;
 }
@@ -167,6 +164,7 @@ body.page-dest > *:not(.back-link):not(.back-link-right):not(#transition):not(#g
   width: 100%;
 }
 
+/* Same rule for page-main children */
 .page-main > * {
   width: 100%;
 }
@@ -213,11 +211,10 @@ body::after {
 #atmosphere {
   position: fixed; inset: 0; z-index: 1;
   pointer-events: none;
-  /* Thin vignette only — darkens edges slightly over the canvas */
   background:
-    radial-gradient(circle at 50% 50%,
-      var(--edge-zero) 40%,
-      var(--edge) 100%);
+    radial-gradient(ellipse at 25% 35%, var(--atmo-deep) 0%, transparent 55%),
+    radial-gradient(ellipse at 75% 60%, var(--atmo-mid) 0%, transparent 55%),
+    radial-gradient(ellipse at 50% 50%, transparent 0%, var(--atmo-vignette) 75%);
 }
 
 #lines {
@@ -2369,6 +2366,7 @@ a.mini-star { display: flex; }
   animation: ripple-out 1.6s ease-out forwards;
   pointer-events: none; z-index: 15;
 }
+/* Prevent content flash during page transition */
 
 #transition {
   position: fixed; inset: 0; z-index: 900;
@@ -2376,17 +2374,12 @@ a.mini-star { display: flex; }
   align-items: center; justify-content: center; gap: 12px;
   opacity: 0; pointer-events: none;
   transition: opacity .9s ease;
-  /*
-     FIX: "square" appearance was caused by using ellipse with
-     mismatched radial layers creating visible rectangular edges.
-     Single circle gradient with matched colours eliminates this.
-     No box-shadow — nothing to band against.
-  */
   background:
-    radial-gradient(circle at 50% 50%,
-      var(--core) 0%,
-      var(--mid) 50%,
-      var(--edge) 100%);
+    radial-gradient(ellipse at 25% 20%, var(--atmo-deep) 0%, transparent 50%),
+    radial-gradient(ellipse at 75% 40%, var(--atmo-mid) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, transparent 0%, var(--atmo-vignette) 70%),
+    linear-gradient(to bottom, var(--night), var(--twilight));
+  box-shadow: inset 0 0 200px 100px var(--transition);
 }
 #transition.active { opacity: 1; pointer-events: auto; }
 #transition.no-transition,
@@ -2423,6 +2416,7 @@ a.mini-star { display: flex; }
   transition: opacity .7s ease .5s, transform .7s ease .5s;
 }
 #transition.active #transition-text { opacity: 1; transform: translateY(0); }
+
 
 /* ══════════════════════════════════════════
    21. ACCESSIBILITY
