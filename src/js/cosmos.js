@@ -6,28 +6,16 @@
   var field = [];
   var mx = window.innerWidth / 2;
   var my = window.innerHeight / 2;
-  var dpr = 1;
 
   function seedField() {
-    dpr = window.devicePixelRatio || 1;
-
-    // Set the internal resolution to match physical pixels
-    canvas.width = window.innerWidth * dpr;
-    canvas.height = window.innerHeight * dpr;
-
-    // Keep the CSS size at logical pixels
-    canvas.style.width = window.innerWidth + 'px';
-    canvas.style.height = window.innerHeight + 'px';
-
-    // Scale all drawing operations so coordinates stay in logical pixels
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-
-    var n = Math.floor((window.innerWidth * window.innerHeight) / 1600);
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    var n = Math.floor((canvas.width * canvas.height) / 1600);
     field = [];
     for (var i = 0; i < n; i++) {
       field.push({
-        x: Math.random() * window.innerWidth,
-        y: Math.random() * window.innerHeight,
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
         r: Math.random() * 1.3 + 0.2,
         o: Math.random() * 0.5 + 0.08,
         sp: Math.random() * 0.015 + 0.003,
@@ -38,9 +26,7 @@
   }
 
   function drawField(t) {
-    // Clear using logical dimensions — the transform handles the rest
-    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     var px = (mx - window.innerWidth / 2) * 0.01;
     var py = (my - window.innerHeight / 2) * 0.01;
     for (var i = 0; i < field.length; i++) {
