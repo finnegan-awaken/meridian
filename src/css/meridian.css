@@ -42,11 +42,12 @@
 
 :root {
   /* ── Backgrounds ── */
+  --void:           #120b1b;
   --night:          #0c1221;
   --night-zero:     rgba(12, 18, 33, 0);
   --twilight:       #1a1233;
---transition:      #0a060f;
---transition-zero: rgba(10, 6, 15, 0);
+  --transition:      #0a060f;
+  --transition-zero: rgba(10, 6, 15, 0);
   /* ── Accent: Copper / Gold
        IMPORTANT: --copper-rgb MUST match --copper hex.
        #cbba64 = rgb(203, 186, 100)
@@ -92,8 +93,7 @@
   --atmo-page:          rgba(38, 23, 65, 0.5);
   --atmo-page-zero:     rgba(38, 23, 65, 0);
 
-  --void:           #120b1b;
-  --void-zero:      rgba(18, 11, 27, 0);
+  --atmo-shadow:        rgba(5, 3, 10, 0.4);
 
   /* ── Fonts ── */
   --ff-display:     'Cormorant Infant', Georgia, serif;
@@ -160,9 +160,8 @@ body.page-dest {
       var(--atmo-page) 0%, var(--atmo-page-zero) 40%),
     radial-gradient(ellipse at 50% 50%,
       var(--atmo-vignette-zero) 0%, var(--atmo-vignette) 70%),
-    radial-gradient(ellipse at 50% 50%,
-      var(--void-zero) 25%, var(--void) 100%),
-    var(--void);
+    linear-gradient(to bottom, var(--night), var(--twilight));
+  box-shadow: inset 0 0 160px 70px var(--atmo-shadow);
 }
 body.page-dest::-webkit-scrollbar { display: none; }
 
@@ -2404,6 +2403,7 @@ a.mini-star { display: flex; }
 #transition.no-transition #transition-text {
   transition: none !important;
 }
+
 #transition::before {
   content: '';
   position: absolute;
@@ -2412,15 +2412,16 @@ a.mini-star { display: flex; }
   width: 200vw;
   height: 200vh;
   filter: url(#grain-filter);
-  opacity: 0.6;
+  opacity: 0.06;
   mix-blend-mode: overlay;
   pointer-events: none;
   z-index: 1;
   animation: grain-shift 0.8s steps(4) infinite;
 }
+
 #transition-symbol {
   font-family: var(--ff-body);
-  font-size: 32px;
+  font-size: 28px;
   color: var(--copper);
   opacity: 0;
   transform: scale(.5);
@@ -2457,7 +2458,7 @@ a.mini-star { display: flex; }
   inset: 0;
   z-index: 2;
   pointer-events: none;
-  opacity: 0.6;
+  opacity: 0.06;
   mix-blend-mode: overlay;
 }
 
@@ -2709,30 +2710,7 @@ a:focus-visible {
 }
 /* ── Nav page mobile (≤ 600px) ── */
 @media (max-width: 600px) {
-  
-body.page-dest {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  overflow-x: hidden;
-  overflow-y: scroll;
-  scrollbar-gutter: stable;
-  scrollbar-width: none;
-  background:
-    radial-gradient(ellipse at 50% 0%,
-      var(--atmo-page) 0%, var(--atmo-page-zero) 35%),
-    radial-gradient(ellipse at 30% 25%,
-      var(--atmo-deep) 0%, var(--atmo-deep-zero) 40%),
-    radial-gradient(ellipse at 70% 45%,
-      var(--atmo-mid) 0%, var(--atmo-mid-zero) 40%),
-    radial-gradient(ellipse at 50% 50%,
-      var(--atmo-vignette-zero) 0%, var(--atmo-vignette) 70%),
-    radial-gradient(ellipse at 50% 50%,
-      var(--void-zero) 30%, var(--void) 100%),
-    var(--void);
-}
-
-  .article-nav-link:hover .article-nav-title,
+   .article-nav-link:hover .article-nav-title,
   .article-nav-link:focus-visible .article-nav-title {
     letter-spacing: 2px;
     color: var(--star);
