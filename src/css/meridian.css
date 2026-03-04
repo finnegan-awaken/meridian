@@ -72,7 +72,7 @@
        --bright base: rgb(216, 213, 205) at 86% alpha
        --star:  #bebdba = rgb(190, 189, 186)
        --moon:  #a7936f = rgb(167, 147, 111) ── */
-  --bright:         rgb(216 213 205 / 86%);
+  --bright:         rgb(218, 213, 200);
   --bright-rgb:     216, 213, 205;
   --star:           #bebdba;
   --star-rgb:       190, 189, 186;
@@ -87,7 +87,7 @@
   --atmo-mid:           rgba(18, 12, 42, 0.35);
   --atmo-mid-zero:      rgba(18, 12, 42, 0);
 
-  --atmo-vignette:      rgba(10, 7, 13, 0.85);
+  --atmo-vignette:      rgba(9, 7, 13, 0.85);
   --atmo-vignette-zero: rgba(10, 7, 13, 0);
 
   --atmo-page:          rgba(38, 23, 65, 0.5);
@@ -119,6 +119,7 @@ html {
   min-height: 100%;
   background: var(--void);
   scrollbar-gutter: stable;
+  overflow-x: hidden;            /* prevent any horizontal scroll */
 }
 
 body {
@@ -575,24 +576,43 @@ body.constellation-hover .star:not(.hovered) .star-label { color: rgba(var(--sta
    8. SHARED — MINI NAVIGATION
    ══════════════════════════════════════════ */
 .mini-nav {
-  display: flex; align-items: center; justify-content: center;
-  margin: 30px auto 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 30px auto 0;
+  padding-bottom: 10px;
   position: relative;
 }
-.mini-nav::before {
-  content: ''; position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  width: 340px; height: 1px;
-  background: linear-gradient(to right,
-    var(--copper-zero) 0%, var(--copper-faint) 15%,
-    var(--copper-subtle) 50%, var(--copper-faint) 85%,
-    var(--copper-zero) 100%);
+
+/* 5th child (not 4th — SVG is child 1) = separator between АРХИВ and КОДЕКС */
+.mini-nav > :nth-child(5) {
+  flex-basis: 100%;
+  height: 0;
+  width: 0;
+  min-width: 0;
+  max-height: 0;
+  font-size: 0;
+  visibility: hidden;
+  padding: 0;
+  margin: 8px 0;
+  overflow: hidden;
+}
+
+/* ── M-pattern connecting line ── */
+.mini-nav-line {
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 360px;
+  height: 170px;
   pointer-events: none;
+  z-index: 0;
 }
 
 .mini-sep {
-  width: 80px; text-align: center;
+  width: 56px; text-align: center;
   font-size: 6px; letter-spacing: 6px;
   color: var(--copper-mid);
   pointer-events: none; user-select: none;
@@ -601,35 +621,35 @@ body.constellation-hover .star:not(.hovered) .star-label { color: rgba(var(--sta
 .mini-star {
   position: relative; cursor: pointer;
   display: flex; align-items: center; justify-content: center;
-  width: 70px; height: 70px;
+  width: 76px; height: 76px;
   flex-shrink: 0; z-index: 2;
 }
 a.mini-star { display: flex; }
 .mini-star.current { cursor: default; }
 
 .mstar-core {
-  position: absolute; width: 5px; height: 5px;
+  position: absolute; width: 6px; height: 6px;
   background: var(--bright); border-radius: 50%;
   transition: box-shadow .4s ease, width .4s ease, height .4s ease;
 }
 .mini-star.current .mstar-core {
-  width: 7px; height: 7px;
+  width: 8px; height: 8px;
   box-shadow: 0 0 16px 5px var(--copper-medium);
 }
 
 .mstar-glow {
-  position: absolute; width: 32px; height: 32px;
+  position: absolute; width: 36px; height: 36px;
   background: radial-gradient(circle, var(--copper) 0%, var(--copper-zero) 70%);
   border-radius: 50%; opacity: .12;
   transition: opacity .5s ease, transform .5s ease;
 }
 .mini-star.current .mstar-glow {
-  width: 50px; height: 50px; opacity: .32;
+  width: 54px; height: 54px; opacity: .32;
   animation: shimmer 4s ease-in-out infinite alternate;
 }
 
 .mstar-pulse {
-  position: absolute; width: 60px; height: 60px;
+  position: absolute; width: 64px; height: 64px;
   border: 1px solid var(--copper); border-radius: 50%;
   opacity: 0; pointer-events: none;
 }
@@ -646,14 +666,14 @@ a.mini-star { display: flex; }
   pointer-events: none;
 }
 .mini-star.current::before {
-  width: 1px; height: 64px;
+  width: 1px; height: 68px;
   background: linear-gradient(to bottom,
     var(--copper-zero) 0%, var(--copper-subtle) 30%,
     rgba(var(--bright-rgb), .4) 50%,
     var(--copper-subtle) 70%, var(--copper-zero) 100%);
 }
 .mini-star.current::after {
-  width: 64px; height: 1px;
+  width: 68px; height: 1px;
   background: linear-gradient(to right,
     var(--copper-zero) 0%, var(--copper-subtle) 30%,
     rgba(var(--bright-rgb), .4) 50%,
@@ -689,11 +709,10 @@ a.mini-star { display: flex; }
 }
 
 .mini-nav-sep {
-  text-align: center; margin: 42px auto 0;
+  text-align: center; margin: 36px auto 0;
   font-size: 8px; letter-spacing: 8px;
   color: var(--copper-mid);
 }
-
 
 /* ══════════════════════════════════════════
    9. SHARED — BACK LINKS
@@ -2368,6 +2387,406 @@ a.mini-star { display: flex; }
   color: var(--copper); opacity: .9;
 }
 
+
+/* ══════════════════════════════════════════
+   24. ХРОНИКА PAGE
+   ══════════════════════════════════════════ */
+
+.hronika-content {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 0 40px 120px;
+  width: 100%;
+}
+
+/* ── Intro blurb ── */
+.hronika-intro {
+  font-family: var(--ff-body);
+  font-style: italic;
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--moon);
+  text-align: center;
+  max-width: 560px;
+  margin: 0 auto 56px;
+  opacity: .85;
+}
+
+/* ── Entry list ── */
+.hronika-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* ── Single entry card ── */
+.hronika-card {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 0 32px;
+  padding: 36px 0;
+  border-bottom: 1px solid var(--copper-faint);
+  text-decoration: none;
+  color: inherit;
+  transition: background .3s ease;
+  position: relative;
+}
+
+.hronika-card:first-child {
+  border-top: 1px solid var(--copper-faint);
+}
+
+/* ── Thumbnail — archive-style animation ── */
+.hronika-card-thumb {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border: 1px solid var(--copper-ghost);
+  flex-shrink: 0;
+  transition: border-color .4s ease;
+}
+
+.hronika-card:hover .hronika-card-thumb {
+  border-color: var(--copper-soft);
+}
+
+.hronika-card-thumb img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  opacity: .85;
+  transition: opacity .5s ease, transform .6s ease;
+}
+
+.hronika-card:hover .hronika-card-thumb img {
+  opacity: 1;
+  transform: scale(1.04);
+  filter: saturate(.9);
+}
+
+.hronika-card-thumb-fallback {
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--copper-ghost2);
+}
+
+.hronika-card-thumb-fallback img {
+  width: 28px; height: 28px;
+  opacity: .25;
+}
+
+/* ── Text block ── */
+.hronika-card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  padding: 4px 28px 4px 0;
+  position: relative;
+}
+
+.hronika-card-date {
+  font-family: var(--ff-body);
+  font-size: 16px;
+  color: var(--copper);
+}
+
+/* ── Title — letter-spacing animation ── */
+.hronika-card-title {
+  font-family: var(--ff-display);
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  line-height: 1.35;
+  color: var(--star);
+  transition: color .3s ease, letter-spacing .4s ease;
+}
+
+.hronika-card:hover .hronika-card-title {
+  color: var(--bright);
+  letter-spacing: 5px;
+}
+
+.hronika-card-desc {
+  font-family: var(--ff-body);
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.75;
+  color: var(--bright);
+  opacity: .8;
+  margin-top: 4px;
+}
+
+/* ── Arrow — top-right ── */
+.hronika-card-arrow {
+  position: absolute;
+  top: 4px;
+  right: 0;
+  font-family: var(--ff-display);
+  font-size: 25px;
+  color: var(--copper);
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity .3s ease, transform .3s ease;
+}
+
+.hronika-card:hover .hronika-card-arrow {
+  opacity: .7;
+  transform: translateX(0);
+}
+
+/* ── Empty state ── */
+.hronika-empty {
+  text-align: center;
+  padding: 80px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.hronika-empty-symbol {
+  font-size: 28px;
+  color: var(--copper-mid);
+  letter-spacing: 8px;
+}
+
+.hronika-empty-text {
+  font-family: var(--ff-body);
+  font-style: italic;
+  font-size: 18px;
+  color: var(--moon);
+  opacity: .7;
+}
+
+/* ── Closing sigil ── */
+.hronika-sigil {
+  text-align: center;
+  margin-top: 60px;
+  font-size: 14px;
+  letter-spacing: 8px;
+  color: var(--copper-mid);
+}
+
+
+/* ── Novini article thumb — issue-page animation ── */
+.novini-article-thumb {
+  width: 100%;
+  max-height: 420px;
+  overflow: hidden;
+  margin-bottom: 40px;
+  border: 1px solid var(--copper-ghost);
+  transition: border-color .4s ease;
+}
+
+.novini-article-thumb:hover {
+  border-color: var(--copper-soft);
+}
+
+.novini-article-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  opacity: .85;
+  transition: opacity .5s ease, transform .6s ease;
+}
+
+.novini-article-thumb:hover img {
+  opacity: 1;
+  transform: scale(1.03);
+}
+
+/* ══════════════════════════════════════════
+   25. ЛАВИЦА PAGE
+   ══════════════════════════════════════════ */
+
+/* ══════════════════════════════════════════
+   25. ЛАВИЦА PAGE
+   ══════════════════════════════════════════ */
+
+.lavitsa-content {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 0 40px 120px;
+  width: 100%;
+}
+
+/* ── Intro ── */
+.lavitsa-intro {
+  font-family: var(--ff-body);
+  font-style: italic;
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--moon);
+  text-align: center;
+  max-width: 560px;
+  margin: 0 auto 56px;
+  opacity: .85;
+}
+
+/* ── Book list ── */
+.lavitsa-shelf {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* ── Single book entry — two-block grid ── */
+.lavitsa-book {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 32px;
+  padding: 32px 0;
+  border-bottom: 1px solid var(--copper-faint);
+  position: relative;
+  transition: border-color .4s ease;
+}
+
+.lavitsa-book:first-child {
+  border-top: 1px solid var(--copper-faint);
+}
+
+.lavitsa-book:hover {
+  border-color: var(--copper-subtle);
+}
+
+/* ── Block 1: cover + metadata ── */
+.lavitsa-book-primary {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 0 20px;
+  align-items: start;
+}
+
+/* ── Cover — archive/issue-style animation ── */
+.lavitsa-cover {
+  width: 100px;
+  aspect-ratio: 2 / 3;
+  overflow: hidden;
+  border: 1px solid var(--copper-ghost);
+  flex-shrink: 0;
+  position: relative;
+  transition: border-color .4s ease;
+}
+
+.lavitsa-book:hover .lavitsa-cover {
+  border-color: var(--copper-soft);
+}
+
+.lavitsa-cover img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  opacity: .85;
+  filter: saturate(.65);
+  transition: opacity .5s ease, transform .6s ease, filter .5s ease;
+}
+
+.lavitsa-book:hover .lavitsa-cover img {
+  opacity: 1;
+  transform: scale(1.03);
+  filter: saturate(1);
+}
+
+/* Cover fallback */
+.lavitsa-cover-fallback {
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--copper-ghost2);
+  border: 1px solid var(--copper-faint);
+}
+
+.lavitsa-cover-fallback-letter {
+  font-family: var(--ff-display);
+  font-size: 36px;
+  font-weight: 400;
+  color: var(--copper-soft);
+  letter-spacing: 0;
+  line-height: 1;
+  transition: color .4s ease;
+}
+
+.lavitsa-book:hover .lavitsa-cover-fallback-letter {
+  color: var(--copper-mid);
+}
+
+/* ── Metadata ── */
+.lavitsa-book-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 4px 0;
+}
+
+/* ── Number — glow on hover ── */
+.lavitsa-book-num {
+  font-family: var(--ff-body);
+  font-size: 11px;
+  letter-spacing: 4px;
+  color: var(--copper-medium);
+  text-transform: uppercase;
+  transition: color .4s ease;
+}
+
+.lavitsa-book:hover .lavitsa-book-num {
+  color: var(--copper);
+}
+
+/* ── Title — letter-spacing animation ── */
+.lavitsa-book-title {
+  font-family: var(--ff-display);
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: .5px;
+  line-height: 1.3;
+  color: var(--star);
+  transition: color .4s ease, letter-spacing .4s ease;
+}
+
+.lavitsa-book:hover .lavitsa-book-title {
+  color: var(--bright);
+  letter-spacing: 3px;
+}
+
+.lavitsa-book-author {
+  font-family: var(--ff-body);
+  font-style: italic;
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--copper);
+  opacity: .9;
+}
+
+/* ── Block 2: description ── */
+.lavitsa-book-note {
+  font-family: var(--ff-body);
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.75;
+  color: var(--bright);
+  opacity: .75;
+  padding-left: 24px;
+  border-left: 1px solid var(--copper-faint);
+  align-self: center;
+  transition: border-color .4s ease;
+}
+
+.lavitsa-book:hover .lavitsa-book-note {
+  border-color: var(--copper-subtle);
+}
+
+/* ── Closing sigil ── */
+.lavitsa-sigil {
+  text-align: center;
+  margin-top: 64px;
+  font-size: 14px;
+  letter-spacing: 8px;
+  color: var(--copper-mid);
+}
+
+
 /* ══════════════════════════════════════════
    20. OVERLAYS — RIPPLE, TRANSITION, GRAIN
    ══════════════════════════════════════════ */
@@ -2412,7 +2831,7 @@ a.mini-star { display: flex; }
   width: 200vw;
   height: 200vh;
   filter: url(#grain-filter);
-  opacity: 0.06;
+  opacity: 0.4;
   mix-blend-mode: overlay;
   pointer-events: none;
   z-index: 1;
@@ -2458,7 +2877,7 @@ a.mini-star { display: flex; }
   inset: 0;
   z-index: 2;
   pointer-events: none;
-  opacity: 0.06;
+  opacity: 0.4;
   mix-blend-mode: overlay;
 }
 
@@ -2517,6 +2936,35 @@ a:focus-visible {
 
 /* ── Touch devices: reveal hover-dependent content ── */
 @media (hover: none) {
+
+@media (hover: none) {
+  .issue-card .issue-desc {
+    opacity: 1;
+    max-height: 80px;
+  }
+
+  .star-label {
+    color: rgba(var(--star-rgb), .5);
+  }
+
+  /* Full opacity on touch devices */
+  .hronika-card-thumb img {
+    opacity: 1;
+    filter: saturate(.8);
+  }
+  .lavitsa-cover img {
+    opacity: 1;
+    filter: saturate(.85);
+  }
+  .novini-article-thumb img {
+    opacity: 1;
+  }
+  .issue-grid-cover img,
+  .timeline-card-banner img,
+  .issue-cover-img {
+    opacity: 1;
+  }
+}
   .issue-card .issue-desc {
     opacity: 1;
     max-height: 80px;
@@ -2539,8 +2987,19 @@ a:focus-visible {
 
 /* ══════════════════════════════════════════
    22. RESPONSIVE
-══════════════════════════════════════════ */
+   ──────────────────────────────────────────
+   Breakpoints:
+     1400px  — Back links
+      900px  — Article sidebar
+      768px  — Grids, spacing
+      601px+ — Desktop-only (gloss arrow)
+      600px  — Mobile: nav, cards, grids
+      500px  — Poetry
+      400px  — Tiny screens
+   ══════════════════════════════════════════ */
 
+
+/* ── 1400 · Back links ── */
 @media (max-width: 1400px) {
   .back-link,
   .back-link-right {
@@ -2549,10 +3008,8 @@ a:focus-visible {
 }
 
 
-/* ── Tablet (≤ 900px) ── */
+/* ── 900 · Article sidebar → stacked ── */
 @media (max-width: 900px) {
-
-  /* ── Article layout: stack columns ── */
   .article-columns {
     flex-direction: column;
     gap: 40px;
@@ -2561,7 +3018,6 @@ a:focus-visible {
     max-width: 100%;
   }
 
-  /* ── Sidebar: move above text ── */
   .article-sidebar {
     position: relative;
     top: 0;
@@ -2572,7 +3028,6 @@ a:focus-visible {
     overflow: hidden;
   }
 
-  /* ── Constellation: horizontal scroll row ── */
   .sidebar-constellation {
     position: relative;
     display: flex;
@@ -2590,7 +3045,6 @@ a:focus-visible {
     display: none;
   }
 
-  /* ── Line: JS controls position on mobile ── */
   .sidebar-line {
     left: auto;
     top: auto;
@@ -2600,7 +3054,6 @@ a:focus-visible {
     z-index: 0;
   }
 
-  /* ── Each star: column layout, original sizes ── */
   .sidebar-star {
     flex-direction: column;
     flex: 0 0 33.333%;
@@ -2613,13 +3066,11 @@ a:focus-visible {
     justify-content: flex-start;
   }
 
-  /* ── Node: keep original size, fix spacing ── */
   .sidebar-node {
     flex-shrink: 0;
     margin-bottom: -4px;
   }
 
-  /* ── Info: center text, fill height evenly ── */
   .sidebar-info {
     align-items: center;
     text-align: center;
@@ -2630,7 +3081,6 @@ a:focus-visible {
     min-height: 0;
   }
 
-  /* ── Scroll hint: fade on right edge ── */
   .sidebar-constellation::after {
     content: '';
     position: sticky;
@@ -2639,24 +3089,26 @@ a:focus-visible {
     margin-left: -40px;
     align-self: stretch;
     background: linear-gradient(to left,
-      var(--night) 0%,
-      var(--night-zero) 100%);
+      var(--night) 0%, var(--night-zero) 100%);
     pointer-events: none;
     z-index: 2;
   }
 }
 
-/* ── Medium (≤ 768px) ── */
+
+/* ── 768 · Tablet grids & spacing ── */
 @media (max-width: 768px) {
+
+  /* Grids */
   .atlas-grid-astrologer {
     grid-template-columns: 1fr 1fr;
   }
-
   .issue-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 18px;
   }
 
+  /* Page headers */
   .page-header {
     padding: 80px 24px 0;
   }
@@ -2664,6 +3116,7 @@ a:focus-visible {
     font-size: 28px;
   }
 
+  /* Article */
   .article-top {
     padding: 100px 24px 30px;
   }
@@ -2674,48 +3127,61 @@ a:focus-visible {
     font-size: 28px;
   }
 
+  /* Content padding */
   .codex-content,
   .archive-content,
-  .atlas-content {
+  .atlas-content,
+  .hronika-content,
+  .lavitsa-content {
     padding-left: 20px;
     padding-right: 20px;
   }
 
+  /* Contact */
   .contact-row {
     flex-direction: column;
     gap: 6px;
   }
 
+  /* Edge rules */
   body::before, body::after {
     left: 20px;
     right: 20px;
   }
 
-.issue-cover-wrapper {
-  padding: 0 24px 40px;
-}
-.issue-cover {
-  width: 75%;
-  max-width: none;
-}
+  /* Issue cover */
+  .issue-cover-wrapper {
+    padding: 0 24px 40px;
+  }
+  .issue-cover {
+    width: 75%;
+    max-width: none;
+  }
   .issue-description {
     padding: 0 24px 35px;
   }
 }
-/* ── Desktop: hide gloss arrow ── */
+
+
+/* ── 601+ · Desktop: hide gloss arrow ── */
 @media (min-width: 601px) {
   .gloss-go-arrow {
     display: none;
   }
 }
-/* ── Nav page mobile (≤ 600px) ── */
+
+
+/* ── 600 · Mobile ── */
 @media (max-width: 600px) {
-   .article-nav-link:hover .article-nav-title,
+
+  /* — Article nav — */
+  .article-nav-link:hover .article-nav-title,
   .article-nav-link:focus-visible .article-nav-title {
     letter-spacing: 2px;
     color: var(--star);
   }
 
+  /* — Cartouche — */
   #cartouche {
     top: 20px;
   }
@@ -2731,26 +3197,31 @@ a:focus-visible {
     letter-spacing: 3px;
   }
 
+  /* — Hint & edges — */
   #hint {
     bottom: 36px;
     font-size: 10px;
     letter-spacing: 3px;
   }
-
   .edge {
     display: none;
   }
 
+  /* — Stars — */
   .star-label {
     font-size: 12px;
     letter-spacing: 1.5px;
   }
 
-  /* ── Gloss panel adjustments ── */
+  /* — Gloss panels — */
   .gloss {
     width: 220px;
   }
-    .gloss.visible .gloss-inner {
+  .gloss.visible .gloss-inner {
+    pointer-events: auto;
+    cursor: pointer;
+  }
+  .gloss.visible {
     pointer-events: auto;
     cursor: pointer;
   }
@@ -2764,14 +3235,6 @@ a:focus-visible {
   .gloss-subtitle {
     font-size: 14px;
   }
-
-  /* ── Gloss clickable on mobile ── */
-  .gloss.visible {
-    pointer-events: auto;
-    cursor: pointer;
-  }
-
-  /* ── Go arrow indicator ── */
   .gloss-go-arrow {
     position: absolute;
     top: 8px;
@@ -2786,33 +3249,26 @@ a:focus-visible {
     line-height: 1;
     pointer-events: none;
   }
-
   .gloss-inner.align-right .gloss-go-arrow {
     right: auto;
     left: 12px;
   }
-
-  /* Show arrow when gloss is visible */
   .gloss.visible .gloss-go-arrow {
     opacity: .6;
     transform: translateX(0);
   }
-
-  /* Active/tap feedback */
   .gloss.visible:active .gloss-go-arrow {
     opacity: 1;
     transform: translateX(3px);
   }
-
   .gloss-inner.align-right:active .gloss-go-arrow {
     transform: translateX(-3px);
   }
-
   .gloss.visible:active .gloss-inner {
     border-color: var(--copper-mid);
   }
 
-  /* ── Issue cover ── */
+  /* — Issue cover — */
   .issue-cover-wrapper {
     padding: 0 20px 20px;
   }
@@ -2821,7 +3277,7 @@ a:focus-visible {
     font-size: 16px;
   }
 
-  /* ── Archive controls ── */
+  /* — Archive controls — */
   .archive-controls {
     flex-direction: column;
     gap: 16px;
@@ -2837,14 +3293,14 @@ a:focus-visible {
     letter-spacing: 1.5px;
   }
 
-  /* ── Grid ── */
+  /* — Archive grid — */
   .issue-grid {
     grid-template-columns: 1fr;
     max-width: 300px;
     margin: 0 auto;
   }
 
-  /* ── Timeline ── */
+  /* — Timeline — */
   .timeline-card-banner {
     height: 100px;
   }
@@ -2853,7 +3309,7 @@ a:focus-visible {
     gap: 4px 14px;
   }
 
-  /* ── Genre ── */
+  /* — Genre — */
   .genre-filter-bar {
     flex-wrap: wrap;
     gap: 4px;
@@ -2872,13 +3328,13 @@ a:focus-visible {
     gap: 4px 14px;
   }
 
-  /* ── Author ── */
+  /* — Author archive — */
   .archive-author-articles {
     margin-left: 10px;
     padding-left: 12px;
   }
 
-  /* ── Atlas ── */
+  /* — Atlas — */
   .atlas-grid-cartographer {
     grid-template-columns: 1fr;
   }
@@ -2886,7 +3342,7 @@ a:focus-visible {
     grid-template-columns: 1fr;
   }
 
-  /* ── Issue page ── */
+  /* — Issue page — */
   .toc {
     padding: 0 20px 40px;
   }
@@ -2895,7 +3351,7 @@ a:focus-visible {
     gap: 12px;
   }
 
-  /* ── Back links ── */
+  /* — Back links — */
   .back-link {
     left: 16px;
     font-size: 10px;
@@ -2905,7 +3361,7 @@ a:focus-visible {
     font-size: 10px;
   }
 
-  /* ── Pagination ── */
+  /* — Pagination — */
   .archive-pagination {
     gap: 4px;
   }
@@ -2913,24 +3369,116 @@ a:focus-visible {
     padding: 4px 10px;
     font-size: 12px;
   }
+
+  /* — Mini-nav — */
+  .mini-star {
+    width: 60px;
+    height: 60px;
+  }
+  .mini-sep {
+    width: 36px;
+  }
+  .mstar-label {
+    font-size: 12px;
+    letter-spacing: 2px;
+  }
+  .mini-nav-line {
+    width: 252px;
+    height: 132px;
+  }
+
+  /* — Hronika — */
+  .hronika-card {
+    grid-template-columns: 1fr;
+    gap: 16px 0;
+  }
+  .hronika-card-thumb {
+    aspect-ratio: 16 / 9;
+  }
+  .hronika-card-title {
+    font-size: 19px;
+  }
+  .hronika-card:hover .hronika-card-title {
+    letter-spacing: 3px;
+  }
+  .hronika-content {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  /* — Novini article — */
+  .novini-article-thumb {
+    max-height: 260px;
+    margin-bottom: 28px;
+  }
+
+  /* — Lavitsa — */
+  .lavitsa-book {
+    grid-template-columns: 1fr;
+    gap: 20px 0;
+  }
+  .lavitsa-book-primary {
+    grid-template-columns: 80px 1fr;
+    gap: 0 16px;
+  }
+  .lavitsa-cover {
+    width: 80px;
+  }
+  .lavitsa-book-title {
+    font-size: 20px;
+  }
+  .lavitsa-book:hover .lavitsa-book-title {
+    letter-spacing: 2px;
+  }
+  .lavitsa-book-note {
+    padding-left: 0;
+    border-left: none;
+    border-top: 1px solid var(--copper-faint);
+    padding-top: 16px;
+  }
+  .lavitsa-content {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
 }
 
+
+/* ── 500 · Poetry ── */
 @media (max-width: 500px) {
   .article-body pre.small-poetry {
     font-size: 17px;
   }
 }
-/* ── Tiny (≤ 400px) ── */
+
+
+/* ── 400 · Tiny screens ── */
 @media (max-width: 400px) {
+
+  /* — Mini-nav — */
   .mini-nav {
-    transform: scale(.85);
+    transform: none;
+  }
+  .mini-star {
+    width: 52px;
+    height: 52px;
   }
   .mini-sep {
-    width: 40px;
+    width: 30px;
   }
-.codex-section-title {
-font-size: 23px;
-}
+  .mstar-label {
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    bottom: -14px;
+  }
+  .mini-nav-line {
+    width: 216px;
+    height: 116px;
+  }
+
+  /* — Typography — */
+  .codex-section-title {
+    font-size: 23px;
+  }
   .page-header h2 {
     font-size: 22px;
     letter-spacing: 1px;
@@ -2942,16 +3490,18 @@ font-size: 23px;
     font-size: 24px;
   }
 
+  /* — Cartouche — */
   #cartouche h1 {
     font-size: 20px;
     letter-spacing: 2px;
   }
 
+  /* — Edge rules — */
   body::before, body::after {
-    left: 12px;
-    right: 12px;
+    display: none;
   }
 
+  /* — Nav stars — */
   .star.mag-1 {
     width: 60px; height: 60px;
   }
@@ -2964,7 +3514,6 @@ font-size: 23px;
   .star.mag-1 .star-pulse {
     width: 52px; height: 52px;
   }
-
   .star.mag-2 {
     width: 50px; height: 50px;
   }
@@ -2977,22 +3526,17 @@ font-size: 23px;
   .star.mag-2 .star-pulse {
     width: 42px; height: 42px;
   }
-
   .star-label {
     font-size: 10px;
     letter-spacing: 1px;
     bottom: -16px;
   }
 
-  body::before,
-  body::after {
-    display: none;
+  /* — Issue cover — */
+  .issue-cover {
+    width: 75%;
+    max-width: none;
   }
-
-.issue-cover {
-  width: 75%;
-  max-width: none;
-}
   .issue-cover-fb-number {
     font-size: 26px;
     letter-spacing: 4px;
@@ -3005,7 +3549,7 @@ font-size: 23px;
     font-size: 15px;
   }
 
-  /* ── Gloss adjustments for tiny screens ── */
+  /* — Gloss — */
   .gloss-go-arrow {
     font-size: 25px;
     top: 8px;
@@ -3013,6 +3557,38 @@ font-size: 23px;
   }
   .gloss-inner.align-right .gloss-go-arrow {
     left: 10px;
+  }
+
+  /* — Hronika — */
+  .hronika-card-title {
+    font-size: 17px;
+  }
+  .hronika-card-desc {
+    font-size: 14px;
+  }
+  .hronika-card-date {
+    font-size: 14px;
+  }
+  .hronika-card:hover .hronika-card-title {
+    letter-spacing: 2px;
+  }
+
+  /* — Lavitsa — */
+  .lavitsa-book-primary {
+    grid-template-columns: 70px 1fr;
+    gap: 0 14px;
+  }
+  .lavitsa-cover {
+    width: 70px;
+  }
+  .lavitsa-book-title {
+    font-size: 18px;
+  }
+  .lavitsa-book-note {
+    font-size: 14px;
+  }
+  .lavitsa-book:hover .lavitsa-book-title {
+    letter-spacing: 1px;
   }
 }
 

@@ -8,6 +8,11 @@ bodyClass: page-dest page-article
 {%- set issueArticles = collections.article | filterBy("data.issue", issue) -%}
 {%- set sortedArticles = issueArticles | sort(false, false, "data.order") -%}
 
+{# ── Get next issue for when we're on the last article ── #}
+{%- set currentIssueList = collections.issue | filterBy("data.number", issue) -%}
+{%- set currentIssuePage = currentIssueList[0] if currentIssueList.length > 0 else null -%}
+{%- set nextIssue = collections.issue | getNext(currentIssuePage) if currentIssuePage else null -%}
+
 <a class="back-link" href="/issue/{{ issueSlug }}/"
    data-transition data-label="{{ issueTitle }}" data-symbol="book">
   <span>←</span>Брой {{ issue }} · {{ issueTitle }}
@@ -57,6 +62,8 @@ bodyClass: page-dest page-article
       <nav class="article-nav">
         {%- for a in sortedArticles -%}
           {%- if a.url == page.url -%}
+
+            {# ── Previous Article ── #}
             {%- if loop.index0 > 0 -%}
               {%- set prevA = sortedArticles[loop.index0 - 1] -%}
               <a href="{{ prevA.url }}" class="article-nav-link prev"
@@ -67,6 +74,8 @@ bodyClass: page-dest page-article
             {%- else -%}
               <div class="article-nav-link prev empty"></div>
             {%- endif -%}
+
+            {# ── Next Article OR Next Issue ── #}
             {%- if loop.index0 < sortedArticles.length - 1 -%}
               {%- set nextA = sortedArticles[loop.index0 + 1] -%}
               <a href="{{ nextA.url }}" class="article-nav-link next"
@@ -75,8 +84,18 @@ bodyClass: page-dest page-article
                 <span class="article-nav-title">{{ nextA.data.title }}</span>
               </a>
             {%- else -%}
-              <div class="article-nav-link next empty"></div>
+              {# Last article — show next issue if available #}
+              {%- if nextIssue -%}
+                <a href="{{ nextIssue.url }}" class="article-nav-link next next-issue"
+                   data-transition data-label="{{ nextIssue.data.title }}" data-symbol="book">
+                  <span class="article-nav-dir">Следващ брой</span>
+                  <span class="article-nav-title">{{ nextIssue.data.number }} · {{ nextIssue.data.title }}</span>
+                </a>
+              {%- else -%}
+                <div class="article-nav-link next empty"></div>
+              {%- endif -%}
             {%- endif -%}
+
           {%- endif -%}
         {%- endfor -%}
       </nav>
@@ -197,13 +216,10 @@ bodyClass: page-dest page-article
     var scrollTarget;
 
     if (currentIndex === 0) {
-      // First star: show 1, 2, 3 — no scroll
       scrollTarget = 0;
     } else if (currentIndex >= stars.length - 1) {
-      // Last star: scroll so last 3 are visible
       scrollTarget = starWidth * (stars.length - 3);
     } else {
-      // Center current: show prev, current, next
       scrollTarget = starWidth * (currentIndex - 1);
     }
 
@@ -235,5 +251,5 @@ bodyClass: page-dest page-article
 
   </nav>
 
-</div>  
-</div>  
+</div>
+</div>

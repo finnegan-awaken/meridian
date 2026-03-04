@@ -1,0 +1,73 @@
+---
+layout: base.njk
+bodyClass: page-dest
+currentNav: hronika
+---
+
+<a class="back-link" href="/"
+   data-transition data-label="МЕРИДИАН" data-symbol="✦">
+  <span>←</span>към звездите
+</a>
+
+<div class="page-header">
+  <div class="page-symbol">
+    <img src="/img/svg/pen.svg" alt="">
+  </div>
+  <div class="page-rule top"></div>
+  <h2>ХРОНИКА</h2>
+  <div class="page-sub">Et in Arcadia ego</div>
+  <div class="page-rule bottom"></div>
+</div>
+
+{% include "partials/mini-nav.njk" %}
+
+<div class="hronika-content">
+
+  <p class="hronika-intro">
+    
+  </p>
+
+  <div class="hronika-feed">
+
+    {%- if collections.новини and collections.новини.length > 0 -%}
+
+      {%- for entry in collections.новини | reverse -%}
+      <a href="{{ entry.url }}" class="hronika-card"
+         data-transition data-label="{{ entry.data.title }}" data-symbol="pen">
+
+        <div class="hronika-card-thumb">
+          {%- if entry.data.thumb -%}
+          <img src="{{ entry.data.thumb }}" alt="{{ entry.data.title }}" loading="lazy">
+          {%- else -%}
+          <div class="hronika-card-thumb-fallback">
+            <img src="/img/svg/pen.svg" alt="">
+          </div>
+          {%- endif -%}
+        </div>
+
+        <div class="hronika-card-body">
+          <div class="hronika-card-date">{{ entry.date | formatDate("day-month-year", "bg-BG") }}</div>
+          <div class="hronika-card-title">{{ entry.data.title }}</div>
+          {%- if entry.data.description -%}
+          <div class="hronika-card-desc">{{ entry.data.description }}</div>
+          {%- endif -%}
+          <div class="hronika-card-arrow">›</div>
+        </div>
+
+      </a>
+      {%- endfor -%}
+
+    {%- else -%}
+
+      <div class="hronika-empty">
+        <div class="hronika-empty-symbol">· · ·</div>
+        <div class="hronika-empty-text">Редакцията мълчи засега. Скоро.</div>
+      </div>
+
+    {%- endif -%}
+
+  </div>
+
+  <div class="hronika-sigil">✦</div>
+
+</div>

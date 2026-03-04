@@ -7,21 +7,35 @@
       sub: 'Capax infiniti',
       desc: 'Всяко ненаписано начало, всяка неизречена дума.',
       coords: 'α 0h 00m · δ +0° 00′',
-      x: 50, y: 56, mag: 1, href: window.BASE + 'archive/'
+      x: 50, y: 50, mag: 1, href: window.BASE + 'archive/'
     },
     {
       id: 'atlas', name: 'АТЛАС', symbol: 'compass', num: 'II',
       sub: 'Experimentum Crucis',
       desc: 'Указател на неизследваните територии.',
       coords: 'α 5h 32m · δ +46° 01′',
-      x: 24, y: 36, mag: 2, href: window.BASE + 'atlas/'
+      x: 22, y: 33, mag: 2, href: window.BASE + 'atlas/'
     },
     {
       id: 'codex', name: 'КОДЕКС', symbol: 'moon', num: 'III',
       sub: 'Lasciate ogne speranza voi ch\'entrate',
       desc: 'Отвъд първия предел.<br>Кои сме ние и какво търсим.',
       coords: 'α 18h 36m · δ +38° 47′',
-      x: 76, y: 36, mag: 2, href: window.BASE + 'codex/'
+      x: 78, y: 33, mag: 2, href: window.BASE + 'codex/'
+    },
+    {
+      id: 'hronika', name: 'ХРОНИКА', symbol: 'pen', num: 'IV',
+      sub: 'Et in Arcadia ego',
+      desc: 'Ако пътник в зимна нощ се заслуша, ще чуе гласовете от редакцията.',
+      coords: 'α 12h 18m · δ −22° 34′',
+      x: 30, y: 68, mag: 2, href: window.BASE + 'hronika/'
+    },
+    {
+      id: 'lavitsa', name: 'ЛАВИЦА', symbol: 'book', num: 'V',
+      sub: 'Ultima Thule',
+      desc: 'Всеки кораб се нуждае от пристан. Този е нашия.',
+      coords: 'α 21h 04m · δ +62° 15′',
+      x: 70, y: 68, mag: 2, href: window.BASE + 'lavitsa/'
     }
   ];
 
@@ -39,9 +53,11 @@
   }
 
   var MOBILE_STARS = {
-    archive: { x: 50, y: 65 },
-    atlas:   { x: 30, y: 32 },
-    codex:   { x: 70, y: 32 }
+    archive:  { x: 50, y: 54 },
+    atlas:    { x: 20, y: 28 },
+    codex:    { x: 80, y: 28 },
+    hronika:  { x: 24, y: 72 },
+    lavitsa:  { x: 76, y: 72 }
   };
 
   var MOBILE_BREAKPOINT = 600;

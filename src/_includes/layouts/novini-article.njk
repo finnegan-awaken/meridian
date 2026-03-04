@@ -1,0 +1,170 @@
+---
+layout: base.njk
+bodyClass: page-dest page-article
+currentNav: hronika
+---
+
+<a class="back-link" href="/hronika/"
+   data-transition data-label="ХРОНИКА" data-symbol="pen">
+  <span>←</span>Към хроника
+</a>
+
+<a class="back-link-right" href="/"
+   data-transition data-label="МЕРИДИАН" data-symbol="✦">
+  към звездите<span>→</span>
+</a>
+
+<div class="page-main">
+
+  <div class="article-top">
+    <header class="article-header">
+      <div class="article-genre-label">новини</div>
+      <h1 class="article-title">{{ title }}</h1>
+      {%- if subtitle -%}
+      <div class="article-subtitle">{{ subtitle }}</div>
+      {%- endif -%}
+      <div class="article-header-meta">
+        <span class="article-header-date">
+          {{ date | formatDate("long", "bg-BG") }}
+        </span>
+        {%- if author -%}
+        <span class="article-header-sep">·</span>
+        <span class="article-header-author">{{ author }}</span>
+        {%- endif -%}
+      </div>
+    </header>
+  </div>
+
+  <div class="article-columns">
+
+    <article class="article-text-col">
+
+      {%- if thumb -%}
+      <div class="novini-article-thumb">
+        <img src="{{ thumb }}" alt="{{ title }}" loading="lazy">
+      </div>
+      {%- endif -%}
+
+      <div class="article-body">
+        {{ content | safe }}
+      </div>
+
+      <footer class="article-footer">
+
+        {%- set allNews = collections.новини | reverse -%}
+        <nav class="article-nav">
+          {%- for entry in allNews -%}
+            {%- if entry.url == page.url -%}
+
+              {# По-старо → left (prev) #}
+              {%- if loop.index0 < allNews.length - 1 -%}
+                {%- set olderEntry = allNews[loop.index0 + 1] -%}
+                <a href="{{ olderEntry.url }}" class="article-nav-link prev"
+                   data-transition data-label="{{ olderEntry.data.title }}" data-symbol="pen">
+                  <span class="article-nav-dir">Предишна новина</span>
+                  <span class="article-nav-title">{{ olderEntry.data.title }}</span>
+                </a>
+              {%- else -%}
+                <div class="article-nav-link prev empty"></div>
+              {%- endif -%}
+
+              {# По-ново → right (next) #}
+              {%- if loop.index0 > 0 -%}
+                {%- set newerEntry = allNews[loop.index0 - 1] -%}
+                <a href="{{ newerEntry.url }}" class="article-nav-link next"
+                   data-transition data-label="{{ newerEntry.data.title }}" data-symbol="pen">
+                  <span class="article-nav-dir">Последна новина</span>
+                  <span class="article-nav-title">{{ newerEntry.data.title }}</span>
+                </a>
+              {%- else -%}
+                <div class="article-nav-link next empty"></div>
+              {%- endif -%}
+
+            {%- endif -%}
+          {%- endfor -%}
+        </nav>
+
+        <div class="codex-sigil">✦</div>
+
+      </footer>
+    </article>
+
+    {# ── SIDEBAR: other recent news ── #}
+    <nav class="article-sidebar" aria-label="Последни новини">
+      <span class="sidebar-issue-link">Последни новини</span>
+
+      <div class="sidebar-constellation">
+        <div class="sidebar-line"></div>
+
+        {%- for entry in collections.новини | reverse -%}
+        <a href="{{ entry.url }}"
+           class="sidebar-star {% if entry.url == page.url %}current{% endif %}"
+           {% if entry.url != page.url %}data-transition data-label="{{ entry.data.title }}" data-symbol="pen"{% endif %}>
+          <div class="sidebar-node">
+            {% if entry.url == page.url %}<div class="sidebar-pulse"></div>{% endif %}
+            <div class="sidebar-glow"></div>
+            <div class="sidebar-core"></div>
+          </div>
+          <div class="sidebar-info">
+            <span class="sidebar-title">{{ entry.data.title }}</span>
+            <span class="sidebar-author">{{ entry.date | formatDate("long", "bg-BG") }}</span>
+          </div>
+        </a>
+        {%- endfor -%}
+      </div>
+
+      <script>
+      (function () {
+        'use strict';
+        var line = document.querySelector('.sidebar-line');
+        var constellation = document.querySelector('.sidebar-constellation');
+        if (!constellation) return;
+        var timer;
+        function updateLine() {
+          if (!line) return;
+          if (window.innerWidth > 900) { line.removeAttribute('style'); return; }
+          var nodes = constellation.querySelectorAll('.sidebar-node');
+          if (nodes.length < 2) return;
+          var first = nodes[0], last = nodes[nodes.length - 1];
+          var parent = constellation.getBoundingClientRect();
+          var scroll = constellation.scrollLeft;
+          var firstRect = first.getBoundingClientRect();
+          var startX = firstRect.left + firstRect.width / 2 - parent.left + scroll;
+          var lastRect = last.getBoundingClientRect();
+          var endX = lastRect.left + lastRect.width / 2 - parent.left + scroll;
+          var centerY = firstRect.top + firstRect.height / 2 - parent.top;
+          line.style.position = 'absolute';
+          line.style.left   = startX + 'px';
+          line.style.top    = centerY + 'px';
+          line.style.bottom = 'auto';
+          line.style.width  = (endX - startX) + 'px';
+          line.style.height = '1px';
+        }
+        function scrollToCurrent() {
+          if (window.innerWidth > 900) return;
+          var stars = constellation.querySelectorAll('.sidebar-star');
+          if (stars.length < 2) return;
+          var currentIndex = -1;
+          for (var i = 0; i < stars.length; i++) {
+            if (stars[i].classList.contains('current')) { currentIndex = i; break; }
+          }
+          if (currentIndex === -1) return;
+          var starWidth = stars[0].offsetWidth;
+          var scrollTarget = currentIndex === 0 ? 0
+            : currentIndex >= stars.length - 1 ? starWidth * (stars.length - 3)
+            : starWidth * (currentIndex - 1);
+          constellation.scrollTo({ left: Math.max(0, scrollTarget), behavior: 'smooth' });
+        }
+        setTimeout(function () { scrollToCurrent(); updateLine(); }, 150);
+        window.addEventListener('resize', function () {
+          clearTimeout(timer);
+          timer = setTimeout(function () { scrollToCurrent(); updateLine(); }, 150);
+        });
+        constellation.addEventListener('scroll', updateLine);
+      })();
+      </script>
+
+    </nav>
+
+  </div>
+</div>
