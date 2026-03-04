@@ -86,7 +86,6 @@
   inset: 0;
   width: 67px;
   height: 110px;
-  border: 1px solid var(--copper-subtle);
   overflow: hidden;
   transition: border-color .4s ease, transform .4s ease,
               box-shadow .4s ease, opacity .4s ease;
@@ -314,7 +313,6 @@
   inset: 0;
   backface-visibility: hidden;
   overflow: hidden;
-  border: 1px solid var(--copper-subtle);
 }
 
 .tarot-card-face img {
