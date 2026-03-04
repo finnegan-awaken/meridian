@@ -43,7 +43,7 @@
 :root {
   /* ── Backgrounds ── */
   --void:           #120b1b;
-  --void-zero: rgba(18, 11, 27, 0);
+  --void-zero:      rgba(18, 11, 27, 0);
   --night:          #0c1221;
   --night-zero:     rgba(12, 18, 33, 0);
   --twilight:       #1a1233;
@@ -82,19 +82,11 @@
   --moon-rgb:       167, 147, 111;
 
   /* ── Atmospheric ── */
-  --atmo-deep:          rgba(22, 18, 51, 0.45);
-  --atmo-deep-zero:     rgba(22, 18, 51, 0);
-
-  --atmo-mid:           rgba(18, 12, 42, 0.35);
-  --atmo-mid-zero:      rgba(18, 12, 42, 0);
+  --atmo-glow:          rgba(20, 15, 45, 0.4);
+  --atmo-glow-zero:     rgba(20, 15, 45, 0);
 
   --atmo-vignette:      rgba(10, 7, 13, 0.85);
   --atmo-vignette-zero: rgba(10, 7, 13, 0);
-
-  --atmo-page:          rgba(38, 23, 65, 0.5);
-  --atmo-page-zero:     rgba(38, 23, 65, 0);
-
-  --atmo-shadow:        rgba(5, 3, 10, 0.4);
 
   /* ── Fonts ── */
   --ff-display:     'Cormorant Infant', Georgia, serif;
@@ -2389,15 +2381,11 @@ a.mini-star { display: flex; }
   opacity: 0; pointer-events: none;
   transition: opacity .9s ease;
   background:
-    radial-gradient(ellipse at 25% 20%,
-      var(--atmo-deep) 0%, var(--atmo-deep-zero) 50%),
-    radial-gradient(ellipse at 75% 40%,
-      var(--atmo-mid) 0%, var(--atmo-mid-zero) 50%),
+    radial-gradient(ellipse at 50% 30%,
+      var(--atmo-glow) 0%, var(--atmo-glow-zero) 60%),
     radial-gradient(ellipse at 50% 50%,
-      var(--atmo-vignette-zero) 0%, var(--atmo-vignette) 70%),
-    radial-gradient(ellipse at 50% 50%,
-      var(--transition-zero) 25%, var(--transition) 100%),
-    linear-gradient(to bottom, var(--night), var(--twilight));
+      var(--atmo-vignette-zero) 0%, var(--atmo-vignette) 80%),
+    var(--void);
 }
 #transition.active { opacity: 1; pointer-events: auto; }
 #transition.no-transition,
@@ -2458,7 +2446,7 @@ a.mini-star { display: flex; }
   inset: 0;
   z-index: 2;
   pointer-events: none;
-  opacity: 0.2;
+  opacity: 0.6;
   mix-blend-mode: overlay;
 }
 
