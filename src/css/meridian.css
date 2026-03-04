@@ -44,9 +44,8 @@
   /* ── Backgrounds ── */
   --void:           #120b1b;
   --night:          #0c1221;
-  --twilight:       #201233;
+  --twilight:       #1a1233;
   --transition: #0a060f;
-
 
   /* ── Accent: Copper / Gold
        IMPORTANT: --copper-rgb MUST match --copper hex.
@@ -2427,7 +2426,38 @@ a.mini-star { display: flex; }
   transition: opacity .7s ease .5s, transform .7s ease .5s;
 }
 #transition.active #transition-text { opacity: 1; transform: translateY(0); }
+/* ── Grain Overlay ── */
+#grain {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  pointer-events: none;
+  opacity: 0.45;               /* ← controls overall strength */
+  mix-blend-mode: overlay;     /* bakes into dark backgrounds nicely */
+}
 
+#grain::before,
+#grain::after {
+  content: '';
+  position: absolute;
+  inset: -200%;                /* oversized so the animation never shows edges */
+  filter: url(#grain-filter);
+  opacity: 1;
+}
+
+/* Subtle animation so the grain "lives" — 
+   remove if you want static grain */
+#grain::after {
+  animation: grain-shift 0.8s steps(4) infinite;
+}
+
+@keyframes grain-shift {
+  0%   { transform: translate(0, 0); }
+  25%  { transform: translate(-2%, 3%); }
+  50%  { transform: translate(3%, -1%); }
+  75%  { transform: translate(-3%, 2%); }
+  100% { transform: translate(1%, -3%); }
+}
 
 /* ══════════════════════════════════════════
    21. ACCESSIBILITY

@@ -28,5 +28,18 @@
   {% if "page-dest" in bodyClass %}
   <script src="/js/archive.js"></script>
   {% endif %}
+  <svg style="display:none">
+  <filter id="grain-filter">
+    <feTurbulence
+      type="fractalNoise"
+      baseFrequency="1"
+      numOctaves="3"
+      stitchTiles="stitch"
+    />
+    <feColorMatrix type="saturate" values="0" />
+  </filter>
+</svg>
+
+<div id="grain" aria-hidden="true"></div>
 </body>
 </html>
