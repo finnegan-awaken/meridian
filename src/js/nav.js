@@ -24,14 +24,14 @@
       x: 78, y: 33, mag: 2, href: window.BASE + 'codex/'
     },
     {
-      id: 'hronika', name: 'ХРОНИКА', symbol: 'pen', num: 'IV',
+      id: 'hronika', name: 'ХРОНИКА', symbol: 'scroll', num: 'IV',
       sub: 'Et in Arcadia ego',
       desc: 'Ако пътник в зимна нощ се заслуша, ще чуе гласовете от редакцията.',
       coords: 'α 12h 18m · δ −22° 34′',
       x: 30, y: 68, mag: 2, href: window.BASE + 'hronika/'
     },
     {
-      id: 'lavitsa', name: 'ЛАВИЦА', symbol: 'book', num: 'V',
+      id: 'lavitsa', name: 'ЛАВИЦА', symbol: 'candle', num: 'V',
       sub: 'Ultima Thule',
       desc: 'Всеки кораб се нуждае от пристан. Този е нашия.',
       coords: 'α 21h 04m · δ +62° 15′',
@@ -39,7 +39,7 @@
     }
   ];
 
-  var SVG_SYMBOLS = ['book', 'pen', 'moon', 'compass'];
+  var SVG_SYMBOLS = ['book', 'pen', 'moon', 'compass','scroll', 'candle'];
 
   function isSvgSymbol(symbol) {
     return SVG_SYMBOLS.indexOf(symbol) !== -1;

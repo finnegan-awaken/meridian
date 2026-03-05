@@ -4,7 +4,7 @@
   /* ══════════════════════════════════════
      SVG SYMBOL HANDLING
      ══════════════════════════════════════ */
-  var SVG_SYMBOLS = ['book', 'pen', 'moon', 'compass'];
+  var SVG_SYMBOLS = ['book', 'pen', 'moon', 'compass','scroll', 'candle'];
 
   function isSvgSymbol(symbol) {
     return SVG_SYMBOLS.indexOf(symbol) !== -1;

@@ -11,7 +11,7 @@ currentNav: hronika
 
 <div class="page-header">
   <div class="page-symbol">
-    <img src="/img/svg/pen.svg" alt="">
+    <img src="/img/svg/scroll.svg" alt="">
   </div>
   <div class="page-rule top"></div>
   <h2>ХРОНИКА</h2>
@@ -33,14 +33,14 @@ currentNav: hronika
 
       {%- for entry in collections.новини | reverse -%}
       <a href="{{ entry.url }}" class="hronika-card"
-         data-transition data-label="{{ entry.data.title }}" data-symbol="pen">
+         data-transition data-label="{{ entry.data.title }}" data-symbol="scroll">
 
         <div class="hronika-card-thumb">
           {%- if entry.data.thumb -%}
           <img src="{{ entry.data.thumb }}" alt="{{ entry.data.title }}" loading="lazy">
           {%- else -%}
           <div class="hronika-card-thumb-fallback">
-            <img src="/img/svg/pen.svg" alt="">
+            <img src="/img/svg/scroll.svg" alt="">
           </div>
           {%- endif -%}
         </div>
