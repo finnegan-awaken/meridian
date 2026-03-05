@@ -124,7 +124,9 @@ html {
 
 body {
   width: 100%;
+  max-width: 100%;              /* ← ADD */
   min-height: 100vh;
+  overflow-x: hidden;           /* ← ADD */
   color: var(--star);
   font-family: var(--ff-body);
   background:
@@ -149,8 +151,8 @@ body.page-dest {
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
-  overflow-y: scroll;
-  scrollbar-gutter: stable;
+  overflow-y: auto;             /* ← CHANGED from scroll */
+  /* scrollbar-gutter: stable;     ← REMOVED — scrollbar is hidden anyway */
   scrollbar-width: none;
   background:
     radial-gradient(ellipse at 25% 20%,
@@ -176,6 +178,8 @@ body.page-dest > *:not(.back-link):not(.back-link-right):not(#transition):not(#g
   display: flex;
   flex-direction: column;
   width: 100%;
+  max-width: 100%;              /* ← ADD */
+  overflow-x: hidden;           /* ← ADD */
   position: relative;
   z-index: 3;
 }
@@ -582,7 +586,7 @@ body.constellation-hover .star:not(.hovered) .star-label { color: rgba(var(--sta
   flex-wrap: wrap;
   margin: 30px auto 0;
   padding-bottom: 10px;
-  position: relative;
+  position: relative;           /* ← ADD — anchors .mini-nav-line */
 }
 
 /* 5th child (not 4th — SVG is child 1) = separator between АРХИВ and КОДЕКС */
@@ -2936,8 +2940,6 @@ a:focus-visible {
 
 /* ── Touch devices: reveal hover-dependent content ── */
 @media (hover: none) {
-
-@media (hover: none) {
   .issue-card .issue-desc {
     opacity: 1;
     max-height: 80px;
@@ -2965,15 +2967,7 @@ a:focus-visible {
     opacity: 1;
   }
 }
-  .issue-card .issue-desc {
-    opacity: 1;
-    max-height: 80px;
-  }
 
-  .star-label {
-    color: rgba(var(--star-rgb), .5);
-  }
-}
 
 /* ── Reduced motion ── */
 @media (prefers-reduced-motion: reduce) {
@@ -3098,6 +3092,9 @@ a:focus-visible {
 
 /* ── 768 · Tablet grids & spacing ── */
 @media (max-width: 768px) {
+  html {
+    scrollbar-gutter: auto;     /* ← ADD */
+  }
 
   /* Grids */
   .atlas-grid-astrologer {
