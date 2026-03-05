@@ -1,0 +1,56 @@
+[
+  {
+    "num": "01",
+    "title": "Феноменология на духа",
+    "author": "Георг Фридрих Хегел",
+    "year": 1807,
+    "letter": "Ф",
+    "cover": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1591274963i/53819000.jpg",
+    "note": "Дитa Краус е на четиринайсет, когато е назначена за пазителка на осемте книги, скрити в блок 31 на Аушвиц-Биркенау. Роман за това, че думите оцеляват дори там, където хората не успяват."
+  },
+    {
+    "num": "09",
+    "title": "Деветте принца на Амбър",
+    "author": "Роджър Зелазни",
+    "year": 1970,
+    "letter": "Д",
+    "cover": "https://assets2.chitanka.info/thumb/book-cover/02/642.max.jpg",
+    "note": "Ми бяха 9 принца, затова е на 9-то място."
+  },
+    {
+    "num": "10",
+    "title": "Сакатият Бог",
+    "author": "Стивън Ериксън",
+    "year": 2011,
+    "letter": "Ф",
+    "cover": "https://assets2.chitanka.info/thumb/book-cover/15/5577.max.jpg",
+    "note": "Ми 10-та книга е от поредицата, иначе щеше да е на първо място в списъка."
+  },
+      {
+    "num": "69",
+    "title": "11 000 камшика",
+    "author": "Гиом Аполинер",
+    "year": 1907,
+    "letter": "Ф",
+    "cover": "https://assets2.chitanka.info/thumb/book-cover/10/4306.max.jpg",
+    "note": "Абе Иване, какви са тия изродщини."
+  },
+      {
+    "num": "23",
+    "title": "Горменгаст",
+    "author": "Мървин Пийк",
+    "year": 1950,
+    "letter": "Ф",
+    "cover": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1651356062i/39058.jpg",
+    "note": "Още не сме измислили какво да кажем за Горменгаст."
+  },
+      {
+    "num": "24",
+    "title": "Разкази",
+    "author": "Цан Сюе",
+    "year": 1990,
+    "letter": "Ф",
+    "cover": "https://p2.itc.cn/images01/20231225/eeafd6109c2a4d8a8f5f6de780a3bf6c.jpeg",
+    "note": "Ми то същото като Горменгаст."
+  }
+]

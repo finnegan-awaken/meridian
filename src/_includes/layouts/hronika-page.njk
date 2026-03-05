@@ -31,30 +31,39 @@ currentNav: hronika
 
     {%- if collections.новини and collections.новини.length > 0 -%}
 
-      {%- for entry in collections.новини | reverse -%}
-      <a href="{{ entry.url }}" class="hronika-card"
-         data-transition data-label="{{ entry.data.title }}" data-symbol="scroll">
+      {%- set items = collections.новини | reverse -%}
+      {%- for entry in items -%}
 
-        <div class="hronika-card-thumb">
-          {%- if entry.data.thumb -%}
-          <img src="{{ entry.data.thumb }}" alt="{{ entry.data.title }}" loading="lazy">
-          {%- else -%}
-          <div class="hronika-card-thumb-fallback">
-            <img src="/img/svg/scroll.svg" alt="">
+        {%- set entryYear = entry.date | year -%}
+        {%- if loop.first or (items[loop.index0 - 1].date | year) != entryYear -%}
+        <div class="hronika-year-divider">
+          <span>{{ entryYear }}</span>
+        </div>
+        {%- endif -%}
+
+        <a href="{{ entry.url }}" class="hronika-card{% if loop.first %} featured{% endif %}"
+           data-transition data-label="{{ entry.data.title }}" data-symbol="scroll">
+
+          <div class="hronika-card-thumb">
+            {%- if entry.data.thumb -%}
+            <img src="{{ entry.data.thumb }}" alt="{{ entry.data.title }}" loading="lazy">
+            {%- else -%}
+            <div class="hronika-card-thumb-fallback">
+              <img src="/img/svg/scroll.svg" alt="">
+            </div>
+            {%- endif -%}
           </div>
-          {%- endif -%}
-        </div>
 
-        <div class="hronika-card-body">
-          <div class="hronika-card-date">{{ entry.date | formatDate("day-month-year", "bg-BG") }}</div>
-          <div class="hronika-card-title">{{ entry.data.title }}</div>
-          {%- if entry.data.description -%}
-          <div class="hronika-card-desc">{{ entry.data.description }}</div>
-          {%- endif -%}
-          <div class="hronika-card-arrow">›</div>
-        </div>
+          <div class="hronika-card-body">
+            <div class="hronika-card-date">{{ entry.date | formatDate("day-month-year", "bg-BG") }}</div>
+            <div class="hronika-card-title">{{ entry.data.title }}</div>
+            {%- if entry.data.description -%}
+            <div class="hronika-card-desc">{{ entry.data.description }}</div>
+            {%- endif -%}
+            <div class="hronika-card-arrow">›</div>
+          </div>
 
-      </a>
+        </a>
       {%- endfor -%}
 
     {%- else -%}
@@ -63,11 +72,7 @@ currentNav: hronika
         <div class="hronika-empty-symbol">· · ·</div>
         <div class="hronika-empty-text">Редакцията мълчи засега. Скоро.</div>
       </div>
-
     {%- endif -%}
-
   </div>
-
   <div class="hronika-sigil">✦</div>
-
 </div>

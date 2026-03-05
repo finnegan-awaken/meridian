@@ -27,69 +27,32 @@ currentNav: lavitsa
     Тук ще откриете... Всеки кораб се нуждае от пристан. Този е нашия.
   </p>
 
-  {#
-    ── HOW TO ADD BOOKS ──────────────────────────────────────────────
-    Each .lavitsa-book block is one entry. Copy the pattern below.
-    For a cover image, replace the .lavitsa-cover-fallback div with:
-      <img src="/img/covers/filename.jpg" alt="..." loading="lazy">
-    ─────────────────────────────────────────────────────────────────
-  #}
-
   <div class="lavitsa-shelf">
 
+    {%- for book in lavitsa -%}
     <div class="lavitsa-book">
       <div class="lavitsa-book-primary">
         <div class="lavitsa-cover">
+          {%- if book.cover -%}
+          <img src="{{ book.cover }}" alt="{{ book.title }}" loading="lazy">
+          {%- else -%}
           <div class="lavitsa-cover-fallback">
-            <span class="lavitsa-cover-fallback-letter">Б</span>
+            <span class="lavitsa-cover-fallback-letter">{{ book.letter }}</span>
           </div>
+          {%- endif -%}
         </div>
         <div class="lavitsa-book-meta">
-          <div class="lavitsa-book-num">01</div>
-          <div class="lavitsa-book-title">Библиотекарят от Аушвиц</div>
-          <div class="lavitsa-book-author">Антонио Итурбе</div>
+          <div class="lavitsa-book-num">{{ book.num }}</div>
+          <div class="lavitsa-book-title">{{ book.title }}</div>
+          <div class="lavitsa-book-author">{{ book.author }}</div>
+          <div class="lavitsa-book-year">{{ book.year }}</div>
         </div>
       </div>
       <div class="lavitsa-book-note">
-        Дитa Краус е на четиринайсет, когато е назначена за пазителка на осемте книги, скрити в блок 31 на Аушвиц-Биркенау. Роман за това, че думите оцеляват дори там, където хората не успяват.
+        {{ book.note }}
       </div>
     </div>
-
-    <div class="lavitsa-book">
-      <div class="lavitsa-book-primary">
-        <div class="lavitsa-cover">
-          <div class="lavitsa-cover-fallback">
-            <span class="lavitsa-cover-fallback-letter">М</span>
-          </div>
-        </div>
-        <div class="lavitsa-book-meta">
-          <div class="lavitsa-book-num">02</div>
-          <div class="lavitsa-book-title">Майсторът и Маргарита</div>
-          <div class="lavitsa-book-author">Михаил Булгаков</div>
-        </div>
-      </div>
-      <div class="lavitsa-book-note">
-        Дяволът посещава Москва. Пилат измива ръцете си. Романът в романа. Всеки път чете се различно — в зависимост от това кой сте станали оттогава насам.
-      </div>
-    </div>
-
-    <div class="lavitsa-book">
-      <div class="lavitsa-book-primary">
-        <div class="lavitsa-cover">
-          <div class="lavitsa-cover-fallback">
-            <span class="lavitsa-cover-fallback-letter">Ф</span>
-          </div>
-        </div>
-        <div class="lavitsa-book-meta">
-          <div class="lavitsa-book-num">03</div>
-          <div class="lavitsa-book-title">Фикции</div>
-          <div class="lavitsa-book-author">Хорхе Луис Борхес</div>
-        </div>
-      </div>
-      <div class="lavitsa-book-note">
-        Лабиринти от огледала, безкрайни библиотеки, градини с разклоняващи се пътеки. Борхес не разказва истории — той строи светове, в които читателят се губи с удоволствие.
-      </div>
-    </div>
+    {%- endfor -%}
 
   </div>
 

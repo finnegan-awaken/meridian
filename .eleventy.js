@@ -8,6 +8,8 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "src/css": "css" });
   eleventyConfig.addPassthroughCopy({ "src/js": "js" });
   eleventyConfig.addPassthroughCopy({ "src/img": "img" });
+  eleventyConfig.addFilter("year", (date) => new Date(date).getFullYear());
+  eleventyConfig.addFilter("pad", (num, size = 2) => String(num).padStart(size, '0'));
 
   // Filter: find items where a nested property equals a value
   eleventyConfig.addFilter("filterBy", function (arr, prop, value) {

@@ -126,7 +126,8 @@ body {
   width: 100%;
   max-width: 100%;              /* ← ADD */
   min-height: 100vh;
-  overflow-x: hidden;           /* ← ADD */
+  overflow-x: hidden;
+  overflow-y: auto; 
   color: var(--star);
   font-family: var(--ff-body);
   background:
@@ -197,6 +198,7 @@ body.page-dest > *:not(.back-link):not(.back-link-right):not(#transition):not(#g
 body {
   position: relative;
   min-height: 100vh;
+  z-index: 0;
 }
 
 body::before {
@@ -586,7 +588,7 @@ body.constellation-hover .star:not(.hovered) .star-label { color: rgba(var(--sta
   flex-wrap: wrap;
   margin: 30px auto 0;
   padding-bottom: 10px;
-  position: relative;           /* ← ADD — anchors .mini-nav-line */
+  position: relative;
 }
 
 /* 5th child (not 4th — SVG is child 1) = separator between АРХИВ and КОДЕКС */
@@ -609,14 +611,14 @@ body.constellation-hover .star:not(.hovered) .star-label { color: rgba(var(--sta
   top: -6px;
   left: 50%;
   transform: translateX(-50%);
-  width: 360px;
+  width: 480px;
   height: 170px;
   pointer-events: none;
   z-index: 0;
 }
 
 .mini-sep {
-  width: 56px; text-align: center;
+  width: 80px; text-align: center;    /* ← was 56px */
   font-size: 6px; letter-spacing: 6px;
   color: var(--copper-mid);
   pointer-events: none; user-select: none;
@@ -685,22 +687,22 @@ a.mini-star { display: flex; }
 }
 
 .mstar-label {
-  position: absolute; bottom: -18px; left: 50%;
+  position: absolute; bottom: -12px; left: 50%;
   transform: translateX(-50%);
   font-family: var(--ff-display);
-  font-size: 14px; letter-spacing: 3px;
-  color: rgba(var(--star-rgb), .45);
+  font-size: 16px;
+  color: var(--star); opacity: 0.5;
   white-space: nowrap; pointer-events: none;
   transition: color .4s ease, letter-spacing .4s ease;
 }
 .mini-star.current .mstar-label {
-  color: rgba(var(--star-rgb), .75);
+  color: rgba(var(--star)); opacity: 1;
   letter-spacing: 4px;
 }
 
 .mini-star:not(.current):hover .mstar-glow,
 .mini-star:not(.current):focus-visible .mstar-glow {
-  opacity: .55; transform: scale(1.5);
+  opacity: 0.55; transform: scale(1.5);
 }
 .mini-star:not(.current):hover .mstar-core,
 .mini-star:not(.current):focus-visible .mstar-core {
@@ -708,7 +710,7 @@ a.mini-star { display: flex; }
 }
 .mini-star:not(.current):hover .mstar-label,
 .mini-star:not(.current):focus-visible .mstar-label {
-  color: rgba(var(--star-rgb), .55);
+  color: rgba(var(--star)); opacity: 1;
   letter-spacing: 4px;
 }
 
@@ -2571,7 +2573,47 @@ a.mini-star { display: flex; }
   letter-spacing: 8px;
   color: var(--copper-mid);
 }
+/* ── Featured first entry ── */
+.hronika-card.featured {
+  grid-template-columns: 1fr;
+  gap: 20px 0;
+}
 
+.hronika-card.featured .hronika-card-thumb {
+  aspect-ratio: 21 / 9;
+}
+
+.hronika-card.featured .hronika-card-title {
+  font-size: 26px;
+}
+
+.hronika-card.featured .hronika-card-body {
+  padding-right: 28px;
+}
+
+/* ── Year divider ── */
+.hronika-year-divider {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 32px 0 8px;
+}
+
+.hronika-year-divider::before,
+.hronika-year-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--rule-bg-dim);
+}
+
+.hronika-year-divider span {
+  font-family: var(--ff-display);
+  font-size: 14px;
+  letter-spacing: 4px;
+  color: var(--copper);
+  opacity: .5;
+}
 
 /* ── Novini article thumb — issue-page animation ── */
 .novini-article-thumb {
@@ -2600,10 +2642,6 @@ a.mini-star { display: flex; }
   opacity: 1;
   transform: scale(1.03);
 }
-
-/* ══════════════════════════════════════════
-   25. ЛАВИЦА PAGE
-   ══════════════════════════════════════════ */
 
 /* ══════════════════════════════════════════
    25. ЛАВИЦА PAGE
@@ -2659,14 +2697,15 @@ a.mini-star { display: flex; }
 /* ── Block 1: cover + metadata ── */
 .lavitsa-book-primary {
   display: grid;
-  grid-template-columns: 100px 1fr;
+  grid-template-columns: 140px 1fr;    /* ← was 100px */
   gap: 0 20px;
   align-items: start;
+  min-width: 0;
+  overflow: hidden;
 }
 
-/* ── Cover — archive/issue-style animation ── */
 .lavitsa-cover {
-  width: 100px;
+  width: 140px;                         /* ← was 100px */
   aspect-ratio: 2 / 3;
   overflow: hidden;
   border: 1px solid var(--copper-ghost);
@@ -2684,7 +2723,7 @@ a.mini-star { display: flex; }
   object-fit: cover;
   display: block;
   opacity: .85;
-  filter: saturate(.65);
+  filter: saturate(.90);
   transition: opacity .5s ease, transform .6s ease, filter .5s ease;
 }
 
@@ -2727,15 +2766,15 @@ a.mini-star { display: flex; }
 /* ── Number — glow on hover ── */
 .lavitsa-book-num {
   font-family: var(--ff-body);
-  font-size: 11px;
-  letter-spacing: 4px;
-  color: var(--copper-medium);
+  font-size: 18px;
+  letter-spacing: 3px;
+  color: var(--copper); opacity: 0.8;
   text-transform: uppercase;
   transition: color .4s ease;
 }
 
 .lavitsa-book:hover .lavitsa-book-num {
-  color: var(--copper);
+  color: var(--copper); opacity: 1;
 }
 
 /* ── Title — letter-spacing animation ── */
@@ -2757,20 +2796,18 @@ a.mini-star { display: flex; }
 .lavitsa-book-author {
   font-family: var(--ff-body);
   font-style: italic;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 300;
   color: var(--copper);
-  opacity: .9;
 }
 
 /* ── Block 2: description ── */
 .lavitsa-book-note {
   font-family: var(--ff-body);
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 300;
   line-height: 1.75;
   color: var(--bright);
-  opacity: .75;
   padding-left: 24px;
   border-left: 1px solid var(--copper-faint);
   align-self: center;
@@ -2790,7 +2827,18 @@ a.mini-star { display: flex; }
   color: var(--copper-mid);
 }
 
+.lavitsa-book-year {
+  font-family: var(--ff-body);
+  font-size: 16px;
+  color: var(--copper);
+  opacity: .9;
+  letter-spacing: 2px;
+  transition: opacity .4s ease;
+}
 
+.lavitsa-book:hover .lavitsa-book-year {
+  opacity: 1;
+}
 /* ══════════════════════════════════════════
    20. OVERLAYS — RIPPLE, TRANSITION, GRAIN
    ══════════════════════════════════════════ */
@@ -3373,15 +3421,15 @@ a:focus-visible {
     height: 60px;
   }
   .mini-sep {
-    width: 36px;
+    width: 50px;
   }
   .mstar-label {
     font-size: 12px;
     letter-spacing: 2px;
   }
   .mini-nav-line {
-    width: 252px;
-    height: 132px;
+    width: 340px;
+    height: 142px;
   }
 
   /* — Hronika — */
@@ -3402,6 +3450,13 @@ a:focus-visible {
     padding-left: 16px;
     padding-right: 16px;
   }
+    /* — Hronika featured — */
+  .hronika-card.featured .hronika-card-thumb {
+    aspect-ratio: 16 / 9;
+  }
+  .hronika-card.featured .hronika-card-title {
+    font-size: 21px;
+  }
 
   /* — Novini article — */
   .novini-article-thumb {
@@ -3415,11 +3470,11 @@ a:focus-visible {
     gap: 20px 0;
   }
   .lavitsa-book-primary {
-    grid-template-columns: 80px 1fr;
+    grid-template-columns: 110px 1fr;   /* ← was 80px */
     gap: 0 16px;
   }
   .lavitsa-cover {
-    width: 80px;
+    width: 110px;                       /* ← was 80px */
   }
   .lavitsa-book-title {
     font-size: 20px;
@@ -3453,14 +3508,14 @@ a:focus-visible {
 
   /* — Mini-nav — */
   .mini-nav {
-    transform: none;
+    transform: scale(.85);
   }
   .mini-star {
     width: 52px;
     height: 52px;
   }
   .mini-sep {
-    width: 30px;
+    width: 40px;
   }
   .mstar-label {
     font-size: 10px;
@@ -3468,8 +3523,8 @@ a:focus-visible {
     bottom: -14px;
   }
   .mini-nav-line {
-    width: 216px;
-    height: 116px;
+    width: 285px;
+    height: 124px;
   }
 
   /* — Typography — */
@@ -3569,14 +3624,17 @@ a:focus-visible {
   .hronika-card:hover .hronika-card-title {
     letter-spacing: 2px;
   }
-
+  /* — Hronika featured — */
+  .hronika-card.featured .hronika-card-title {
+    font-size: 19px;
+  }
   /* — Lavitsa — */
   .lavitsa-book-primary {
-    grid-template-columns: 70px 1fr;
+    grid-template-columns: 90px 1fr;    /* ← was 70px */
     gap: 0 14px;
   }
   .lavitsa-cover {
-    width: 70px;
+    width: 90px;                        /* ← was 70px */
   }
   .lavitsa-book-title {
     font-size: 18px;

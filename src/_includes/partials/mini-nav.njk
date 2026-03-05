@@ -1,23 +1,12 @@
 <nav class="mini-nav" aria-label="Section navigation">
 
  <!-- M-pattern decorative line -->
-  <svg class="mini-nav-line" aria-hidden="true" viewBox="0 0 360 170" fill="none">
-    <defs>
-      <linearGradient id="mnl-g" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%"   stop-color="rgba(203,186,100,0)"/>
-        <stop offset="15%"  stop-color="rgba(203,186,100,0.08)"/>
-        <stop offset="50%"  stop-color="rgba(203,186,100,0.12)"/>
-        <stop offset="85%"  stop-color="rgba(203,186,100,0.08)"/>
-        <stop offset="100%" stop-color="rgba(203,186,100,0)"/>
-      </linearGradient>
-    </defs>
-    <polyline points="48,136 114,44 180,136 246,44 312,136"
-              stroke="url(#mnl-g)"
-              stroke-width="3"
-              stroke-linejoin="round"
-              fill="none"/>
-  </svg>
-
+    <svg class="mini-nav-line" viewBox="0 0 480 170" preserveAspectRatio="none">
+      <line x1="162" y1="44" x2="84"  y2="136" stroke="rgba(203,186,100,0.12)" stroke-width="2.5"/>
+      <line x1="162" y1="44" x2="240" y2="136" stroke="rgba(203,186,100,0.12)" stroke-width="2.5"/>
+      <line x1="318" y1="44" x2="240" y2="136" stroke="rgba(203,186,100,0.12)" stroke-width="2.5"/>
+      <line x1="318" y1="44" x2="396" y2="136" stroke="rgba(203,186,100,0.12)" stroke-width="2.5"/>
+    </svg>
   <a href="/atlas/" class="mini-star {% if currentNav == 'atlas' %}current{% endif %}" {% if currentNav != 'atlas' %}data-transition data-label="АТЛАС" data-symbol="compass"{% endif %}>
     {% if currentNav == 'atlas' %}<div class="mstar-pulse"></div>{% endif %}
     <div class="mstar-glow"></div>
