@@ -2767,6 +2767,7 @@ a.mini-star { display: flex; }
 /* ── Section title ── */
 .lavitsa-section {
   margin-bottom: 20px;
+  transform: translateZ(0);
 }
 
 .lavitsa-section-title {
@@ -3070,6 +3071,8 @@ a.mini-star { display: flex; }
   justify-content: center;
   gap: 0;
   margin-bottom: 8px;
+  isolation: isolate;
+  contain: layout style;
 }
 
 .carousel-stage {
@@ -3079,6 +3082,8 @@ a.mini-star { display: flex; }
   height: 360px;
   perspective: 1200px;
   perspective-origin: 50% 50%;
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .carousel-card {

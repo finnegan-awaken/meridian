@@ -436,4 +436,9 @@
       resizeTimer = setTimeout(updatePositions, 150);
     });
   }
+    document.addEventListener('touchmove', function (e) {
+    if (document.body.classList.contains('page-nav')) {
+      e.preventDefault();
+    }
+  }, { passive: false });
 })();
