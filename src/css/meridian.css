@@ -201,13 +201,13 @@ body.page-dest > *:not(.back-link):not(.back-link-right):not(#transition):not(#g
 
 body {
   position: relative;
-  min-height: 100vh;
+  min-height: 100%;                /* ← CHANGE from 100vh */
   z-index: 0;
 }
 
 body::before {
   content: '';
-  position: absolute;
+  position: fixed;                 /* ← CHANGE from absolute to fixed */
   top: 18px;
   left: 40px;
   right: 40px;
@@ -219,7 +219,7 @@ body::before {
 
 body::after {
   content: '';
-  position: absolute;
+  position: fixed;                 /* ← CHANGE from absolute to fixed */
   bottom: 18px;
   left: 40px;
   right: 40px;
@@ -3714,8 +3714,14 @@ a:focus-visible {
 /* ── 768 · Tablet grids & spacing ── */
 @media (max-width: 768px) {
   html {
-    scrollbar-gutter: auto;     /* ← ADD */
+    overflow-y: auto;
+    overscroll-behavior: none;
   }
+    body, body.page-dest {
+    overscroll-behavior-y: none;
+    overscroll-behavior-x: none;
+  }
+}
 
   /* Grids */
   .atlas-grid-astrologer {
@@ -3778,9 +3784,17 @@ a:focus-visible {
   .issue-description {
     padding: 0 24px 35px;
   }
+
+@supports (-webkit-touch-callout: none) {
+  /* iOS Safari specific */
+  html, body {
+    height: -webkit-fill-available;
+  }
+  
+  body.page-dest {
+    min-height: -webkit-fill-available;
+  }
 }
-
-
 /* ── 601+ · Desktop: hide gloss arrow ── */
 @media (min-width: 601px) {
   .gloss-go-arrow {

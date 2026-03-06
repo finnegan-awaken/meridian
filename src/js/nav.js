@@ -429,18 +429,4 @@
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(updatePositions, 150);
   });
-
-    if (window.visualViewport) {
-    window.visualViewport.addEventListener('resize', function () {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(updatePositions, 150);
-    });
-  }
-    document.addEventListener('touchmove', function (e) {
-    if (document.body.classList.contains('page-nav') &&
-        !document.body.classList.contains('tarot-active')) {
-      e.preventDefault();
-    }
-  }, { passive: false });
-
 })();
