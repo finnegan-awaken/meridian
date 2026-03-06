@@ -437,8 +437,10 @@
     });
   }
     document.addEventListener('touchmove', function (e) {
-    if (document.body.classList.contains('page-nav')) {
+    if (document.body.classList.contains('page-nav') &&
+        !document.body.classList.contains('tarot-active')) {
       e.preventDefault();
     }
   }, { passive: false });
+
 })();

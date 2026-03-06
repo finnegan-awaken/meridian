@@ -579,7 +579,7 @@ body.constellation-hover .star:not(.hovered) .star-label { color: rgba(var(--sta
   color: rgba(var(--star-rgb), .8);
   text-transform: uppercase;
   pointer-events: none;
-  opacity: 0; animation: fade-in 2s ease 3.2s forwards;
+  opacity: 0; animation: fade-in 2s ease 1.6s forwards;
   transition: opacity .8s ease;
 }
 
