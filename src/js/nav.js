@@ -154,15 +154,14 @@
         g.style.top  = gt + 'px';
 
         right = p.x > window.innerWidth / 2;
-      } else {
-        var gl = right ? p.x - offset - gw : p.x + offset;
-        var gt = p.y - 35;
-        gl = Math.max(16, Math.min(window.innerWidth - gw - 16, gl));
-        gt = Math.max(16, Math.min(window.innerHeight - 180, gt));
-        g.style.left = gl + 'px';
-        g.style.top  = gt + 'px';
-      }
-
+    } else {
+      var gl = right ? p.x - offset - gw : p.x + offset;
+      var gt = p.y - 35;
+      gl = Math.max(16, Math.min(window.innerWidth - gw - 16, gl));
+      gt = Math.max(16, Math.min(window.innerHeight - 240, gt));
+      g.style.left = gl + 'px';
+      g.style.top  = gt + 'px';
+    }
       var arrowSymbol = right ? '‹' : '›';
       
       g.innerHTML =
@@ -219,15 +218,15 @@
               inner.classList.remove('align-right');
             }
           }
-        } else {
-          g.style.width = '';
-          var gl = right ? p.x - offset - gw : p.x + offset;
-          var gt = p.y - 35;
-          gl = Math.max(16, Math.min(window.innerWidth - gw - 16, gl));
-          gt = Math.max(16, Math.min(window.innerHeight - 180, gt));
-          g.style.left = gl + 'px';
-          g.style.top  = gt + 'px';
-        }
+      } else {
+        g.style.width = '';
+        var gl = right ? p.x - offset - gw : p.x + offset;
+        var gt = p.y - 35;
+        gl = Math.max(16, Math.min(window.innerWidth - gw - 16, gl));
+        gt = Math.max(16, Math.min(window.innerHeight - 240, gt));
+        g.style.left = gl + 'px';
+        g.style.top  = gt + 'px';
+      }
       }
     });
   }

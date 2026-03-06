@@ -7,6 +7,7 @@
       "year": 1930,
       "letter": "Б",
       "cover": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1328048540i/525304.jpg",
+      "note": "Пак шизофрений",    
       "addedBy": "Редакцията"
     },
     {
@@ -15,6 +16,7 @@
       "year": 1957,
       "letter": "М",
       "cover": "https://www.colibri.bg/images/zvdnevnici3.jpg",
+      "note": "ЙОН ТИХИ, РААА.",   
       "addedBy": "Редакцията"
     },
     {
@@ -23,6 +25,7 @@
       "year": 1944,
       "letter": "Ф",
       "cover": "https://upload.wikimedia.org/wikipedia/commons/8/87/Niebla_-_Miguel_de_Unamuno_-_Portada_de_la_primera_edici%C3%B3n%2C_Renacimiento_1914.jpg",
+      "note": "Това даже не съм го чел.",   
       "addedBy": "Редакцията"
     }
   ],

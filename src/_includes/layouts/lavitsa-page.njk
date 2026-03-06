@@ -27,33 +27,53 @@ currentNav: lavitsa
     Тук ще откриете... Всеки кораб се нуждае от пристан. Този е нашия.
   </p>
 
-  {# ── Favorites grid ── #}
+  {# ── Favorites carousel ── #}
   <div class="lavitsa-section">
     <h3 class="lavitsa-section-title">Последни фаворити:</h3>
-    <div class="lavitsa-favorites-grid">
-      {%- for book in lavitsa.favorites -%}
-      <div class="lavitsa-fav-card">
-        <div class="lavitsa-fav-cover">
-          {%- if book.cover -%}
-          <img src="{{ book.cover }}" alt="{{ book.title }}" loading="lazy">
-          {%- else -%}
-          <div class="lavitsa-cover-fallback">
-            <span class="lavitsa-cover-fallback-letter">{{ book.letter }}</span>
+
+    <div class="lavitsa-carousel" aria-label="Избрани книги">
+      <button class="carousel-arrow carousel-prev" aria-label="Предишна книга">‹</button>
+
+      <div class="carousel-stage">
+        {%- for book in lavitsa.favorites -%}
+        <div class="carousel-card" data-index="{{ loop.index0 }}">
+          <div class="carousel-card-inner">
+            <div class="carousel-face carousel-front">
+              {%- if book.cover -%}
+              <img src="{{ book.cover }}" alt="{{ book.title }}" loading="lazy">
+              {%- else -%}
+              <div class="carousel-cover-fallback">
+                <span class="carousel-fallback-letter">{{ book.letter }}</span>
+              </div>
+              {%- endif -%}
+            </div>
+            <div class="carousel-face carousel-back">
+              <div class="carousel-back-title">{{ book.title }}</div>
+              <div class="carousel-back-author">{{ book.author }}</div>
+              <div class="carousel-back-year">{{ book.year }}</div>
+              <span class="carousel-back-sep"></span>
+              {%- if book.note -%}
+              <div class="carousel-back-note">{{ book.note }}</div>
+              {%- endif -%}
+              <div class="carousel-back-added">Препоръчано от: {{ book.addedBy }}</div>
+            </div>
           </div>
-          {%- endif -%}
+          <div class="carousel-flip-hint">обърни</div>
         </div>
-        <div class="lavitsa-fav-info">
-          <div class="lavitsa-fav-title">{{ book.title }}</div>
-          <div class="lavitsa-fav-author">{{ book.author }}</div>
-          <div class="lavitsa-fav-year">{{ book.year }}</div>
-          <div class="lavitsa-fav-added">{{ book.addedBy }}</div>
-        </div>
+        {%- endfor -%}
       </div>
+
+      <button class="carousel-arrow carousel-next" aria-label="Следваща книга">›</button>
+    </div>
+
+    <div class="carousel-indicator">
+      {%- for book in lavitsa.favorites -%}
+      <span class="carousel-dot{% if loop.first %} active{% endif %}"></span>
       {%- endfor -%}
     </div>
   </div>
 
-  <div class="codex-sigil">✦</div>
+  <div class="codex-sigil"></div>
 
   {# ── Full book list ── #}
   <div class="lavitsa-section">
