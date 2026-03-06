@@ -216,34 +216,37 @@
   /* ══════════════════════════════════════
      BUILD OVERLAY
      ══════════════════════════════════════ */
-  function buildOverlay() {
-    overlay = document.createElement('div');
-    overlay.className = 'tarot-overlay';
-    overlay.setAttribute('role', 'dialog');
-    overlay.setAttribute('aria-modal', 'true');
-    overlay.setAttribute('aria-label', 'Избери три карти');
-    overlay.setAttribute('aria-hidden', 'true');
-    overlay.innerHTML =
-      '<button class="tarot-close" aria-label="Затвори таро">✕</button>' +
+function buildOverlay() {
+  overlay = document.createElement('div');
+  overlay.className = 'tarot-overlay';
+  overlay.setAttribute('role', 'dialog');
+  overlay.setAttribute('aria-modal', 'true');
+  overlay.setAttribute('aria-label', 'Избери три карти');
+  overlay.setAttribute('aria-hidden', 'true');
+  overlay.innerHTML =
+    '<button class="tarot-close" aria-label="Затвори таро">✕</button>' +
+    '<div class="tarot-overlay-inner">' +
       '<div class="tarot-revealed" aria-live="polite"></div>' +
       '<div class="tarot-spread-section">' +
         '<div class="tarot-spread-label">Избери карта</div>' +
         '<div class="tarot-spread" role="group" aria-label="Разпръснати карти"></div>' +
-      '</div>';
-    document.body.appendChild(overlay);
+      '</div>' +
+    '</div>';
+  document.body.appendChild(overlay);
 
-    closeBtn = overlay.querySelector('.tarot-close');
-    revealedContainer = overlay.querySelector('.tarot-revealed');
-    spreadLabel = overlay.querySelector('.tarot-spread-label');
-    spreadContainer = overlay.querySelector('.tarot-spread');
+  closeBtn = overlay.querySelector('.tarot-close');
+  revealedContainer = overlay.querySelector('.tarot-revealed');
+  spreadLabel = overlay.querySelector('.tarot-spread-label');
+  spreadContainer = overlay.querySelector('.tarot-spread');
 
-    closeBtn.addEventListener('click', closeTarot);
-    overlay.addEventListener('click', function (e) {
-      if (e.target === overlay) closeTarot();
-    });
-    overlay.addEventListener('keydown', handleTrapKeydown);
-  }
-
+  closeBtn.addEventListener('click', closeTarot);
+  overlay.addEventListener('click', function (e) {
+    if (e.target === overlay || e.target.classList.contains('tarot-overlay-inner')) {
+      closeTarot();
+    }
+  });
+  overlay.addEventListener('keydown', handleTrapKeydown);
+}
   /* ══════════════════════════════════════
      OPEN TAROT
      ══════════════════════════════════════ */
@@ -254,7 +257,7 @@ function openTarot() {
   usedArticleUrls = [];
   previousFocus = document.activeElement;
 
-  // ── Save scroll position & lock body ──
+  // ── Lock body scroll ──
   var scrollY = window.scrollY;
   document.body.dataset.scrollY = scrollY;
   document.body.style.top = '-' + scrollY + 'px';
@@ -281,6 +284,10 @@ function openTarot() {
   overlay.setAttribute('aria-hidden', 'false');
   trigger.classList.add('hidden');
 
+  // ── Reset inner scroll to top ──
+  var inner = overlay.querySelector('.tarot-overlay-inner');
+  if (inner) inner.scrollTop = 0;
+
   var els = spreadContainer.querySelectorAll('.tarot-spread-card');
   for (var j = 0; j < els.length; j++) {
     (function (el, delay) {
@@ -297,15 +304,11 @@ function openTarot() {
      CLOSE TAROT
      ══════════════════════════════════════ */
 function closeTarot() {
-  // ── Read saved scroll before removing classes ──
   var scrollY = parseInt(document.body.dataset.scrollY || '0', 10);
 
-  // ── Unlock body ──
   document.documentElement.classList.remove('tarot-active');
   document.body.classList.remove('tarot-active');
   document.body.style.top = '';
-
-  // ── Restore scroll position ──
   window.scrollTo(0, scrollY);
 
   overlay.classList.add('closing');
@@ -327,7 +330,6 @@ function closeTarot() {
     previousFocus = null;
   }, 700);
 }
-
   /* ══════════════════════════════════════
      CREATE SPREAD CARD
      ══════════════════════════════════════ */
