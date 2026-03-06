@@ -199,13 +199,8 @@
   overflow-y: auto;
   overflow-x: hidden;
   background:
-    radial-gradient(ellipse at 25% 20%,
-      var(--atmo-deep) 0%, var(--atmo-deep-zero) 50%),
-    radial-gradient(ellipse at 75% 40%,
-      var(--atmo-mid) 0%, var(--atmo-mid-zero) 50%),
-    radial-gradient(ellipse at 50% 50%,
-      var(--atmo-vignette-zero) 0%, var(--atmo-vignette) 70%),
-    linear-gradient(to bottom, var(--night), var(--twilight));
+    radial-gradient(ellipse at 50% 60%, rgba(22, 18, 51, .85) 0%, transparent 50%),
+    rgba(6, 9, 15, .92);
   transition: opacity .7s ease;
   scrollbar-width: none;
 }
@@ -222,22 +217,6 @@
 .tarot-overlay.closing {
   opacity: 0;
   pointer-events: none;
-}
-.tarot-overlay::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  filter: url(#grain-filter);
-  opacity: 0.4;
-  mix-blend-mode: overlay;
-  pointer-events: none;
-  z-index: 0;
-}
-
-/* ── Ensure overlay content sits above grain ── */
-.tarot-overlay > * {
-  position: relative;
-  z-index: 1;
 }
 
 .tarot-close {
