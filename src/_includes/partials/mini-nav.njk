@@ -1,45 +1,58 @@
 <nav class="mini-nav" aria-label="Section navigation">
 
- <!-- M-pattern decorative line -->
-    <svg class="mini-nav-line" viewBox="0 0 480 170" preserveAspectRatio="none">
-      <line x1="162" y1="44" x2="84"  y2="136" stroke="rgba(203,186,100,0.12)" stroke-width="2.5"/>
-      <line x1="162" y1="44" x2="240" y2="136" stroke="rgba(203,186,100,0.12)" stroke-width="2.5"/>
-      <line x1="318" y1="44" x2="240" y2="136" stroke="rgba(203,186,100,0.12)" stroke-width="2.5"/>
-      <line x1="318" y1="44" x2="396" y2="136" stroke="rgba(203,186,100,0.12)" stroke-width="2.5"/>
-    </svg>
+  <!-- M-pattern decorative line -->
+  <svg class="mini-nav-line" viewBox="0 0 480 170" preserveAspectRatio="none">
+    <line x1="162" y1="44" x2="84"  y2="136" stroke="rgba(203,186,100,0.12)" stroke-width="2.5"/>
+    <line x1="162" y1="44" x2="240" y2="136" stroke="rgba(203,186,100,0.12)" stroke-width="2.5"/>
+    <line x1="318" y1="44" x2="240" y2="136" stroke="rgba(203,186,100,0.12)" stroke-width="2.5"/>
+    <line x1="318" y1="44" x2="396" y2="136" stroke="rgba(203,186,100,0.12)" stroke-width="2.5"/>
+  </svg>
+
+  <!-- Row 1 -->
   <a href="/atlas/" class="mini-star {% if currentNav == 'atlas' %}current{% endif %}" {% if currentNav != 'atlas' %}data-transition data-label="АТЛАС" data-symbol="compass"{% endif %}>
     {% if currentNav == 'atlas' %}<div class="mstar-pulse"></div>{% endif %}
     <div class="mstar-glow"></div>
     <div class="mstar-core"></div>
     <span class="mstar-label">АТЛАС</span>
   </a>
+
   <div class="mini-sep"></div>
-  <a href="/archive/" class="mini-star {% if currentNav == 'archive' %}current{% endif %}" {% if currentNav != 'archive' %}data-transition data-label="АРХИВ" data-symbol="book"{% endif %}>
-    {% if currentNav == 'archive' %}<div class="mstar-pulse"></div>{% endif %}
-    <div class="mstar-glow"></div>
-    <div class="mstar-core"></div>
-    <span class="mstar-label">АРХИВ</span>
-  </a>
-  <div class="mini-sep"></div>
+
   <a href="/codex/" class="mini-star {% if currentNav == 'codex' %}current{% endif %}" {% if currentNav != 'codex' %}data-transition data-label="КОДЕКС" data-symbol="moon"{% endif %}>
     {% if currentNav == 'codex' %}<div class="mstar-pulse"></div>{% endif %}
     <div class="mstar-glow"></div>
     <div class="mstar-core"></div>
     <span class="mstar-label">КОДЕКС</span>
   </a>
+
+  <!-- This is the 5th child — forces wrap to row 2 -->
   <div class="mini-sep"></div>
+
+  <!-- Row 2 -->
   <a href="/hronika/" class="mini-star {% if currentNav == 'hronika' %}current{% endif %}" {% if currentNav != 'hronika' %}data-transition data-label="ХРОНИКА" data-symbol="scroll"{% endif %}>
     {% if currentNav == 'hronika' %}<div class="mstar-pulse"></div>{% endif %}
     <div class="mstar-glow"></div>
     <div class="mstar-core"></div>
     <span class="mstar-label">ХРОНИКА</span>
   </a>
+
   <div class="mini-sep"></div>
+
+  <a href="/archive/" class="mini-star {% if currentNav == 'archive' %}current{% endif %}" {% if currentNav != 'archive' %}data-transition data-label="АРХИВ" data-symbol="book"{% endif %}>
+    {% if currentNav == 'archive' %}<div class="mstar-pulse"></div>{% endif %}
+    <div class="mstar-glow"></div>
+    <div class="mstar-core"></div>
+    <span class="mstar-label">АРХИВ</span>
+  </a>
+
+  <div class="mini-sep"></div>
+
   <a href="/lavitsa/" class="mini-star {% if currentNav == 'lavitsa' %}current{% endif %}" {% if currentNav != 'lavitsa' %}data-transition data-label="ЛАВИЦА" data-symbol="candle"{% endif %}>
     {% if currentNav == 'lavitsa' %}<div class="mstar-pulse"></div>{% endif %}
     <div class="mstar-glow"></div>
     <div class="mstar-core"></div>
     <span class="mstar-label">ЛАВИЦА</span>
   </a>
+
 </nav>
 <div class="mini-nav-sep"></div>

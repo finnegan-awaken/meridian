@@ -27,12 +27,13 @@ currentNav: lavitsa
     Тук ще откриете... Всеки кораб се нуждае от пристан. Този е нашия.
   </p>
 
-  <div class="lavitsa-shelf">
-
-    {%- for book in lavitsa -%}
-    <div class="lavitsa-book">
-      <div class="lavitsa-book-primary">
-        <div class="lavitsa-cover">
+  {# ── Favorites grid ── #}
+  <div class="lavitsa-section">
+    <h3 class="lavitsa-section-title">Последни фаворити:</h3>
+    <div class="lavitsa-favorites-grid">
+      {%- for book in lavitsa.favorites -%}
+      <div class="lavitsa-fav-card">
+        <div class="lavitsa-fav-cover">
           {%- if book.cover -%}
           <img src="{{ book.cover }}" alt="{{ book.title }}" loading="lazy">
           {%- else -%}
@@ -41,19 +42,49 @@ currentNav: lavitsa
           </div>
           {%- endif -%}
         </div>
-        <div class="lavitsa-book-meta">
-          <div class="lavitsa-book-num">{{ book.num }}</div>
-          <div class="lavitsa-book-title">{{ book.title }}</div>
-          <div class="lavitsa-book-author">{{ book.author }}</div>
-          <div class="lavitsa-book-year">{{ book.year }}</div>
+        <div class="lavitsa-fav-info">
+          <div class="lavitsa-fav-title">{{ book.title }}</div>
+          <div class="lavitsa-fav-author">{{ book.author }}</div>
+          <div class="lavitsa-fav-year">{{ book.year }}</div>
+          <div class="lavitsa-fav-added">{{ book.addedBy }}</div>
         </div>
       </div>
-      <div class="lavitsa-book-note">
-        {{ book.note }}
-      </div>
+      {%- endfor -%}
     </div>
-    {%- endfor -%}
+  </div>
 
+  <div class="codex-sigil">✦</div>
+
+  {# ── Full book list ── #}
+  <div class="lavitsa-section">
+    <h3 class="lavitsa-section-title">100-те най-добри книги<br>според списание Меридиан:</h3>
+    <div class="lavitsa-shelf">
+      {%- for book in lavitsa.books -%}
+      <div class="lavitsa-book">
+        <div class="lavitsa-book-primary">
+          <div class="lavitsa-cover">
+            {%- if book.cover -%}
+            <img src="{{ book.cover }}" alt="{{ book.title }}" loading="lazy">
+            {%- else -%}
+            <div class="lavitsa-cover-fallback">
+              <span class="lavitsa-cover-fallback-letter">{{ book.letter }}</span>
+            </div>
+            {%- endif -%}
+          </div>
+          <div class="lavitsa-book-meta">
+            <div class="lavitsa-book-num">{{ loop.index | pad }}</div>
+            <div class="lavitsa-book-title">{{ book.title }}</div>
+            <div class="lavitsa-book-author">{{ book.author }}</div>
+            <div class="lavitsa-book-year">{{ book.year }}</div>
+            <div class="lavitsa-book-added">{{ book.addedBy }}</div>
+          </div>
+        </div>
+        <div class="lavitsa-book-note">
+          {{ book.note }}
+        </div>
+      </div>
+      {%- endfor -%}
+    </div>
   </div>
 
   <div class="lavitsa-sigil">✦</div>

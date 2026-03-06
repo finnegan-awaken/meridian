@@ -475,8 +475,8 @@ body.constellation-hover .star:not(.hovered) .star-label { color: rgba(var(--sta
 }
 
 .gloss-numeral img.gloss-symbol-img {
-  width: 14px;
-  height: 14px;
+  width: 16px;
+  height: 16px;
 }
 .gloss-inner.align-right .gloss-numeral {
   justify-content: flex-end;
@@ -587,7 +587,6 @@ body.constellation-hover .star:not(.hovered) .star-label { color: rgba(var(--sta
   justify-content: center;
   flex-wrap: wrap;
   margin: 30px auto 0;
-  padding-bottom: 10px;
   position: relative;
 }
 
@@ -1574,6 +1573,98 @@ a.mini-star { display: flex; }
 }
 
 /* ══════════════════════════════════════════
+   13d. ARCHIVE — NEWS VIEW
+   ══════════════════════════════════════════ */
+.archive-news-card {
+  display: flex;
+  gap: 20px;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--copper-faint);
+  transition: border-color .4s ease;
+}
+.archive-news-card:first-child {
+  border-top: 1px solid var(--copper-faint);
+}
+.archive-news-card:hover {
+  border-color: var(--copper-soft);
+}
+
+.archive-news-thumb {
+  flex: 0 0 140px;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border: 1px solid var(--copper-ghost);
+  transition: border-color .4s ease;
+}
+.archive-news-card:hover .archive-news-thumb {
+  border-color: var(--copper-soft);
+}
+
+.archive-news-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: .85;
+  transition: opacity .5s ease, transform .6s ease;
+}
+.archive-news-card:hover .archive-news-thumb img {
+  opacity: 1;
+  transform: scale(1.04);
+}
+
+.archive-news-thumb-fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--copper-ghost2);
+}
+.archive-news-thumb-fallback img {
+  width: 24px;
+  height: 24px;
+  opacity: .25;
+}
+
+.archive-news-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.archive-news-date {
+  font-family: var(--ff-body);
+  font-size: 14px;
+  color: var(--copper);
+  opacity: .7;
+}
+
+.archive-news-title {
+  font-family: var(--ff-display);
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  color: var(--star);
+  transition: color .4s ease, letter-spacing .4s ease;
+}
+.archive-news-card:hover .archive-news-title {
+  color: var(--bright);
+  letter-spacing: 4px;
+}
+
+.archive-news-desc {
+  font-family: var(--ff-body);
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.65;
+  color: var(--bright);
+  opacity: .7;
+}
+
+
+/* ══════════════════════════════════════════
    14. ATLAS PAGE
    ══════════════════════════════════════════ */
 .atlas-content {
@@ -2401,7 +2492,7 @@ a.mini-star { display: flex; }
 .hronika-content {
   max-width: 700px;
   margin: 0 auto;
-  padding: 0 40px 120px;
+  padding: 0 0 120px;
   width: 100%;
 }
 
@@ -2460,14 +2551,14 @@ a.mini-star { display: flex; }
   width: 100%; height: 100%;
   object-fit: cover;
   display: block;
-  opacity: .85;
-  transition: opacity .5s ease, transform .6s ease;
+  filter: saturate(0.8);
+  transition: filter .5s ease, transform .6s ease;
 }
 
 .hronika-card:hover .hronika-card-thumb img {
   opacity: 1;
   transform: scale(1.04);
-  filter: saturate(.9);
+  filter: saturate(1);
 }
 
 .hronika-card-thumb-fallback {
@@ -2650,7 +2741,7 @@ a.mini-star { display: flex; }
 .lavitsa-content {
   max-width: 700px;
   margin: 0 auto;
-  padding: 0 40px 120px;
+  padding: 0 0 120px;
   width: 100%;
 }
 
@@ -2667,7 +2758,133 @@ a.mini-star { display: flex; }
   margin: 0 auto 56px;
   opacity: .85;
 }
+/* ── Section title ── */
+.lavitsa-section {
+  margin-bottom: 20px;
+}
 
+.lavitsa-section-title {
+  text-align: center;
+  font-family: var(--ff-display); font-weight: 300;
+  font-size: 22px; letter-spacing: 2px;
+  color: var(--copper); opacity: .8;
+  margin-bottom: 28px;
+}
+
+/* ── Favorites grid ── */
+.lavitsa-favorites-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.lavitsa-fav-card {
+  display: block;
+  position: relative;
+  transition: transform .4s ease;
+}
+.lavitsa-fav-card:hover {
+  transform: translateY(-4px);
+}
+
+.lavitsa-fav-cover {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  overflow: hidden;
+  border: 1px solid var(--copper-ghost);
+  margin-bottom: 14px;
+  transition: border-color .4s ease;
+}
+.lavitsa-fav-card:hover .lavitsa-fav-cover {
+  border-color: var(--copper-soft);
+}
+
+.lavitsa-fav-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(.85);
+  transition: transform .6s ease, filter .5s ease;
+}
+.lavitsa-fav-card:hover .lavitsa-fav-cover img {
+  opacity: 1;
+  transform: scale(1.03);
+  filter: saturate(1);
+}
+
+.lavitsa-fav-info {
+  text-align: center;
+  padding: 0 4px;
+}
+
+.lavitsa-fav-title {
+  font-family: var(--ff-display);
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--star);
+  margin-bottom: 4px;
+  transition: color .4s ease;
+}
+.lavitsa-fav-card:hover .lavitsa-fav-title {
+  color: var(--bright);
+}
+
+.lavitsa-fav-author {
+  font-family: var(--ff-body);
+  font-style: italic;
+  font-size: 18px;
+  font-weight: 300;
+  color: var(--copper);
+  opacity: .9;
+  margin-bottom: 2px;
+}
+
+.lavitsa-fav-year {
+  font-family: var(--ff-body);
+  font-size: 16px;
+  color: var(--copper);
+  opacity: .9;
+  letter-spacing: 2px;
+}
+
+.lavitsa-fav-added {
+  font-family: var(--ff-body);
+  font-style: italic;
+  font-size: 16px;
+  color: var(--moon);
+  opacity: .5;
+  margin-top: 6px;
+}
+
+/* ── Book year ── */
+.lavitsa-book-year {
+  font-family: var(--ff-body);
+  font-size: 14px;
+  color: var(--copper);
+  opacity: .5;
+  letter-spacing: 2px;
+  transition: opacity .4s ease;
+}
+.lavitsa-book:hover .lavitsa-book-year {
+  opacity: .75;
+}
+
+/* ── Book added by ── */
+.lavitsa-book-added {
+  font-family: var(--ff-body);
+  font-style: italic;
+  font-size: 13px;
+  color: var(--moon);
+  opacity: .45;
+  margin-top: 4px;
+  letter-spacing: 1px;
+  transition: opacity .4s ease;
+}
+.lavitsa-book:hover .lavitsa-book-added {
+  opacity: .65;
+}
 /* ── Book list ── */
 .lavitsa-shelf {
   display: flex;
@@ -2684,6 +2901,7 @@ a.mini-star { display: flex; }
   border-bottom: 1px solid var(--copper-faint);
   position: relative;
   transition: border-color .4s ease;
+  overflow: hidden;               /* ← prevents letter-spacing reflow */
 }
 
 .lavitsa-book:first-child {
@@ -2701,7 +2919,6 @@ a.mini-star { display: flex; }
   gap: 0 20px;
   align-items: start;
   min-width: 0;
-  overflow: hidden;
 }
 
 .lavitsa-cover {
@@ -2722,7 +2939,6 @@ a.mini-star { display: flex; }
   width: 100%; height: 100%;
   object-fit: cover;
   display: block;
-  opacity: .85;
   filter: saturate(.90);
   transition: opacity .5s ease, transform .6s ease, filter .5s ease;
 }
@@ -3254,7 +3470,7 @@ a:focus-visible {
 
   /* — Stars — */
   .star-label {
-    font-size: 12px;
+    font-size: 16px;
     letter-spacing: 1.5px;
   }
 
@@ -3271,14 +3487,14 @@ a:focus-visible {
     cursor: pointer;
   }
   .gloss-title {
-    font-size: 14px;
+    font-size: 16px;
     letter-spacing: 3px;
   }
   .gloss-desc {
-    font-size: 14px;
+    font-size: 16px;
   }
   .gloss-subtitle {
-    font-size: 14px;
+    font-size: 16px;
   }
   .gloss-go-arrow {
     position: absolute;
@@ -3372,7 +3588,22 @@ a:focus-visible {
     flex-wrap: wrap;
     gap: 4px 14px;
   }
-
+ /* — Archive news — */
+  .archive-news-card {
+    flex-direction: column;
+    gap: 12px;
+  }
+  .archive-news-thumb {
+    flex: none;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+  }
+  .archive-news-title {
+    font-size: 18px;
+  }
+  .archive-news-card:hover .archive-news-title {
+    letter-spacing: 2px;
+  }
   /* — Author archive — */
   .archive-author-articles {
     margin-left: 10px;
@@ -3492,6 +3723,20 @@ a:focus-visible {
     padding-left: 16px;
     padding-right: 16px;
   }
+    .lavitsa-favorites-grid {
+    gap: 16px;
+  }
+  .lavitsa-fav-title {
+    font-size: 14px;
+  }
+  .lavitsa-fav-author {
+    font-size: 18px;
+  }
+  .lavitsa-section-title {
+    font-size: 18px;
+    padding: 0 10px;
+  }
+
 }
 
 

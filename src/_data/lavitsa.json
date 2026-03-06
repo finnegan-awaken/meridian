@@ -1,5 +1,34 @@
-[
-  {
+{
+
+  "favorites": [
+    {
+      "title": "Звездотворецът",
+      "author": "Олаф Стейпълдън",
+      "year": 1930,
+      "letter": "Б",
+      "cover": "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1328048540i/525304.jpg",
+      "addedBy": "Редакцията"
+    },
+    {
+      "title": "Звездни дневници",
+      "author": "Станислав Лем",
+      "year": 1957,
+      "letter": "М",
+      "cover": "https://www.colibri.bg/images/zvdnevnici3.jpg",
+      "addedBy": "Редакцията"
+    },
+    {
+      "title": "Мъгла",
+      "author": "Мигел де Унамуно",
+      "year": 1944,
+      "letter": "Ф",
+      "cover": "https://upload.wikimedia.org/wikipedia/commons/8/87/Niebla_-_Miguel_de_Unamuno_-_Portada_de_la_primera_edici%C3%B3n%2C_Renacimiento_1914.jpg",
+      "addedBy": "Редакцията"
+    }
+  ],
+
+  "books": [
+    {
     "num": "01",
     "title": "Феноменология на духа",
     "author": "Георг Фридрих Хегел",
@@ -46,11 +75,12 @@
   },
       {
     "num": "24",
-    "title": "Разкази",
+    "title": "激情世界",
     "author": "Цан Сюе",
-    "year": 1990,
+    "year": 2022,
     "letter": "Ф",
-    "cover": "https://p2.itc.cn/images01/20231225/eeafd6109c2a4d8a8f5f6de780a3bf6c.jpeg",
-    "note": "Ми то същото като Горменгаст."
-  }
-]
+    "cover": "https://m.media-amazon.com/images/I/71tYQ94c8TL._SL1500_.jpg",
+    "note": "Заглавието нямаше български превод, оправяйте се."
+    }
+  ]
+}

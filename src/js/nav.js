@@ -14,28 +14,28 @@
       sub: 'Experimentum Crucis',
       desc: 'Указател на неизследваните територии.',
       coords: 'α 5h 32m · δ +46° 01′',
-      x: 22, y: 33, mag: 2, href: window.BASE + 'atlas/'
+      x: 30, y: 33, mag: 2, href: window.BASE + 'atlas/'
     },
     {
       id: 'codex', name: 'КОДЕКС', symbol: 'moon', num: 'III',
       sub: 'Lasciate ogne speranza voi ch\'entrate',
       desc: 'Отвъд първия предел.<br>Кои сме ние и какво търсим.',
       coords: 'α 18h 36m · δ +38° 47′',
-      x: 78, y: 33, mag: 2, href: window.BASE + 'codex/'
+      x: 70, y: 33, mag: 2, href: window.BASE + 'codex/'
     },
     {
       id: 'hronika', name: 'ХРОНИКА', symbol: 'scroll', num: 'IV',
       sub: 'Et in Arcadia ego',
-      desc: 'Ако пътник в зимна нощ се заслуша, ще чуе гласовете от редакцията.',
+      desc: 'Гласове от редакцията. Какво ли предстои?',
       coords: 'α 12h 18m · δ −22° 34′',
-      x: 30, y: 68, mag: 2, href: window.BASE + 'hronika/'
+      x: 22, y: 68, mag: 2, href: window.BASE + 'hronika/'
     },
     {
       id: 'lavitsa', name: 'ЛАВИЦА', symbol: 'candle', num: 'V',
       sub: 'Ultima Thule',
       desc: 'Всеки кораб се нуждае от пристан. Този е нашия.',
       coords: 'α 21h 04m · δ +62° 15′',
-      x: 70, y: 68, mag: 2, href: window.BASE + 'lavitsa/'
+      x: 78, y: 68, mag: 2, href: window.BASE + 'lavitsa/'
     }
   ];
 
@@ -53,11 +53,11 @@
   }
 
   var MOBILE_STARS = {
-    archive:  { x: 50, y: 54 },
-    atlas:    { x: 20, y: 28 },
-    codex:    { x: 80, y: 28 },
-    hronika:  { x: 24, y: 72 },
-    lavitsa:  { x: 76, y: 72 }
+    archive:  { x: 50, y: 52 },
+    atlas:    { x: 28, y: 28 },
+    codex:    { x: 72, y: 28 },
+    hronika:  { x: 20, y: 70 },
+    lavitsa:  { x: 80, y: 70 }
   };
 
   var MOBILE_BREAKPOINT = 600;

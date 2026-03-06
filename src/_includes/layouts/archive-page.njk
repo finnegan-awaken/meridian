@@ -28,6 +28,7 @@ currentNav: archive
     <div class="archive-tabs">
       <button class="archive-tab active" data-view="grid">Мрежа</button>
       <button class="archive-tab" data-view="timeline">Хронология</button>
+      <button class="archive-tab" data-view="news">Новини</button>
       <button class="archive-tab" data-view="author">Автори</button>
       <button class="archive-tab" data-view="genre">Жанр</button>
     </div>
@@ -155,7 +156,41 @@ currentNav: archive
       {%- endif -%}
     {%- endfor -%}
   </div>
+  
+  {# ══════════════════════════════════════
+    Новини
+     ══════════════════════════════════════ #}
 
+<div class="archive-view" data-view="news">
+  {%- if collections.новини and collections.новини.length > 0 -%}
+    {%- for entry in collections.новини | reverse -%}
+    <a href="{{ entry.url }}" class="archive-news-card archive-stagger-item"
+       data-transition data-label="{{ entry.data.title }}" data-symbol="scroll">
+      <div class="archive-news-thumb">
+        {%- if entry.data.thumb -%}
+        <img src="{{ entry.data.thumb }}" alt="{{ entry.data.title }}" loading="lazy">
+        {%- else -%}
+        <div class="archive-news-thumb-fallback">
+          <img src="/img/svg/scroll.svg" alt="">
+        </div>
+        {%- endif -%}
+      </div>
+      <div class="archive-news-body">
+        <div class="archive-news-date">{{ entry.date | formatDate("day-month-year", "bg-BG") }}</div>
+        <div class="archive-news-title">{{ entry.data.title }}</div>
+        {%- if entry.data.description -%}
+        <div class="archive-news-desc">{{ entry.data.description }}</div>
+        {%- endif -%}
+      </div>
+    </a>
+    {%- endfor -%}
+  {%- else -%}
+    <div class="genre-empty">
+      <div class="genre-empty-symbol">· · ·</div>
+      <div class="genre-empty-text">няма новини засега</div>
+    </div>
+  {%- endif -%}
+</div>
   {# ══════════════════════════════════════
      GENRE VIEW
      ══════════════════════════════════════ #}
