@@ -142,8 +142,13 @@ a { color: inherit; text-decoration: none; }
 ::-webkit-scrollbar-thumb { background: var(--copper-subtle); border-radius: 2px; }
 
 body.page-nav {
+  position: fixed;
+  inset: 0;
   overflow: hidden;
   cursor: crosshair;
+  touch-action: none;
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: auto;
 }
 
 body.page-dest {

@@ -429,4 +429,11 @@
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(updatePositions, 150);
   });
+
+    if (window.visualViewport) {
+    window.visualViewport.addEventListener('resize', function () {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(updatePositions, 150);
+    });
+  }
 })();
