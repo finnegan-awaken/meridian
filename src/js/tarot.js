@@ -247,70 +247,86 @@
   /* ══════════════════════════════════════
      OPEN TAROT
      ══════════════════════════════════════ */
-  function openTarot() {
-    if (state !== 'idle') return;
-    state = 'spread';
-    drawnCards = [];
-    usedArticleUrls = [];
-    previousFocus = document.activeElement;
+function openTarot() {
+  if (state !== 'idle') return;
+  state = 'spread';
+  drawnCards = [];
+  usedArticleUrls = [];
+  previousFocus = document.activeElement;
 
-    var spreadCards = shuffle(ALL_CARDS).slice(0, 12);
+  // ── Save scroll position & lock body ──
+  var scrollY = window.scrollY;
+  document.body.dataset.scrollY = scrollY;
+  document.body.style.top = '-' + scrollY + 'px';
+  document.documentElement.classList.add('tarot-active');
+  document.body.classList.add('tarot-active');
 
-    spreadContainer.innerHTML = '';
-    revealedContainer.innerHTML = '';
-    spreadLabel.textContent = 'Избери карта';
-    spreadLabel.classList.remove('tarot-hidden');
-    spreadContainer.classList.remove('exhausted');
-    revealedContainer.className = 'tarot-revealed';
+  var spreadCards = shuffle(ALL_CARDS).slice(0, 12);
 
-    for (var i = 0; i < spreadCards.length; i++) {
-      spreadContainer.appendChild(
-        createSpreadCard(spreadCards[i], i, spreadCards.length)
-      );
-    }
+  spreadContainer.innerHTML = '';
+  revealedContainer.innerHTML = '';
+  spreadLabel.textContent = 'Избери карта';
+  spreadLabel.classList.remove('tarot-hidden');
+  spreadContainer.classList.remove('exhausted');
+  revealedContainer.className = 'tarot-revealed';
 
-    overlay.classList.remove('closing');
-    overlay.classList.add('active');
-    overlay.setAttribute('aria-hidden', 'false');
-    trigger.classList.add('hidden');
-    document.body.classList.add('tarot-active');
-
-    var els = spreadContainer.querySelectorAll('.tarot-spread-card');
-    for (var j = 0; j < els.length; j++) {
-      (function (el, delay) {
-        setTimeout(function () { el.classList.add('dealt'); }, 300 + delay);
-      })(els[j], j * 100);
-    }
-
-    setTimeout(function () {
-      closeBtn.focus();
-    }, 500);
+  for (var i = 0; i < spreadCards.length; i++) {
+    spreadContainer.appendChild(
+      createSpreadCard(spreadCards[i], i, spreadCards.length)
+    );
   }
+
+  overlay.classList.remove('closing');
+  overlay.classList.add('active');
+  overlay.setAttribute('aria-hidden', 'false');
+  trigger.classList.add('hidden');
+
+  var els = spreadContainer.querySelectorAll('.tarot-spread-card');
+  for (var j = 0; j < els.length; j++) {
+    (function (el, delay) {
+      setTimeout(function () { el.classList.add('dealt'); }, 300 + delay);
+    })(els[j], j * 100);
+  }
+
+  setTimeout(function () {
+    closeBtn.focus();
+  }, 500);
+}
 
   /* ══════════════════════════════════════
      CLOSE TAROT
      ══════════════════════════════════════ */
-  function closeTarot() {
-    document.body.classList.remove('tarot-active');
-    overlay.classList.add('closing');
-    overlay.setAttribute('aria-hidden', 'true');
+function closeTarot() {
+  // ── Read saved scroll before removing classes ──
+  var scrollY = parseInt(document.body.dataset.scrollY || '0', 10);
 
-    setTimeout(function () {
-      overlay.classList.remove('active');
-      overlay.classList.remove('closing');
-      state = 'idle';
-      drawnCards = [];
-      usedArticleUrls = [];
-      trigger.classList.remove('hidden');
+  // ── Unlock body ──
+  document.documentElement.classList.remove('tarot-active');
+  document.body.classList.remove('tarot-active');
+  document.body.style.top = '';
 
-      if (previousFocus && previousFocus.focus) {
-        previousFocus.focus();
-      } else {
-        trigger.focus();
-      }
-      previousFocus = null;
-    }, 700);
-  }
+  // ── Restore scroll position ──
+  window.scrollTo(0, scrollY);
+
+  overlay.classList.add('closing');
+  overlay.setAttribute('aria-hidden', 'true');
+
+  setTimeout(function () {
+    overlay.classList.remove('active');
+    overlay.classList.remove('closing');
+    state = 'idle';
+    drawnCards = [];
+    usedArticleUrls = [];
+    trigger.classList.remove('hidden');
+
+    if (previousFocus && previousFocus.focus) {
+      previousFocus.focus();
+    } else {
+      trigger.focus();
+    }
+    previousFocus = null;
+  }, 700);
+}
 
   /* ══════════════════════════════════════
      CREATE SPREAD CARD

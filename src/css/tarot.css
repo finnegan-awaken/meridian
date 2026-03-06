@@ -198,6 +198,7 @@
   pointer-events: none;
   overflow-y: auto;
   overflow-x: hidden;
+  overscroll-behavior: contain;  
   background:
     radial-gradient(ellipse at 50% 60%, rgba(22, 18, 51, .85) 0%, transparent 50%),
     rgba(6, 9, 15, .92);
@@ -644,6 +645,16 @@
 .tarot-active #geometry {
   opacity: 0 !important;
 }
+html.tarot-active {
+  overflow: hidden !important;
+}
+
+body.tarot-active {
+  overflow: hidden !important;
+  position: fixed !important;       /* prevents iOS Safari ghost-scrolling */
+  width: 100% !important;
+  height: 100% !important;
+}
 
 
 /* ══════════════════════════════════════════
@@ -721,6 +732,8 @@
     justify-content: flex-start;
     padding: 0 0 24px;
     padding-bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+      height: 100dvh;                            /* ← modern browsers */
+    height: -webkit-fill-available;    
   }
 
   .tarot-close {
