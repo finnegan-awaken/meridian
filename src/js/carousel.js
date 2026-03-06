@@ -16,6 +16,7 @@
   var current = 0;
   var isAnimating = false;
   var flippedCard = null;
+  var hintDismissed = false;
 
   if (total <= 1) {
     if (prevBtn) prevBtn.style.display = 'none';
@@ -24,6 +25,14 @@
 
   function mod(n, m) {
     return ((n % m) + m) % m;
+  }
+
+  function hideAllHints() {
+    if (hintDismissed) return;
+    hintDismissed = true;
+    for (var i = 0; i < cards.length; i++) {
+      cards[i].classList.add('hint-hidden');
+    }
   }
 
   function update() {
@@ -43,6 +52,9 @@
       }
 
       card.className = 'carousel-card';
+      if (hintDismissed) {
+        card.classList.add('hint-hidden');
+      }
       card.style.pointerEvents = 'none';
 
       if (offset === 0) {
@@ -99,7 +111,7 @@
       flippedCard = card;
     }
 
-    card.classList.add('hint-hidden');
+    hideAllHints();
   }
 
   if (prevBtn) prevBtn.addEventListener('click', goPrev);
