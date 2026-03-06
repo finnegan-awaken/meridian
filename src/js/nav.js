@@ -139,21 +139,28 @@
       if (isMobile()) {
         gw = Math.min(220, window.innerWidth - 32);
         g.style.width = gw + 'px';
-        var gl = p.x - gw / 2;
-        var gt = p.y + 50;
+
+        var gl, gt;
+        right = p.x > window.innerWidth / 2;
+
+        if (s.y > 55) {
+          gt = p.y - 35;
+          if (right) {
+            gl = p.x - gw - 30;
+          } else {
+            gl = p.x + 30;
+          }
+        } else {
+          gl = p.x - gw / 2;
+          gt = p.y + 40;
+        }
 
         gl = Math.max(16, Math.min(window.innerWidth - gw - 16, gl));
-        gt = Math.min(window.innerHeight - 200, gt);
-
-        if (gt + 180 > window.innerHeight) {
-          gt = p.y - 180;
-          gt = Math.max(16, gt);
-        }
+        gt = Math.max(16, gt);
 
         g.style.left = gl + 'px';
         g.style.top  = gt + 'px';
-
-        right = p.x > window.innerWidth / 2;
+        
     } else {
       var gl = right ? p.x - offset - gw : p.x + offset;
       var gt = p.y - 35;
@@ -193,26 +200,34 @@
       var g = document.querySelector('.gloss[data-for="' + s.id + '"]');
       if (g) {
         var right = s.x > 50, gw = 250, offset = 40;
-        if (isMobile()) {
+      if (isMobile()) {
           gw = Math.min(220, window.innerWidth - 32);
           g.style.width = gw + 'px';
-          var gl = p.x - gw / 2;
-          var gt = p.y + 50;
+
+          var gl, gt;
+          var isRight = p.x > window.innerWidth / 2;
+
+          if (s.y > 55) {
+            gt = p.y - 35;
+            if (isRight) {
+              gl = p.x - gw - 30;
+            } else {
+              gl = p.x + 30;
+            }
+          } else {
+            gl = p.x - gw / 2;
+            gt = p.y + 40;
+          }
 
           gl = Math.max(16, Math.min(window.innerWidth - gw - 16, gl));
-          gt = Math.min(window.innerHeight - 200, gt);
-
-          if (gt + 180 > window.innerHeight) {
-            gt = p.y - 180;
-            gt = Math.max(16, gt);
-          }
+          gt = Math.max(16, gt);
 
           g.style.left = gl + 'px';
           g.style.top  = gt + 'px';
 
           var inner = g.querySelector('.gloss-inner');
           if (inner) {
-            if (p.x > window.innerWidth / 2) {
+            if (isRight) {
               inner.classList.add('align-right');
             } else {
               inner.classList.remove('align-right');

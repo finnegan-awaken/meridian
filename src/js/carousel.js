@@ -98,6 +98,8 @@
       inner.classList.add('flipped');
       flippedCard = card;
     }
+
+    card.classList.add('hint-hidden');
   }
 
   if (prevBtn) prevBtn.addEventListener('click', goPrev);

@@ -148,12 +148,12 @@ body.page-nav {
 }
 
 body.page-dest {
+  min-height: 100dvh;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
-  overflow-y: auto;             /* ← CHANGED from scroll */
-  /* scrollbar-gutter: stable;     ← REMOVED — scrollbar is hidden anyway */
+  overflow-y: auto;
   scrollbar-width: none;
   background:
     radial-gradient(ellipse at 25% 20%,
@@ -3091,6 +3091,31 @@ a.mini-star { display: flex; }
   pointer-events: none;
 }
 
+/* ── Flip hint ── */
+.carousel-flip-hint {
+  position: absolute;
+  bottom: -28px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--ff-body);
+  font-size: 12px;
+  letter-spacing: 3px;
+  color: var(--copper);
+  opacity: 0;
+  white-space: nowrap;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  text-transform: uppercase;
+}
+
+.carousel-card.is-active .carousel-flip-hint {
+  opacity: 0.85;
+}
+
+.carousel-card.is-active.hint-hidden .carousel-flip-hint {
+  opacity: 0;
+}
+
 .carousel-card.is-active {
   transform: translate(-50%, -50%) rotateY(0deg) translateZ(0) scale(1);
   z-index: 3;
@@ -3303,25 +3328,26 @@ a.mini-star { display: flex; }
   padding-top: 12px;
 }
 
-/* ── Flip hint ── */
-.carousel-flip-hint {
+/* ── Corner peel hint ── */
+.carousel-card.is-active .carousel-front::after {
+  content: '';
   position: absolute;
-  bottom: -28px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-family: var(--ff-body);
-  font-size: 10px;
-  letter-spacing: 3px;
-  color: var(--copper);
-  opacity: 0;
-  white-space: nowrap;
+  bottom: 0;
+  right: 0;
+  width: 28px;
+  height: 28px;
+  background: linear-gradient(135deg,
+    transparent 50%,
+    rgba(203, 186, 100, 0.15) 50%,
+    rgba(203, 186, 100, 0.08) 100%);
+  border-top-left-radius: 4px;
   pointer-events: none;
-  transition: opacity 0.4s ease;
-  text-transform: uppercase;
+  animation: peel-hint 3s ease-in-out infinite;
 }
 
-.carousel-card.is-active .carousel-flip-hint {
-  opacity: 0.35;
+@keyframes peel-hint {
+  0%, 100% { width: 28px; height: 28px; opacity: 0.6; }
+  50%      { width: 36px; height: 36px; opacity: 1; }
 }
 
 /* ── Arrows ── */
@@ -4109,9 +4135,6 @@ a:focus-visible {
 @media (max-width: 400px) {
 
   /* — Mini-nav — */
-  .mini-nav {
-    transform: scale(.85);
-  }
   .mini-star {
     width: 52px;
     height: 52px;
