@@ -3,6 +3,15 @@
 <head>
   {% include "partials/head.njk" %}
   <script>window.BASE = "{{ '/' | url }}";</script>
+
+  <!-- Theme: prevent flash of wrong theme -->
+  <script>
+  (function(){try{var t=localStorage.getItem('meridian-theme');if(t&&(t==='light'||t==='reading'))document.documentElement.setAttribute('data-theme',t)}catch(e){}})();
+  </script>
+
+  <!-- Theme stylesheets -->
+  <link rel="stylesheet" href="/css/themes.css">
+  <link rel="stylesheet" href="/css/theme-switcher.css">
 </head>
 <body class="{{ bodyClass | default('page-dest') }}">
   {% include "partials/grain.njk" %}
@@ -42,5 +51,6 @@
 
 <div id="grain" aria-hidden="true"></div>
 <script src="/js/carousel.js" defer></script>
+<script src="/js/theme-switcher.js"></script>
 </body>
 </html>

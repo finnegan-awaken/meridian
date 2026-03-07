@@ -210,7 +210,7 @@
 
     setTimeout(function () {
       trigger.classList.add('visible');
-    }, 1800);
+    }, 1900);
   }
 
   /* ══════════════════════════════════════
