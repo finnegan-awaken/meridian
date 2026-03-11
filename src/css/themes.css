@@ -425,7 +425,7 @@
 @media (max-width: 900px) {
   [data-theme="reading"] .sidebar-constellation::after {
     background: linear-gradient(to left,
-      #f7f0e0 0%, rgba(247, 240, 224, 0) 100%);
+      #d6c293 0%, rgba(222, 204, 162, 0) 100%);
   }
 }
 

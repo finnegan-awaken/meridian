@@ -1779,7 +1779,7 @@ a.mini-star { display: flex; }
   font-family: var(--ff-body);
   font-size: 20px; font-weight: 300;
   line-height: 2.1; color: var(--bright);
-  margin-bottom: 28px; text-indent: 2em;
+  margin-bottom: 14px; text-indent: 2em;
   text-align: justify;
   hyphens: auto;
   -webkit-hyphens: auto;
@@ -2125,7 +2125,7 @@ a.mini-star { display: flex; }
   -ms-hyphens: auto;
   overflow-wrap: break-word;
 }
-.article-body p { margin-bottom: 28px; text-indent: 2em; }
+.article-body p { margin-bottom: 14px; text-indent: 2em; }
 .article-body h2 {
   font-family: var(--ff-display);
   font-size: 22px; font-weight: 500;
