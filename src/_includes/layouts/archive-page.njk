@@ -176,8 +176,8 @@ currentNav: archive
         {%- endif -%}
       </div>
       <div class="archive-news-body">
-        <div class="archive-news-date">{{ entry.date | formatDate("day-month-year", "bg-BG") }}</div>
         <div class="archive-news-title">{{ entry.data.title }}</div>
+        <div class="archive-news-date">{{ entry.date | formatDate("day-month-year", "bg-BG") }}</div>
         {%- if entry.data.description -%}
         <div class="archive-news-desc">{{ entry.data.description }}</div>
         {%- endif -%}

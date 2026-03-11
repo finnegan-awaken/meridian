@@ -165,16 +165,16 @@
 [data-theme="reading"] .archive-author-issue-num { font-size: 12px; }
 [data-theme="reading"] .archive-author-issue-name { font-size: 14px; }
 [data-theme="reading"] .archive-author-article-title { font-size: 16px; }
-[data-theme="reading"] .archive-author-article-genre { font-size: 16px; }
+[data-theme="reading"] .archive-author-article-genre { font-size: 15px; }
 
 /* ── Archive Genre View ── */
-[data-theme="reading"] .genre-filter-btn { font-size: 12px; }
-[data-theme="reading"] .genre-issue-num { font-size: 14px; }
-[data-theme="reading"] .genre-issue-name { font-size: 16px; }
-[data-theme="reading"] .genre-article-title { font-size: 18px; }
-[data-theme="reading"] .genre-article-author { font-size: 18px; }
-[data-theme="reading"] .genre-empty-symbol { font-size: 20px; }
-[data-theme="reading"] .genre-empty-text { font-size: 18px; }
+[data-theme="reading"] .genre-filter-btn { font-size: 11px; }
+[data-theme="reading"] .genre-issue-num { font-size: 12px; }
+[data-theme="reading"] .genre-issue-name { font-size: 13px; }
+[data-theme="reading"] .genre-article-title { font-size: 15px; }
+[data-theme="reading"] .genre-article-author { font-size: 15px; }
+[data-theme="reading"] .genre-empty-symbol { font-size: 18px; }
+[data-theme="reading"] .genre-empty-text { font-size: 16px; }
 
 /* ── Archive Timeline View ── */
 [data-theme="reading"] .timeline-card-number { font-size: 10px; }
