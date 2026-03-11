@@ -13,11 +13,6 @@
       icon: '<svg viewBox="0 0 20 20"><path d="M15.5 11.5a7 7 0 0 1-7-7c0-.8.1-1.6.4-2.3A8 8 0 1 0 17.8 11a7 7 0 0 1-2.3.5z"/></svg>'
     },
     {
-      key: 'light',
-      label: 'Зора',
-      icon: '<svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="3.5"/><line x1="10" y1="2" x2="10" y2="4.5"/><line x1="10" y1="15.5" x2="10" y2="18"/><line x1="2" y1="10" x2="4.5" y2="10"/><line x1="15.5" y1="10" x2="18" y2="10"/><line x1="4.34" y1="4.34" x2="6.11" y2="6.11"/><line x1="13.89" y1="13.89" x2="15.66" y2="15.66"/><line x1="4.34" y1="15.66" x2="6.11" y2="13.89"/><line x1="13.89" y1="6.11" x2="15.66" y2="4.34"/></svg>'
-    },
-    {
       key: 'reading',
       label: 'Четене',
       icon: '<svg viewBox="0 0 20 20"><path d="M2 4c2-1.5 4.5-1.5 8-1v14c-3.5-.5-6-.5-8 1V4z"/><path d="M18 4c-2-1.5-4.5-1.5-8-1v14c3.5-.5 6-.5 8 1V4z"/></svg>'
@@ -89,7 +84,6 @@
     container.classList.add('open');
     btnEl.setAttribute('aria-expanded', 'true');
 
-    /* Focus first option */
     var firstOption = menuEl.querySelector('.theme-switcher-option');
     if (firstOption) {
       setTimeout(function () { firstOption.focus(); }, 50);
@@ -169,14 +163,12 @@
       btnEl.focus();
     });
 
-    /* Close on outside click */
     document.addEventListener('click', function (e) {
       if (isOpen && !container.contains(e.target)) {
         closeMenu();
       }
     });
 
-    /* Close on Escape */
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && isOpen) {
         closeMenu();
@@ -184,7 +176,6 @@
       }
     });
 
-    /* Keyboard navigation within menu */
     menuEl.addEventListener('keydown', function (e) {
       var options = menuEl.querySelectorAll('.theme-switcher-option');
       var idx = -1;
@@ -208,18 +199,15 @@
      INIT
      ══════════════════════════════════════ */
 
-  /* Read saved theme */
   try {
     var saved = localStorage.getItem(STORAGE_KEY);
-    if (saved && (saved === 'dark' || saved === 'light' || saved === 'reading')) {
+    if (saved && (saved === 'dark' || saved === 'reading')) {
       currentTheme = saved;
     }
   } catch (e) {}
 
-  /* Apply immediately (data-theme may already be set by inline script) */
   applyTheme(currentTheme);
 
-  /* Build UI when DOM is ready */
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', build);
   } else {

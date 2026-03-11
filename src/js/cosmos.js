@@ -6,6 +6,7 @@
   var field = [];
   var mx = window.innerWidth / 2;
   var my = window.innerHeight / 2;
+  var isTouch = window.matchMedia('(hover: none)').matches;
 
   function seedField() {
     canvas.width = window.innerWidth;
@@ -20,7 +21,7 @@
         o: Math.random() * 0.5 + 0.08,
         sp: Math.random() * 0.015 + 0.003,
         ph: Math.random() * Math.PI * 2,
-        d: Math.random() * 2.5 + 0.5
+        d: isTouch ? 0 : Math.random() * 2.5 + 0.5
       });
     }
   }
@@ -53,10 +54,12 @@
     requestAnimationFrame(loop);
   }
 
-  document.addEventListener('mousemove', function (e) {
-    mx = e.clientX;
-    my = e.clientY;
-  });
+  if (!isTouch) {
+    document.addEventListener('mousemove', function (e) {
+      mx = e.clientX;
+      my = e.clientY;
+    });
+  }
 
   seedField();
   requestAnimationFrame(loop);

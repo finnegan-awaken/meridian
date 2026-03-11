@@ -4,228 +4,65 @@
    ══════════════════════════════════════════
 
    CONTENTS:
+   0. Font Declarations
    1. Light Mode (Зора) — Variables
    2. Light Mode — Component Overrides
-   3. Reading Mode (Четене) — Variables
-   4. Reading Mode — Component Overrides
-   5. Shared — Star Preservation
-   6. Shared — Grain & Image Adjustments
+   3. Light Mode — Font Size Adjustments
+   4. Reading Mode (Четене) — Variables
+   5. Reading Mode — Component Overrides
+   6. Reading Mode — Font Size Adjustments
+   7. Shared — Star Preservation
+   8. Shared — Grain & Image Adjustments
    ══════════════════════════════════════════ */
 
+
+/* ══════════════════════════════════════════
+   0. FONT DECLARATIONS — Linguistics Pro
+   ══════════════════════════════════════════ */
+
+@font-face {
+  font-family: 'Linguistics Pro';
+  src: url('../fonts/LinguisticsPro-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: block;
+}
+
+@font-face {
+  font-family: 'Linguistics Pro';
+  src: url('../fonts/LinguisticsPro-Italic.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Linguistics Pro';
+  src: url('../fonts/LinguisticsPro-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Linguistics Pro';
+  src: url('../fonts/LinguisticsPro-BoldItalic.otf') format('opentype');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
 
 /* ══════════════════════════════════════════
    1. LIGHT MODE — VARIABLES
    ══════════════════════════════════════════ */
-[data-theme="light"] {
 
-  /* ── Backgrounds ── */
-  --void:           #e8dfd6;
-  --night:          #f0e6dc;
-  --night-zero:     rgba(240, 230, 220, 0);
-  --twilight:       #ddd4cc;
-  --transition:     #f5efe8;
-  --transition-zero: rgba(245, 239, 232, 0);
-
-  /* ── Accent: darkened copper for contrast on light ── */
-  --copper:         #8a6d20;
-  --copper-rgb:     138, 109, 32;
-  --copper-zero:    rgba(138, 109, 32, 0);
-  --copper-ghost2:  rgba(138, 109, 32, 0.05);
-  --copper-ghost:   rgba(138, 109, 32, 0.15);
-  --copper-faint:   rgba(138, 109, 32, 0.08);
-  --copper-subtle:  rgba(138, 109, 32, 0.12);
-  --copper-soft:    rgba(138, 109, 32, 0.18);
-  --copper-mid:     rgba(138, 109, 32, 0.30);
-  --copper-medium:  rgb(130, 90, 30);
-  --copper-links:   rgb(160, 100, 30);
-  --copper-strong:  rgba(138, 109, 32, 0.85);
-  --copper-full:    rgba(138, 109, 32, 1.00);
-  --gold:           var(--copper);
-
-  /* ── Text ── */
-  --bright:         rgb(35, 30, 25);
-  --bright-rgb:     35, 30, 25;
-  --star:           #2a2520;
-  --star-rgb:       42, 37, 32;
-  --star-label:     rgba(138, 109, 32, 0.75);
-  --moon:           #6b5d4a;
-  --moon-rgb:       107, 93, 74;
-
-  /* ── Atmospheric ── */
-  --atmo-deep:          rgba(210, 180, 160, 0.25);
-  --atmo-deep-zero:     rgba(210, 180, 160, 0);
-  --atmo-mid:           rgba(200, 175, 155, 0.20);
-  --atmo-mid-zero:      rgba(200, 175, 155, 0);
-  --atmo-vignette:      rgba(220, 210, 200, 0.40);
-  --atmo-vignette-zero: rgba(220, 210, 200, 0);
-  --atmo-page:          rgba(235, 215, 195, 0.30);
-  --atmo-page-zero:     rgba(235, 215, 195, 0);
-  --atmo-shadow:        rgba(180, 160, 140, 0.15);
-
-  /* ── Rules ── */
-  --rule-bg:        linear-gradient(to right, var(--copper-zero), var(--copper-soft), var(--copper-zero));
-  --rule-bg-dim:    linear-gradient(to right, var(--copper-zero), var(--copper-faint), var(--copper-zero));
-}
-
-
-/* ══════════════════════════════════════════
-   2. LIGHT MODE — COMPONENT OVERRIDES
-   ══════════════════════════════════════════ */
-
-/* ── Body background: sunrise gradient ── */
-[data-theme="light"] body {
-  background:
-    radial-gradient(ellipse at 50% 0%, var(--atmo-page) 0%, var(--atmo-page-zero) 40%),
-    linear-gradient(to bottom,
-      #c9d6e8 0%,
-      #dac9b8 25%,
-      #e8d5c4 45%,
-      #f0e6dc 65%,
-      #ede3d8 100%);
-}
-
-[data-theme="light"] body.page-dest {
-  background:
-    radial-gradient(ellipse at 25% 20%,
-      var(--atmo-deep) 0%, var(--atmo-deep-zero) 50%),
-    radial-gradient(ellipse at 75% 40%,
-      var(--atmo-mid) 0%, var(--atmo-mid-zero) 50%),
-    radial-gradient(ellipse at 50% 0%,
-      var(--atmo-page) 0%, var(--atmo-page-zero) 40%),
-    linear-gradient(to bottom,
-      #c9d6e8 0%,
-      #dac9b8 25%,
-      #e8d5c4 45%,
-      #f0e6dc 65%,
-      #ede3d8 100%);
-  box-shadow: none;
-}
-
-/* ── Nav page: sunrise atmosphere over dark canvas ── */
-[data-theme="light"] #atmosphere {
-  background:
-    radial-gradient(ellipse at 25% 35%,
-      rgba(200, 170, 150, 0.35) 0%, transparent 55%),
-    radial-gradient(ellipse at 75% 60%,
-      rgba(180, 160, 200, 0.25) 0%, transparent 55%),
-    radial-gradient(ellipse at 50% 100%,
-      rgba(220, 180, 150, 0.55) 0%, transparent 60%),
-    radial-gradient(ellipse at 50% 0%,
-      rgba(160, 180, 210, 0.40) 0%, transparent 50%),
-    linear-gradient(to bottom,
-      rgba(160, 180, 220, 0.30) 0%,
-      rgba(210, 180, 160, 0.45) 40%,
-      rgba(230, 190, 150, 0.50) 70%,
-      rgba(200, 160, 130, 0.55) 100%);
-}
-
-/* ── Gloss panels ── */
-[data-theme="light"] .gloss-inner {
-  background: linear-gradient(135deg,
-    rgba(245, 238, 228, 0.92),
-    rgba(235, 225, 210, 0.88));
-  box-shadow:
-    0 4px 30px rgba(120, 100, 80, 0.15),
-    0 0 60px rgba(180, 160, 140, 0.1);
-  backdrop-filter: blur(8px);
-}
-
-[data-theme="light"] .gloss-inner.align-right {
-  background: linear-gradient(225deg,
-    rgba(245, 238, 228, 0.92),
-    rgba(235, 225, 210, 0.88));
-}
-
-/* ── Transition screen ── */
-[data-theme="light"] #transition {
-  background:
-    radial-gradient(ellipse at 25% 20%,
-      var(--atmo-deep) 0%, var(--atmo-deep-zero) 50%),
-    radial-gradient(ellipse at 75% 40%,
-      var(--atmo-mid) 0%, var(--atmo-mid-zero) 50%),
-    linear-gradient(to bottom,
-      #c9d6e8 0%,
-      #dac9b8 30%,
-      #e8d5c4 60%,
-      #f0e6dc 100%);
-}
-
-/* ── Scrollbar ── */
-[data-theme="light"] ::-webkit-scrollbar-thumb {
-  background: rgba(138, 109, 32, 0.20);
-}
-
-/* ── Selection ── */
-[data-theme="light"] ::selection {
-  background: rgba(138, 109, 32, 0.15);
-  color: var(--bright);
-}
-
-/* ── Sidebar constellation fade (mobile) ── */
-@media (max-width: 900px) {
-  [data-theme="light"] .sidebar-constellation::after {
-    background: linear-gradient(to left,
-      #f0e6dc 0%, rgba(240, 230, 220, 0) 100%);
-  }
-}
-
-/* ── Carousel back ── */
-[data-theme="light"] .carousel-back {
-  background: linear-gradient(160deg,
-    rgba(245, 238, 228, 0.97),
-    rgba(235, 225, 210, 0.98));
-  border-color: var(--copper-soft);
-}
-
-/* ── Issue grid / timeline fallbacks ── */
-[data-theme="light"] .issue-grid-fallback,
-[data-theme="light"] .timeline-card-banner-fallback,
-[data-theme="light"] .issue-cover-fallback,
-[data-theme="light"] .carousel-cover-fallback {
-  background:
-    radial-gradient(ellipse at 50% 30%, var(--atmo-deep) 0%, var(--atmo-deep-zero) 60%),
-    linear-gradient(to bottom, #ddd4cc, #e8dfd6);
-}
-
-/* ── Archive tab / genre button borders ── */
-[data-theme="light"] .archive-tab,
-[data-theme="light"] .genre-filter-btn,
-[data-theme="light"] .archive-page-btn {
-  border-color: rgba(138, 109, 32, 0.20);
-}
-
-/* ── Lavitsa cover fallback ── */
-[data-theme="light"] .lavitsa-cover-fallback {
-  background: var(--copper-ghost2);
-  border-color: var(--copper-faint);
-}
-
-/* ── Tarot trigger fallback ── */
-[data-theme="light"] .tarot-trigger-fallback,
-[data-theme="light"] .tarot-card-fallback-back {
-  background:
-    radial-gradient(ellipse at 50% 30%, var(--atmo-deep) 0%, transparent 60%),
-    linear-gradient(to bottom, #ddd4cc, #e8dfd6);
-}
-
-[data-theme="light"] .tarot-card-fallback-front {
-  background:
-    radial-gradient(ellipse at 50% 20%, rgba(138, 109, 32, .06) 0%, transparent 60%),
-    linear-gradient(to bottom, #f5efe8, #f0e6dc);
-}
-
-/* ── Tarot overlay ── */
-[data-theme="light"] .tarot-overlay {
-  background:
-    radial-gradient(ellipse at 50% 60%, rgba(210, 195, 175, .85) 0%, transparent 50%),
-    rgba(240, 235, 225, .94);
-}
-
-
-/* ══════════════════════════════════════════
-   3. READING MODE — VARIABLES
-   ══════════════════════════════════════════ */
 [data-theme="reading"] {
+
+  
+  /* ── Font override ── */
+  --ff-display:    'Linguistics Pro', 'Cormorant Infant', Georgia, serif;
+  --ff-body:       'Linguistics Pro', 'Cormorant Infant', Georgia, serif;
+  --ff-decorative: 'Linguistics Pro', 'Bona Nova', serif;
 
   /* ── Backgrounds: parchment/cream ── */
   --void:           #f4ead5;
@@ -236,27 +73,28 @@
   --transition-zero: rgba(250, 245, 234, 0);
 
   /* ── Accent: warm brown copper ── */
-  --copper:         #7a5c30;
+  --copper:         #814d05;
   --copper-rgb:     122, 92, 48;
   --copper-zero:    rgba(122, 92, 48, 0);
   --copper-ghost2:  rgba(122, 92, 48, 0.04);
-  --copper-ghost:   rgba(122, 92, 48, 0.12);
+  --copper-ghost:   rgba(122, 92, 48, 0.349);
+  --theme-switcher: rgb(78, 55, 22);
   --copper-faint:   rgba(122, 92, 48, 0.07);
   --copper-subtle:  rgba(122, 92, 48, 0.10);
   --copper-soft:    rgba(122, 92, 48, 0.15);
   --copper-mid:     rgba(122, 92, 48, 0.25);
-  --copper-medium:  rgb(110, 80, 40);
+  --copper-medium:  rgb(134, 34, 6);
   --copper-links:   rgb(140, 95, 35);
   --copper-strong:  rgba(122, 92, 48, 0.80);
   --copper-full:    rgba(122, 92, 48, 1.00);
   --gold:           var(--copper);
 
   /* ── Text: dark brown/charcoal ── */
-  --bright:         rgb(40, 32, 22);
+  --bright:         rgb(11, 11, 11);
   --bright-rgb:     40, 32, 22;
-  --star:           #302818;
+  --star:           #1e190f;
   --star-rgb:       48, 40, 24;
-  --star-label:     rgba(122, 92, 48, 0.70);
+  --star-label:     #7c5511d0;
   --moon:           #6a5840;
   --moon-rgb:       106, 88, 64;
 
@@ -272,6 +110,213 @@
   --atmo-shadow:        rgba(180, 160, 130, 0.08);
 }
 
+/* ══════════════════════════════════════════
+   READING MODE — FONT SIZE ADJUSTMENTS
+   Original sizes from meridian.css
+   ══════════════════════════════════════════ */
+
+/* ── Cartouche & Nav Chrome ── */
+[data-theme="reading"] #cartouche h1 { font-size: 26px; }
+[data-theme="reading"] .issue-line { font-size: 15px; }
+[data-theme="reading"] #hint { font-size: 11px; }
+[data-theme="reading"] .edge { font-size: 8.5px; }
+
+/* ── Gloss Panels ── */
+[data-theme="reading"] .gloss-numeral { font-size: 12px; }
+[data-theme="reading"] .gloss-title { font-size: 14px; }
+[data-theme="reading"] .gloss-subtitle { font-size: 14px; }
+[data-theme="reading"] .gloss-desc { font-size: 14px; }
+[data-theme="reading"] .gloss-coords { font-size: 12px; }
+[data-theme="reading"] .gloss-sep { font-size: 6px; }
+[data-theme="reading"] .gloss-go-arrow { font-size: 24px; }
+
+/* ── Mini-Nav ── */
+[data-theme="reading"] .mstar-label { font-size: 14px; letter-spacing: 2px; }
+[data-theme="reading"] .mini-nav-sep { font-size: 8px; }
+
+/* ── Back Links ── */
+[data-theme="reading"] .back-link,
+[data-theme="reading"] .back-link-right { font-size: 11px; }
+
+/* ── Page Headers ── */
+[data-theme="reading"] .page-header h2 { font-size: 34px; }
+[data-theme="reading"] .page-header .page-sub { font-size: 14px; }
+[data-theme="reading"] .codex-sigil { font-size: 10px; }
+
+/* ── Prev / Next Nav ── */
+[data-theme="reading"] .article-nav-dir { font-size: 12px; }
+[data-theme="reading"] .article-nav-title { font-size: 14px; }
+
+/* ── Archive Controls ── */
+[data-theme="reading"] .archive-tab { font-size: 11px; }
+[data-theme="reading"] .archive-page-btn { font-size: 12px; }
+[data-theme="reading"] .archive-page-dot { font-size: 8px; }
+
+/* ── Archive Grid ── */
+[data-theme="reading"] .issue-grid-number { font-size: 12px; }
+[data-theme="reading"] .issue-grid-title { font-size: 14px; }
+[data-theme="reading"] .issue-grid-season { font-size: 12px; }
+[data-theme="reading"] .issue-grid-fallback-number { font-size: 30px; }
+[data-theme="reading"] .issue-grid-fallback-ornament { font-size: 8px; }
+
+/* ── Archive Author View ── */
+[data-theme="reading"] .archive-author-name { font-size: 18px; }
+[data-theme="reading"] .archive-author-location { font-size: 14px; }
+[data-theme="reading"] .archive-author-issue-num { font-size: 12px; }
+[data-theme="reading"] .archive-author-issue-name { font-size: 14px; }
+[data-theme="reading"] .archive-author-article-title { font-size: 16px; }
+[data-theme="reading"] .archive-author-article-genre { font-size: 16px; }
+
+/* ── Archive Genre View ── */
+[data-theme="reading"] .genre-filter-btn { font-size: 12px; }
+[data-theme="reading"] .genre-issue-num { font-size: 14px; }
+[data-theme="reading"] .genre-issue-name { font-size: 16px; }
+[data-theme="reading"] .genre-article-title { font-size: 18px; }
+[data-theme="reading"] .genre-article-author { font-size: 18px; }
+[data-theme="reading"] .genre-empty-symbol { font-size: 20px; }
+[data-theme="reading"] .genre-empty-text { font-size: 18px; }
+
+/* ── Archive Timeline View ── */
+[data-theme="reading"] .timeline-card-number { font-size: 10px; }
+[data-theme="reading"] .timeline-card-title { font-size: 18px; }
+[data-theme="reading"] .timeline-card-season { font-size: 14px; }
+[data-theme="reading"] .timeline-card-desc { font-size: 14px; }
+[data-theme="reading"] .timeline-card-articles-label { font-size: 14px; }
+[data-theme="reading"] .timeline-article-order { font-size: 14px; }
+[data-theme="reading"] .timeline-article-title { font-size: 16px; }
+[data-theme="reading"] .timeline-article-author { font-size: 16px; }
+[data-theme="reading"] .timeline-article-genre { font-size: 16px; }
+[data-theme="reading"] .timeline-card-fb-number { font-size: 20px; }
+
+/* ── Archive News View ── */
+[data-theme="reading"] .archive-news-date { font-size: 12px; }
+[data-theme="reading"] .archive-news-title { font-size: 18px; }
+[data-theme="reading"] .archive-news-desc { font-size: 14px; }
+
+/* ── Atlas Page ── */
+[data-theme="reading"] .atlas-section-title { font-size: 14px; }
+[data-theme="reading"] .atlas-manifesto-title { font-size: 25px; }
+[data-theme="reading"] .atlas-cell-label { font-size: 14px; }
+[data-theme="reading"] .atlas-cell-sub { font-size: 14px; }
+[data-theme="reading"] .atlas-manifesto-text { font-size: 17px; }
+[data-theme="reading"] .atlas-manifesto-sigil { font-size: 8px; }
+
+/* ── Codex Page ── */
+[data-theme="reading"] .codex-section-title { font-size: 22px; }
+[data-theme="reading"] .codex-epigraph blockquote { font-size: 16px; }
+[data-theme="reading"] .codex-epigraph cite { font-size: 8px; }
+[data-theme="reading"] .codex-body p { font-size: 17px; }
+[data-theme="reading"] .guideline-num { font-size: 16px; }
+[data-theme="reading"] .guideline-text { font-size: 17px; }
+[data-theme="reading"] .contact-label { font-size: 14px; }
+[data-theme="reading"] .contact-address { font-size: 18px; }
+
+/* ── Issue Page ── */
+[data-theme="reading"] .issue-page-number { font-size: 14px; }
+[data-theme="reading"] .issue-page-title { font-size: 32px; }
+[data-theme="reading"] .issue-page-date { font-size: 14px; }
+[data-theme="reading"] .issue-description { font-size: 16px; }
+[data-theme="reading"] .toc-label { font-size: 18px; }
+[data-theme="reading"] .toc-order { font-size: 14px; }
+[data-theme="reading"] .toc-article-title { font-size: 16px; }
+[data-theme="reading"] .toc-article-subtitle { font-size: 12px; }
+[data-theme="reading"] .toc-meta { font-size: 16px; }
+[data-theme="reading"] .toc-dots { font-size: 5px; }
+[data-theme="reading"] .issue-cover-fb-number { font-size: 30px; }
+[data-theme="reading"] .issue-cover-fb-ornament { font-size: 6px; }
+
+/* ── Article Page ── */
+[data-theme="reading"] .article-genre-label { font-size: 16px; }
+[data-theme="reading"] .article-title { font-size: 32px; }
+[data-theme="reading"] .article-subtitle { font-size: 16px; }
+[data-theme="reading"] .article-header-meta { font-size: 16px; }
+[data-theme="reading"] .article-header-sep { font-size: 10px; }
+[data-theme="reading"] .article-body { font-size: 17px; }
+[data-theme="reading"] .article-body h2 { font-size: 20px; }
+[data-theme="reading"] .article-body pre.poetry { font-size: 16px; }
+[data-theme="reading"] .article-body hr::after { font-size: 8px; }
+
+/* ── Article Author Card ── */
+[data-theme="reading"] .author-card-name-left { font-size: 14px; }
+[data-theme="reading"] .author-card-location-left { font-size: 14px; }
+[data-theme="reading"] .author-card-bio-left { font-size: 14px; }
+[data-theme="reading"] .author-card-all-works-left { font-size: 10px; }
+
+/* ── Article Sidebar ── */
+[data-theme="reading"] .sidebar-issue-link { font-size: 14px; }
+[data-theme="reading"] .sidebar-title { font-size: 14px; opacity: 1; }
+[data-theme="reading"] .sidebar-author { font-size: 14px; opacity: 1;}
+
+/* ── Author Page ── */
+[data-theme="reading"] .author-identity { font-size: 18px; }
+[data-theme="reading"] .author-bio p { font-size: 16px; }
+[data-theme="reading"] .author-ext-link { font-size: 14px; }
+[data-theme="reading"] .author-works-title { font-size: 14px; }
+[data-theme="reading"] .author-issue-number { font-size: 12px; }
+[data-theme="reading"] .author-issue-name { font-size: 14px; }
+[data-theme="reading"] .author-issue-season { font-size: 14px; }
+[data-theme="reading"] .author-article-title { font-size: 16px; }
+[data-theme="reading"] .author-article-genre { font-size: 14px; }
+
+/* ── Hronika Page ── */
+[data-theme="reading"] .hronika-intro { font-size: 16px; }
+[data-theme="reading"] .hronika-card-date { font-size: 14px; }
+[data-theme="reading"] .hronika-card-title { font-size: 18px; }
+[data-theme="reading"] .hronika-card-desc { font-size: 14px; }
+[data-theme="reading"] .hronika-card-arrow { font-size: 24px; }
+[data-theme="reading"] .hronika-empty-text { font-size: 16px; }
+[data-theme="reading"] .hronika-sigil { font-size: 12px; }
+[data-theme="reading"] .hronika-card.featured .hronika-card-title { font-size: 24px; }
+[data-theme="reading"] .hronika-year-divider span { font-size: 12px; opacity: .9; }
+
+/* ── Lavitsa Page ── */
+[data-theme="reading"] .lavitsa-intro { font-size: 16px; }
+[data-theme="reading"] .lavitsa-section-title { font-size: 20px; }
+[data-theme="reading"] .lavitsa-fav-title { font-size: 20px; }
+[data-theme="reading"] .lavitsa-fav-author { font-size: 16px; }
+[data-theme="reading"] .lavitsa-fav-year { font-size: 14px; }
+[data-theme="reading"] .lavitsa-fav-added { font-size: 14px; }
+[data-theme="reading"] .lavitsa-book-num { font-size: 16px; }
+[data-theme="reading"] .lavitsa-book-title { font-size: 16px; }
+[data-theme="reading"] .lavitsa-book-author { font-size: 15px; }
+[data-theme="reading"] .lavitsa-book-note { font-size: 15px; }
+[data-theme="reading"] .lavitsa-book-year { font-size: 13px; }
+[data-theme="reading"] .lavitsa-book-added { font-size: 11px; }
+[data-theme="reading"] .lavitsa-sigil { font-size: 12px; }
+
+/* ── Carousel ── */
+[data-theme="reading"] .carousel-back-title { font-size: 16px; }
+[data-theme="reading"] .carousel-back-author { font-size: 14px; }
+[data-theme="reading"] .carousel-back-year { font-size: 12px; }
+[data-theme="reading"] .carousel-back-note { font-size: 12px; }
+[data-theme="reading"] .carousel-back-added { font-size: 12px; }
+[data-theme="reading"] .carousel-fallback-letter { font-size: 52px; }
+[data-theme="reading"] .carousel-arrow { font-size: 30px; }
+
+/* ── Transition ── */
+[data-theme="reading"] #transition-text {
+  font-family: 'Linguistics Pro', 'Cormorant Infant', Georgia, serif;
+  font-size: 18px;
+  font-display: block;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  will-change: opacity, transform;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+/* ── Tarot ── */
+[data-theme="reading"] .tarot-trigger-text { font-size: 12px; }
+[data-theme="reading"] .tarot-spread-label { font-size: 14px; }
+[data-theme="reading"] .tarot-revealed-position { font-size: 14px; }
+[data-theme="reading"] .tarot-revealed-meaning { font-size: 13px; }
+[data-theme="reading"] .tarot-revealed-desc { font-size: 13px; }
+[data-theme="reading"] .tarot-article-link { font-size: 10px; }
+[data-theme="reading"] .tarot-close { font-size: 14px; }
+[data-theme="reading"] .tarot-fb-symbol { font-size: 16px; }
+[data-theme="reading"] .tarot-fb-numeral { font-size: 18px; }
+[data-theme="reading"] .tarot-fb-name { font-size: 8px; }
+[data-theme="reading"] .tarot-fb-meaning { font-size: 6px; }
 
 /* ══════════════════════════════════════════
    4. READING MODE — COMPONENT OVERRIDES
@@ -300,22 +345,42 @@
 [data-theme="reading"] #atmosphere {
   background:
     radial-gradient(ellipse at 25% 35%,
-      rgba(200, 180, 150, 0.30) 0%, transparent 55%),
+      rgba(200, 180, 150, 0) 0%, transparent 55%),
     radial-gradient(ellipse at 75% 60%,
-      rgba(190, 175, 150, 0.20) 0%, transparent 55%),
+      rgba(190, 175, 150, 0) 0%, transparent 55%),
     radial-gradient(ellipse at 50% 100%,
-      rgba(220, 200, 170, 0.40) 0%, transparent 60%),
+      rgba(220, 200, 170, 0) 0%, transparent 60%),
     linear-gradient(to bottom,
-      rgba(200, 185, 160, 0.25) 0%,
-      rgba(215, 195, 165, 0.35) 50%,
-      rgba(210, 190, 160, 0.40) 100%);
+      rgba(200, 185, 160, 0) 0%,
+      rgba(215, 195, 165, 0) 50%,
+      rgba(210, 190, 160, 0) 100%);
+}
+
+/* ── Cartouche ── */
+[data-theme="reading"] #cartouche h1 {
+  color: var(--star);
+  letter-spacing: 3px;      /* ← change this */
+  font-weight: 400;         /* ← change this */
+  text-shadow: none;        /* ← add shadow if needed */
+}
+
+[data-theme="reading"] .issue-line {
+  color: var(--copper);
+  letter-spacing: 5px;      /* ← change this */
+  font-weight: 400;         /* ← change this */
+}
+
+/* ── Hint ── */
+[data-theme="reading"] #hint {
+  color: rgba(var(--star), .8);
+  letter-spacing: 5px;      /* ← change this */
 }
 
 /* ── Gloss panels ── */
 [data-theme="reading"] .gloss-inner {
   background: linear-gradient(135deg,
-    rgba(250, 244, 232, 0.94),
-    rgba(240, 232, 215, 0.90));
+    rgba(248, 237, 219, 0.82),
+    rgba(236, 223, 197, 0.81));
   box-shadow:
     0 4px 30px rgba(100, 85, 60, 0.12),
     0 0 60px rgba(160, 140, 110, 0.08);
@@ -323,9 +388,16 @@
 }
 
 [data-theme="reading"] .gloss-inner.align-right {
-  background: linear-gradient(225deg,
-    rgba(250, 244, 232, 0.94),
-    rgba(240, 232, 215, 0.90));
+  background: linear-gradient(135deg,
+    rgba(248, 237, 219, 0.82),
+    rgba(236, 223, 197, 0.81));
+}
+
+/* ── Gloss active state ── */
+[data-theme="reading"] .gloss.visible:active .gloss-inner {
+  background: linear-gradient(135deg,
+    rgba(245, 238, 225, 0.96),
+    rgba(235, 226, 210, 0.94));
 }
 
 /* ── Transition screen ── */
@@ -406,107 +478,249 @@
     rgba(247, 242, 232, .95);
 }
 
+/* ── Tarot card shadows ── */
+[data-theme="reading"] .tarot-trigger-card {
+  box-shadow: 0 4px 16px rgba(80, 60, 30, 0.3),
+              0 1px 4px rgba(80, 60, 30, 0.15);
+}
+
+[data-theme="reading"] .tarot-trigger:hover .tarot-trigger-card-top,
+[data-theme="reading"] .tarot-trigger:focus-visible .tarot-trigger-card-top {
+  box-shadow: 0 8px 30px rgba(80, 60, 30, 0.35),
+              0 2px 8px rgba(80, 60, 30, 0.2);
+}
+
+/* ── Spread card shadows ── */
+[data-theme="reading"] .tarot-spread-card {
+  filter: drop-shadow(0 4px 12px rgba(80, 60, 30, 0.3));
+}
+
+/* ── Revealed card shadows ── */
+[data-theme="reading"] .tarot-card-large {
+  filter: drop-shadow(0 8px 24px rgba(80, 60, 30, 0.35));
+}
+[data-theme="reading"] .tarot-revealed.count-2 .pos-left.entered,
+[data-theme="reading"] .tarot-revealed.count-3 .pos-left.entered,
+[data-theme="reading"] .tarot-revealed.count-3 .pos-right.entered {
+  opacity: 1;
+  filter: brightness(0.90);
+  transition: opacity .5s ease, transform .6s ease, filter .45s ease;
+}
+
 
 /* ══════════════════════════════════════════
-   5. SHARED — STAR PRESERVATION
-   Keeps nav constellation and sidebar stars
-   at their original dark-mode appearance
-   regardless of active theme.
+   3. READING MODE — IMAGE & CAROUSEL FIXES
    ══════════════════════════════════════════ */
 
+/* ── Full opacity on all images ── */
+[data-theme="reading"] .issue-grid-cover img,
+[data-theme="reading"] .timeline-card-banner img,
+[data-theme="reading"] .issue-cover-img,
+[data-theme="reading"] .hronika-card-thumb img,
+[data-theme="reading"] .lavitsa-cover img,
+[data-theme="reading"] .novini-article-thumb img,
+[data-theme="reading"] .archive-news-thumb img,
+[data-theme="reading"] .author-photo img,
+[data-theme="reading"] .lavitsa-fav-cover img,
+[data-theme="reading"] .carousel-front img {
+  opacity: 1;
+  filter: none;
+}
+
+/* ── Carousel: darken side cards instead of fading ── */
+[data-theme="reading"] .carousel-card {
+  transition: transform 0.65s cubic-bezier(0.23, 1, 0.32, 1),
+              opacity 0.45s ease,
+              filter 0.45s ease;
+}
+
+[data-theme="reading"] .carousel-card.is-left,
+[data-theme="reading"] .carousel-card.is-right {
+  opacity: 1;
+  filter: brightness(0.70);          /* ← less dark */
+}
+
+[data-theme="reading"] .carousel-card.is-hidden-left,
+[data-theme="reading"] .carousel-card.is-hidden-right {
+  opacity: 0;
+  filter: brightness(0.5);
+}
+
+
+/* ══════════════════════════════════════════
+   4. READING MODE — SVG ICON COLORS
+   Darken SVG icons loaded via <img> tags
+   Adjust filter values to match --copper
+   ══════════════════════════════════════════ */
+
+[data-theme="reading"] .page-symbol img,
+[data-theme="reading"] .gloss-symbol-img,
+[data-theme="reading"] #transition-symbol img,
+[data-theme="reading"] .issue-cover-fb-symbol img {
+  filter: brightness(0.3) sepia(3) saturate(8) hue-rotate(5deg);
+}
+
+
+/* ══════════════════════════════════════════
+   5. STAR PRESERVATION — READING MODE
+   Keeps nav constellation and sidebar stars
+   at their original dark-mode appearance.
+   ══════════════════════════════════════════ */
+
+/* ── Remove ALL glow animations ── */
+[data-theme="reading"] .star-glow,
+[data-theme="reading"] .star-pulse,
+[data-theme="reading"] .mstar-glow,
+[data-theme="reading"] .mstar-pulse,
+[data-theme="reading"] .sidebar-glow,
+[data-theme="reading"] .sidebar-pulse,
+[data-theme="reading"] .star.mag-1 .star-glow,
+[data-theme="reading"] .star.mag-2 .star-glow,
+[data-theme="reading"] .star.mag-1 .star-pulse,
+[data-theme="reading"] .star.mag-2 .star-pulse,
+[data-theme="reading"] .mini-star.current .mstar-glow,
+[data-theme="reading"] .mini-star.current .mstar-pulse,
+[data-theme="reading"] .sidebar-star.current .sidebar-glow,
+[data-theme="reading"] .sidebar-star.current .sidebar-pulse {
+  animation: none !important;
+}
+
+/* ── Mini-nav glow always visible ── */
+[data-theme="reading"] .mstar-glow {
+  opacity: .35;
+}
+
+[data-theme="reading"] .mini-star.current .mstar-glow {
+  opacity: .55;
+}
+
+[data-theme="reading"] .mini-star:not(.current):hover .mstar-glow,
+[data-theme="reading"] .mini-star:not(.current):focus-visible .mstar-glow {
+  opacity: .65;
+  transform: scale(1.5);
+}
+
+/* ── Sidebar glow always visible ── */
+[data-theme="reading"] .sidebar-glow {
+  opacity: .30;
+}
+
+[data-theme="reading"] .sidebar-star.current .sidebar-glow {
+  opacity: .55;
+}
+
+[data-theme="reading"] .sidebar-star:not(.current):hover .sidebar-glow,
+[data-theme="reading"] .sidebar-star:not(.current):focus-visible .sidebar-glow {
+  opacity: .60;
+  transform: scale(1.3);
+}
+
+
+
 /* ── Nav page stars ── */
-[data-theme="light"] .star-core,
 [data-theme="reading"] .star-core {
-  background: rgb(218, 213, 200);
+  background: rgb(234, 228, 218);
 }
 
-[data-theme="light"] .star-glow,
 [data-theme="reading"] .star-glow {
-  background: radial-gradient(circle, #cbba64 0%, rgba(203, 186, 100, 0) 70%);
+  background: radial-gradient(circle, #775320 0%, rgba(203, 186, 100, 0) 70%);
 }
 
-[data-theme="light"] .star-pulse,
 [data-theme="reading"] .star-pulse {
-  border-color: #cbba64;
+  border-color: #986d31;
 }
 
-[data-theme="light"] .star-label,
 [data-theme="reading"] .star-label {
-  color: rgba(203, 186, 100, 0.66);
+  color: var(--star-label);
 }
 
-[data-theme="light"] .star:hover .star-core,
-[data-theme="light"] .star:focus-visible .star-core,
 [data-theme="reading"] .star:hover .star-core,
 [data-theme="reading"] .star:focus-visible .star-core {
-  box-shadow: 0 0 18px 6px rgba(203, 186, 100, 0.85);
+  box-shadow: 0 0 18px 6px rgba(203, 169, 100, 0.85);
 }
 
-[data-theme="light"] .star:hover .star-label,
-[data-theme="light"] .star:focus-visible .star-label,
 [data-theme="reading"] .star:hover .star-label,
 [data-theme="reading"] .star:focus-visible .star-label {
-  color: rgba(190, 189, 186, .6);
+  color: rgb(124, 85, 17);;
 }
 
 /* ── Mini-nav stars ── */
-[data-theme="light"] .mstar-core,
 [data-theme="reading"] .mstar-core {
   background: rgb(218, 213, 200);
 }
 
-[data-theme="light"] .mstar-glow,
 [data-theme="reading"] .mstar-glow {
-  background: radial-gradient(circle, #cbba64 0%, rgba(203, 186, 100, 0) 70%);
+  background: radial-gradient(circle, #775320 0%, rgba(203, 186, 100, 0) 70%);
 }
 
-[data-theme="light"] .mstar-pulse,
 [data-theme="reading"] .mstar-pulse {
-  border-color: #cbba64;
+  border-color: #986d31;
+}
+[data-theme="reading"] .mstar-label {
+  color: var(--star);           /* ← change color */
+  opacity: 0.8;             /* ← change opacity */
 }
 
-[data-theme="light"] .mini-star.current .mstar-core,
+[data-theme="reading"] .mini-star.current .mstar-label {
+  color: var(--star);           /* ← change color */
+  opacity: 1;               /* ← change opacity */
+}
+
+[data-theme="reading"] .mini-star:not(.current):hover .mstar-label,
+[data-theme="reading"] .mini-star:not(.current):focus-visible .mstar-label {
+  color:var(--star);           /* ← change color */
+  opacity: 1;               /* ← change opacity */
+}
 [data-theme="reading"] .mini-star.current .mstar-core {
   box-shadow: 0 0 16px 5px rgb(152, 96, 61);
 }
 
-[data-theme="light"] .mini-star:not(.current):hover .mstar-core,
-[data-theme="light"] .mini-star:not(.current):focus-visible .mstar-core,
 [data-theme="reading"] .mini-star:not(.current):hover .mstar-core,
 [data-theme="reading"] .mini-star:not(.current):focus-visible .mstar-core {
   box-shadow: 0 0 12px 4px rgb(152, 96, 61);
 }
 
 /* ── Sidebar stars ── */
-[data-theme="light"] .sidebar-core,
 [data-theme="reading"] .sidebar-core {
   background: rgb(218, 213, 200);
 }
 
-[data-theme="light"] .sidebar-glow,
 [data-theme="reading"] .sidebar-glow {
-  background: radial-gradient(circle, #cbba64 0%, rgba(203, 186, 100, 0) 70%);
+  background: radial-gradient(circle, #775320 0%, rgba(203, 186, 100, 0) 70%);
 }
 
-[data-theme="light"] .sidebar-pulse,
 [data-theme="reading"] .sidebar-pulse {
-  border-color: #cbba64;
+  border-color: #986d31;
 }
 
-[data-theme="light"] .sidebar-star.current .sidebar-core,
 [data-theme="reading"] .sidebar-star.current .sidebar-core {
   box-shadow: 0 0 16px 6px rgb(152, 96, 61);
 }
+[data-theme="reading"] .sidebar-star.current .sidebar-title {
+  color: var(--star);
+  opacity: 0.9;
+}
 
-[data-theme="light"] .sidebar-star:not(.current):hover .sidebar-core,
-[data-theme="light"] .sidebar-star:not(.current):focus-visible .sidebar-core,
+[data-theme="reading"] .sidebar-star.current .sidebar-author {
+  color: var(--copper);
+  opacity: 0.9;
+}
 [data-theme="reading"] .sidebar-star:not(.current):hover .sidebar-core,
 [data-theme="reading"] .sidebar-star:not(.current):focus-visible .sidebar-core {
   box-shadow: 0 0 12px 5px rgb(152, 96, 61);
 }
+[data-theme="reading"] .sidebar-star:not(.current):hover .sidebar-title,
+[data-theme="reading"] .sidebar-star:not(.current):focus-visible .sidebar-title {
+  color: var(--star);
+  opacity: 0.9;
+}
 
+[data-theme="reading"] .sidebar-star:not(.current):hover .sidebar-author,
+[data-theme="reading"] .sidebar-star:not(.current):focus-visible .sidebar-author {
+  color: var(--copper);
+  opacity: 0.9;
+}
 /* ── Crosshair lines on current stars ── */
-[data-theme="light"] .mini-star.current::before,
 [data-theme="reading"] .mini-star.current::before {
   background: linear-gradient(to bottom,
     rgba(203, 186, 100, 0) 0%, rgba(203, 186, 100, 0.12) 30%,
@@ -514,7 +728,6 @@
     rgba(203, 186, 100, 0.12) 70%, rgba(203, 186, 100, 0) 100%);
 }
 
-[data-theme="light"] .mini-star.current::after,
 [data-theme="reading"] .mini-star.current::after {
   background: linear-gradient(to right,
     rgba(203, 186, 100, 0) 0%, rgba(203, 186, 100, 0.12) 30%,
@@ -522,7 +735,6 @@
     rgba(203, 186, 100, 0.12) 70%, rgba(203, 186, 100, 0) 100%);
 }
 
-[data-theme="light"] .sidebar-star.current .sidebar-node::before,
 [data-theme="reading"] .sidebar-star.current .sidebar-node::before {
   background: linear-gradient(to bottom,
     rgba(203, 186, 100, 0) 0%, rgba(203, 186, 100, 0.12) 25%,
@@ -530,7 +742,6 @@
     rgba(203, 186, 100, 0.12) 75%, rgba(203, 186, 100, 0) 100%);
 }
 
-[data-theme="light"] .sidebar-star.current .sidebar-node::after,
 [data-theme="reading"] .sidebar-star.current .sidebar-node::after {
   background: linear-gradient(to right,
     rgba(203, 186, 100, 0) 0%, rgba(203, 186, 100, 0.12) 25%,
@@ -539,63 +750,135 @@
 }
 
 /* ── Constellation lines ── */
-[data-theme="light"] #lines line,
 [data-theme="reading"] #lines line {
-  stroke: rgba(203, 186, 100, 0.12);
+  stroke: rgba(255, 213, 0, 0.24);
 }
 
-[data-theme="light"] #lines line.active,
 [data-theme="reading"] #lines line.active {
-  stroke: rgba(203, 186, 100, 0.30);
+  stroke: rgba(203, 186, 100, 0.60);
 }
 
-[data-theme="light"] #lines line.departing,
 [data-theme="reading"] #lines line.departing {
-  stroke: rgb(152, 96, 61);
+  stroke: rgb(152, 105, 61);
 }
 
 /* ── Sidebar connecting line ── */
-[data-theme="light"] .sidebar-line,
 [data-theme="reading"] .sidebar-line {
-  background: rgba(203, 186, 100, 0.08);
+  background: #7753203f;
 }
 
 /* ── Mini-nav connecting SVG line ── */
-[data-theme="light"] .mini-nav-line line,
 [data-theme="reading"] .mini-nav-line line {
-  stroke: rgba(203, 186, 100, 0.12);
+  stroke: rgba(139, 98, 31, 0.15);
 }
 
-
 /* ══════════════════════════════════════════
-   6. SHARED — GRAIN & IMAGE ADJUSTMENTS
+   READING MODE — RESPONSIVE OVERRIDES
+   These must match or be smaller than the
+   font-size adjustments above, to prevent
+   the theme rules from overriding the
+   mobile breakpoints in meridian.css.
    ══════════════════════════════════════════ */
 
-/* ── Hide grain in both light themes ── */
-[data-theme="light"] #grain,
+@media (max-width: 768px) {
+  [data-theme="reading"] .page-header h2 { font-size: 26px; }
+  [data-theme="reading"] .article-title { font-size: 26px; }
+  [data-theme="reading"] .article-top { padding: 100px 24px 30px; }
+}
+
+@media (max-width: 600px) {
+  /* ── Cartouche ── */
+  [data-theme="reading"] #cartouche h1 { font-size: 24px; }
+  [data-theme="reading"] .issue-line { font-size: 11px; letter-spacing: 3px; }
+  [data-theme="reading"] #hint { font-size: 9px;letter-spacing: 3px; }
+
+  /* ── Archive ── */
+  [data-theme="reading"] .archive-tab { font-size: 9px; }
+  [data-theme="reading"] .genre-filter-btn { font-size: 7px; }
+  [data-theme="reading"] .archive-news-title { font-size: 16px; }
+
+  /* ── Timeline ── */
+  [data-theme="reading"] .timeline-card-title { font-size: 16px; }
+
+  /* ── Hronika ── */
+  [data-theme="reading"] .hronika-card-title { font-size: 16px; }
+  [data-theme="reading"] .hronika-card-desc { font-size: 12px; }
+  [data-theme="reading"] .hronika-card.featured .hronika-card-title { font-size: 18px; }
+
+  /* ── Lavitsa ── */
+  [data-theme="reading"] .lavitsa-book-title { font-size: 15px; }
+  [data-theme="reading"] .lavitsa-fav-title { font-size: 12px; }
+  [data-theme="reading"] .lavitsa-fav-author { font-size: 14px; }
+  [data-theme="reading"] .lavitsa-section-title { font-size: 16px; }
+  [data-theme="reading"] .lavitsa-book-note { font-size: 13px; }
+
+  /* ── Issue ── */
+  [data-theme="reading"] .issue-description { font-size: 14px; }
+
+  /* ── Mini-nav ── */
+  [data-theme="reading"] .mstar-label { font-size: 10px; }
+
+  /* ── Back links ── */
+  [data-theme="reading"] .back-link,
+  [data-theme="reading"] .back-link-right { font-size: 9px; }
+
+  /* ── Carousel ── */
+  [data-theme="reading"] .carousel-back-title { font-size: 14px; }
+  [data-theme="reading"] .carousel-back-note { font-size: 10px; }
+  [data-theme="reading"] .carousel-fallback-letter { font-size: 40px; }
+
+  /* ── Tarot trigger ── */
+  [data-theme="reading"] .tarot-trigger-text { font-size: 11px; }
+}
+
+@media (max-width: 500px) {
+  [data-theme="reading"] .article-body pre.small-poetry { font-size: 14px; }
+}
+
+@media (max-width: 400px) {
+  /* ── Typography ── */
+  [data-theme="reading"] .codex-section-title { font-size: 20px; }
+  [data-theme="reading"] .page-header h2 { font-size: 20px; }
+  [data-theme="reading"] .issue-page-title { font-size: 24px; }
+  [data-theme="reading"] .article-title { font-size: 22px; }
+
+  /* ── Cartouche ── */
+  [data-theme="reading"] #cartouche h1 { font-size: 26px; }
+
+  /* ── Mini-nav ── */
+  [data-theme="reading"] .mstar-label { font-size: 9px; }
+
+  /* ── Hronika ── */
+  [data-theme="reading"] .hronika-card-title { font-size: 14px; }
+  [data-theme="reading"] .hronika-card-desc { font-size: 11px; }
+  [data-theme="reading"] .hronika-card-date { font-size: 12px; }
+  [data-theme="reading"] .hronika-card.featured .hronika-card-title { font-size: 16px; }
+
+  /* ── Lavitsa ── */
+  [data-theme="reading"] .lavitsa-book-title { font-size: 14px; }
+  [data-theme="reading"] .lavitsa-book-note { font-size: 12px; }
+
+  /* ── Issue ── */
+  [data-theme="reading"] .issue-description { font-size: 13px; }
+
+  /* ── Carousel ── */
+  [data-theme="reading"] .carousel-back-title { font-size: 12px; }
+  [data-theme="reading"] .carousel-back-note { font-size: 9px; }
+  [data-theme="reading"] .carousel-fallback-letter { font-size: 34px; }
+
+  /* ── Tarot ── */
+  [data-theme="reading"] .tarot-trigger-text { font-size: 10px; }
+}
+
+/* ══════════════════════════════════════════
+   6. GRAIN & OVERLAY ADJUSTMENTS
+   ══════════════════════════════════════════ */
+
+/* ── Hide grain ── */
 [data-theme="reading"] #grain {
   display: none;
 }
 
-[data-theme="light"] #transition::before,
 [data-theme="reading"] #transition::before {
   display: none;
 }
-
-/* ── Light mode: full opacity on all images ── */
-[data-theme="light"] .issue-grid-cover img,
-[data-theme="light"] .timeline-card-banner img,
-[data-theme="light"] .issue-cover-img,
-[data-theme="light"] .hronika-card-thumb img,
-[data-theme="light"] .lavitsa-cover img,
-[data-theme="light"] .novini-article-thumb img,
-[data-theme="light"] .archive-news-thumb img,
-[data-theme="light"] .author-photo img,
-[data-theme="light"] .lavitsa-fav-cover img,
-[data-theme="light"] .carousel-front img {
-  opacity: 1;
-  filter: none;
-}
-
-/* ── Reading mode: keep images as-is (dark mode defaults) ── */
-/* No override needed — inherits meridian.css defaults */

@@ -25,22 +25,45 @@
   font-size: 18px;
   line-height: 1;
   padding: 0;
-  transition: border-color .4s ease, background .4s ease, color .4s ease;
+  transition: background .4s ease, border-color .4s ease;
   -webkit-tap-highlight-color: transparent;
   outline: none;
   position: relative;
   z-index: 2;
 }
-
-.theme-switcher-btn:hover,
-.theme-switcher-btn:focus-visible {
-  border-color: var(--copper-soft);
-  background: var(--copper-ghost2);
-}
-
 .theme-switcher-btn:focus-visible {
   outline: 1px solid var(--copper-mid);
   outline-offset: 2px;
+}
+
+/* ── Dark mode button ── */
+[data-theme="dark"] .theme-switcher-btn {
+  background: linear-gradient(135deg,
+    rgba(26, 22, 61, 0.92),
+    rgba(10, 8, 18, 0.95));
+  border-color: var(--copper-ghost);
+  transition: border-color .4s ease;
+}
+
+[data-theme="dark"] .theme-switcher-btn:hover,
+[data-theme="dark"] .theme-switcher-btn:focus-visible {
+  border-color: var(--copper-mid);
+}
+
+/* ── Reading mode button ── */
+[data-theme="reading"] .theme-switcher-btn {
+  background: #f8efdf;
+  border-color: rgba(122, 92, 48, 0.25);
+}
+
+[data-theme="reading"] .theme-switcher-btn:hover,
+[data-theme="reading"] .theme-switcher-btn:focus-visible {
+  background: #ebe0cb;
+  border-color: rgba(122, 92, 48, 0.35);
+}
+
+[data-theme="reading"] .theme-switcher-btn:active {
+  background: #c8b697;
 }
 
 /* ── Icon inside button ── */
@@ -84,14 +107,7 @@
   z-index: 1;
 }
 
-/* ── Light themes: menu adapts ── */
-[data-theme="light"] .theme-switcher-menu {
-  background: linear-gradient(135deg,
-    rgba(245, 238, 228, 0.95),
-    rgba(235, 225, 210, 0.92));
-  box-shadow: 0 8px 30px rgba(120, 100, 80, 0.15);
-}
-
+/* ── Reading mode menu ── */
 [data-theme="reading"] .theme-switcher-menu {
   background: linear-gradient(135deg,
     rgba(250, 244, 232, 0.96),
