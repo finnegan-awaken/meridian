@@ -417,7 +417,7 @@
 
 /* ── Selection ── */
 [data-theme="reading"] ::selection {
-  background: rgba(122, 92, 48, 0.12);
+  background: rgba(122, 92, 48, 0.263);
   color: var(--bright);
 }
 
