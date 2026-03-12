@@ -352,7 +352,7 @@ body.constellation-hover .star:not(.hovered) .star-label { color: rgba(var(--sta
    ══════════════════════════════════════════ */
 .gloss {
   position: fixed;
-  z-index: 899;
+  z-index: 700;
   pointer-events: none;
   width: 250px;
   visibility: hidden;
@@ -3366,7 +3366,7 @@ a.mini-star { display: flex; }
 .site-popup-overlay {
   position: fixed;
   inset: 0;
-  z-index: 9999;
+  z-index: 800;
   display: flex;
   align-items: center;
   justify-content: center;

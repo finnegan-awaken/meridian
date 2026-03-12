@@ -22,7 +22,9 @@
       title: 'НОВО В МЕРИДИАН!',
       body: 'Както Луната не може без блясъка на Слънцето, така и Меридиан не може без режим за четене. Вече в долния ляв ъгъл на сайта, ще откриете бутон за превключване към новия ни светъл режим, така че да не тормозите излишно очите си и да продължавате да ни четете.',
       link: assetPath('/hronika/rejim-za-chetene/'),
-      linkText: 'Прочети повече'
+      linkText: 'Прочети повече',
+      linkLabel: 'Режим за четене в Меридиан!',
+      linkSymbol: '✧'
     }
   ];
 
@@ -73,7 +75,11 @@
         '<div class="site-popup-body">' + cfg.body + '</div>';
 
     if (cfg.link) {
-      html += '<a href="' + cfg.link + '" class="site-popup-btn site-popup-link">' + cfg.linkText + '</a>';
+      html += '<a href="' + cfg.link + '" class="site-popup-btn site-popup-link"' +
+        ' data-transition' +
+        ' data-label="' + (cfg.linkLabel || cfg.title) + '"' +
+        ' data-symbol="' + (cfg.linkSymbol || '✦') + '"' +
+        '>' + cfg.linkText + '</a>';
     } else {
       html += '<button class="site-popup-btn">' + (cfg.button || 'Добре') + '</button>';
     }
