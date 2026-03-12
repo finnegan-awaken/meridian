@@ -6,7 +6,7 @@
   var field = [];
   var mx = window.innerWidth / 2;
   var my = window.innerHeight / 2;
-  var isTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+  var isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
   function seedField() {
     canvas.width = window.innerWidth;
@@ -21,13 +21,14 @@
         o: Math.random() * 0.5 + 0.08,
         sp: Math.random() * 0.015 + 0.003,
         ph: Math.random() * Math.PI * 2,
-        d: isTouch ? 0 : Math.random() * 2.5 + 0.5
+        d: Math.random() * 2.5 + 0.5
       });
     }
   }
 
   function drawField(t) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // Force px/py to 0 on touch devices
     var px = isTouch ? 0 : (mx - window.innerWidth / 2) * 0.01;
     var py = isTouch ? 0 : (my - window.innerHeight / 2) * 0.01;
     for (var i = 0; i < field.length; i++) {
