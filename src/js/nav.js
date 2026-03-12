@@ -406,15 +406,12 @@
       }, true);
 
       /* Dismiss gloss when tapping elsewhere */
-      document.addEventListener('click', function (e) {
-        if (glossTapped) {
-          glossTapped = false;
-          return;
-        }
-        if (!e.target.closest('.star')) {
-          clearAllActive();
-        }
-      });
+      document.addEventListener('touchstart', function (e) {
+        if (!activeStarId) return;
+        if (e.target.closest('.star')) return;
+        if (e.target.closest('.gloss')) return;
+        clearAllActive();
+      }, { passive: true });
     }
   }
 

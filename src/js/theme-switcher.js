@@ -163,11 +163,11 @@
       btnEl.focus();
     });
 
-    document.addEventListener('click', function (e) {
+    document.addEventListener('touchstart', function (e) {
       if (isOpen && !container.contains(e.target)) {
         closeMenu();
       }
-    });
+    }, { passive: true });
 
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && isOpen) {
