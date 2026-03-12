@@ -248,9 +248,9 @@
 [data-theme="reading"] .sidebar-author { font-size: 14px; opacity: 1;}
 
 /* ── Author Page ── */
-[data-theme="reading"] .author-identity { font-size: 18px; }
+[data-theme="reading"] .author-identity { font-size: 16px; }
 [data-theme="reading"] .author-bio p { font-size: 16px; }
-[data-theme="reading"] .author-ext-link { font-size: 14px; }
+[data-theme="reading"] .author-ext-link { font-size: 12px; }
 [data-theme="reading"] .author-works-title { font-size: 14px; }
 [data-theme="reading"] .author-issue-number { font-size: 12px; }
 [data-theme="reading"] .author-issue-name { font-size: 14px; }

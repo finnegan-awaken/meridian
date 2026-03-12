@@ -1,6 +1,8 @@
 (function () {
   'use strict';
 
+  if (window.innerWidth < 1000) return;
+
   function preserveLineBreaks() {
     var titles = document.querySelectorAll('.lavitsa-book-title');
     if (!titles.length) return;
@@ -20,7 +22,7 @@
         .join(' ');
 
       el.style.transition = 'none';
-      el.style.letterSpacing = '3px';   /* ← matches your CSS hover value */
+      el.style.letterSpacing = '3px';
       el.offsetHeight;
 
       var spans   = el.querySelectorAll('span');

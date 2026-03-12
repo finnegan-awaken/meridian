@@ -3538,6 +3538,56 @@ a:focus-visible {
   .issue-cover-img {
     opacity: 1;
   }
+  /* ── Disable ALL lavitsa hover effects on touch devices ── */
+.is-touch .lavitsa-book-title,
+.is-touch .lavitsa-fav-title {
+  transition: none !important;
+}
+
+.is-touch .lavitsa-book:hover .lavitsa-book-title,
+.is-touch .lavitsa-fav-card:hover .lavitsa-fav-title {
+  letter-spacing: inherit !important;
+  color: inherit !important;
+}
+
+.is-touch .lavitsa-book:hover .lavitsa-cover img,
+.is-touch .lavitsa-fav-card:hover .lavitsa-fav-cover img {
+  transform: none !important;
+  filter: saturate(.85) !important;
+}
+
+.is-touch .lavitsa-book:hover .lavitsa-cover,
+.is-touch .lavitsa-fav-card:hover .lavitsa-fav-cover {
+  border-color: var(--copper-ghost) !important;
+}
+
+.is-touch .lavitsa-fav-card:hover {
+  transform: none !important;
+}
+
+.is-touch .lavitsa-book:hover {
+  border-color: var(--copper-faint) !important;
+}
+
+.is-touch .lavitsa-book:hover .lavitsa-book-num {
+  opacity: .8 !important;
+}
+
+.is-touch .lavitsa-book:hover .lavitsa-book-year {
+  opacity: .9 !important;
+}
+
+.is-touch .lavitsa-book:hover .lavitsa-book-added {
+  opacity: .45 !important;
+}
+
+.is-touch .lavitsa-book:hover .lavitsa-book-note {
+  border-color: var(--copper-faint) !important;
+}
+
+.is-touch .lavitsa-book:hover .lavitsa-cover-fallback-letter {
+  color: var(--copper-soft) !important;
+}
 }
 
 
