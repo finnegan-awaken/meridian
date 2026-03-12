@@ -1,9 +1,14 @@
 (function () {
   'use strict';
 
-  /* ── Detect path prefix from <base> tag or meta ── */
-  var base = document.querySelector('base');
-  var prefix = base ? base.getAttribute('href').replace(/\/$/, '') : '';
+  /* ── Detect path prefix from this script's own src ── */
+  var prefix = '';
+  var thisScript = document.querySelector('script[src*="popups"]');
+  if (thisScript) {
+    var src = thisScript.getAttribute('src');
+    var idx = src.indexOf('/js/popups');
+    if (idx > 0) prefix = src.substring(0, idx);
+  }
 
   function assetPath(path) {
     return prefix + path;
@@ -16,26 +21,11 @@
       image: assetPath('/img/news/3.jpg'),
       title: 'НОВО В МЕРИДИАН!',
       body: 'Както Луната не може без блясъка на Слънцето, така и Меридиан не може без режим за четене. Вече в долния ляв ъгъл на сайта, ще откриете бутон за превключване към новия ни светъл режим, така че да не тормозите излишно очите си и да продължавате да ни четете.',
-      link: '/hronika/rejim-za-chetene/',
+      link: assetPath('/hronika/rejim-za-chetene/'),
       linkText: 'Прочети повече'
     }
-    // Add more popups here:
-    // {
-    //   id: 'new-issue-announce',
-    //   pages: ['page-home', 'page-dest'],
-    //   symbol: '✦',
-    //   title: 'НОВ БРОЙ',
-    //   body: 'Брой 5 вече е тук.',
-    //   button: 'Към броя'
-    // }
-    //pages: ['page-nav']              // homepage only
-    //pages: ['page-dest']              // all destination pages
-    //pages: ['page-home', 'page-dest'] // both
-    //pages: ['*']                      // every page
-    //localStorage.removeItem('popup-light-mode-announce');
   ];
 
-  
   var bodyClass = document.body.className;
 
   function matchesPage(pageList) {
@@ -74,7 +64,7 @@
       '<button class="site-popup-close" aria-label="Затвори"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></button>';
 
     if (cfg.image) {
-      html += '<div class="site-popup-image"><img src="' + cfg.image + '" alt=""></div>';
+      html += '<div class="site-popup-image"><img src="' + cfg.image + '" alt="" onerror="this.parentNode.style.display=\'none\'"></div>';
     }
 
     html +=
