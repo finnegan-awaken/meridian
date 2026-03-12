@@ -352,7 +352,7 @@ body.constellation-hover .star:not(.hovered) .star-label { color: rgba(var(--sta
    ══════════════════════════════════════════ */
 .gloss {
   position: fixed;
-  z-index: 700;
+  z-index: 600;
   pointer-events: none;
   width: 250px;
   visibility: hidden;
