@@ -1,21 +1,19 @@
 (function () {
   'use strict';
 
-  /*
-   * ── POPUP CONFIG ──
-   * Add popups here. Each needs:
-   *   id      — unique key (used for localStorage so users don't see it twice)
-   *   pages   — array of bodyClass values where it shows (or ['*'] for all pages)
-   *   symbol  — decorative symbol above the title
-   *   title   — popup heading
-   *   body    — HTML content (supports links, <br>, etc.)
-   *   button  — dismiss button text
-   */
-   var popups = [
+  /* ── Detect path prefix from <base> tag or meta ── */
+  var base = document.querySelector('base');
+  var prefix = base ? base.getAttribute('href').replace(/\/$/, '') : '';
+
+  function assetPath(path) {
+    return prefix + path;
+  }
+
+  var popups = [
     {
       id: 'light-mode-announce',
       pages: ['page-nav'],
-      image: '/img/popup.jpg',
+      image: assetPath('/img/news/3.jpg'),
       title: 'НОВО В МЕРИДИАН!',
       body: 'Както Луната не може без блясъка на Слънцето, така и Меридиан не може без режим за четене. Вече в долния ляв ъгъл на сайта, ще откриете бутон за превключване към новия ни светъл режим, така че да не тормозите излишно очите си и да продължавате да ни четете.',
       link: '/hronika/rejim-za-chetene/',
