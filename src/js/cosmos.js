@@ -6,7 +6,7 @@
   var field = [];
   var mx = window.innerWidth / 2;
   var my = window.innerHeight / 2;
-  var isTouch = window.matchMedia('(hover: none)').matches;
+  var isTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
 
   function seedField() {
     canvas.width = window.innerWidth;
@@ -28,8 +28,8 @@
 
   function drawField(t) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    var px = (mx - window.innerWidth / 2) * 0.01;
-    var py = (my - window.innerHeight / 2) * 0.01;
+    var px = isTouch ? 0 : (mx - window.innerWidth / 2) * 0.01;
+    var py = isTouch ? 0 : (my - window.innerHeight / 2) * 0.01;
     for (var i = 0; i < field.length; i++) {
       var s = field[i];
       var f = Math.sin(t * s.sp + s.ph);
