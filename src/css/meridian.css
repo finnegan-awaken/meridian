@@ -3359,6 +3359,215 @@ a.mini-star { display: flex; }
 }
 
 /* ══════════════════════════════════════════
+   SITE POPUPS
+   ══════════════════════════════════════════ */
+
+/* ── Overlay ── */
+.site-popup-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(2, 2, 6, 0);
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
+  opacity: 0;
+  transition: background .4s ease, opacity .4s ease,
+              backdrop-filter .4s ease, -webkit-backdrop-filter .4s ease;
+  padding: 20px;
+}
+
+.site-popup-overlay.visible {
+  background: rgba(2, 2, 6, 0.75);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  opacity: 1;
+}
+
+/* ── Dialog ── */
+.site-popup {
+  position: relative;
+  max-width: 360px;
+  width: 100%;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(26, 22, 61, 0.6) 0%, transparent 70%),
+    linear-gradient(to bottom, var(--night), var(--twilight));
+  border: 1px solid var(--copper-ghost);
+  border-radius: 20px 20px 0 0;
+  overflow: hidden;
+  transform: translateY(20px) scale(0.97);
+  transition: transform .4s cubic-bezier(0.23, 1, 0.32, 1),
+              border-color .4s ease;
+}
+
+.site-popup-overlay.visible .site-popup {
+  transform: translateY(0) scale(1);
+}
+
+/* ── Close button ── */
+.site-popup-close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  z-index: 2;
+  background: rgba(2, 2, 6, 0.4);
+  border: none;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  transition: background .3s ease;
+}
+
+.site-popup-close svg {
+  width: 14px;
+  height: 14px;
+  color: var(--moon);
+  opacity: .7;
+  transition: opacity .3s ease, color .3s ease;
+}
+
+.site-popup-close:hover,
+.site-popup-close:focus-visible {
+  background: rgba(2, 2, 6, 0.7);
+}
+
+.site-popup-close:hover svg,
+.site-popup-close:focus-visible svg {
+  opacity: 1;
+  color: var(--star);
+}
+
+/* ── Image ── */
+.site-popup-image {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+
+.site-popup-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  opacity: .85;
+}
+
+/* ── Content ── */
+.site-popup-content {
+  padding: 24px 28px 28px;
+  text-align: center;
+}
+
+/* ── Title ── */
+.site-popup-title {
+  font-family: var(--ff-display);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--copper); opacity: 0.8;
+  margin-bottom: 14px;
+}
+
+/* ── Body ── */
+.site-popup-body {
+  font-family: var(--ff-body);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.75;
+  color: var(--bright);
+  margin-bottom: 22px;
+  
+}
+
+.site-popup-body strong {
+  color: var(--star);
+  font-weight: 600;
+}
+
+.site-popup-body a {
+  color: var(--copper);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color .3s ease;
+}
+
+.site-popup-body a:hover {
+  color: var(--star);
+}
+
+/* ── Button / Link ── */
+.site-popup-btn {
+  display: inline-block;
+  background: none;
+  border: 1px solid var(--copper-ghost);
+  border-radius: 0;
+  padding: 10px 28px;
+  font-family: var(--ff-display);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 3px;
+  color: var(--copper);
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color .4s ease, border-color .4s ease, background .4s ease,
+              letter-spacing .4s ease;
+}
+
+.site-popup-btn:hover,
+.site-popup-btn:focus-visible {
+  color: var(--star);
+  border-color: var(--copper-soft);
+  background: var(--copper-ghost2);
+  letter-spacing: 5px;
+}
+
+/* ── Mobile ── */
+@media (max-width: 600px) {
+  .site-popup {
+    max-width: 300px;
+    border-radius: 16px 16px 0 0;
+  }
+
+  .site-popup-close {
+    top: 8px;
+    right: 10px;
+    width: 26px;
+    height: 26px;
+  }
+
+  .site-popup-close svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  .site-popup-content {
+    padding: 20px 20px 24px;
+  }
+
+  .site-popup-title {
+    font-size: 16px;
+    letter-spacing: 3px;
+  }
+
+  .site-popup-body {
+    font-size: 15px;
+  }
+
+  .site-popup-btn {
+    padding: 8px 22px;
+    font-size: 11px;
+  }
+}
+
+/* ══════════════════════════════════════════
    20. OVERLAYS — RIPPLE, TRANSITION, GRAIN
    ══════════════════════════════════════════ */
 .ripple {
