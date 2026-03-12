@@ -179,6 +179,15 @@
         var now = Date.now();
         if (now - lastTapTime < 300) return;
         lastTapTime = now;
+        
+        /* ── Always close any open gloss ── */
+        document.querySelectorAll('.gloss.visible').forEach(function (g) {
+          g.classList.remove('visible');
+        });
+        document.querySelectorAll('.star.hovered').forEach(function (s) {
+          s.classList.remove('hovered');
+        });
+        document.body.classList.remove('constellation-hover');
 
         if (triggerTapState === 'idle') {
           /* First tap: show label + spread cards + glow */
@@ -256,6 +265,15 @@ function openTarot() {
   drawnCards = [];
   usedArticleUrls = [];
   previousFocus = document.activeElement;
+  
+  /* ── Close any open gloss ── */
+  document.querySelectorAll('.gloss.visible').forEach(function (g) {
+    g.classList.remove('visible');
+  });
+  document.querySelectorAll('.star.hovered').forEach(function (s) {
+    s.classList.remove('hovered');
+  });
+  document.body.classList.remove('constellation-hover');
 
   // ── Lock body scroll ──
   var scrollY = window.scrollY;

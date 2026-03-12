@@ -23,7 +23,7 @@
       body: 'Както Луната не може без блясъка на Слънцето, така и Меридиан не може без режим за четене. Вече в долния ляв ъгъл на сайта, ще откриете бутон за превключване към новия ни светъл режим, така че да не тормозите излишно очите си и да продължавате да ни четете.',
       link: assetPath('/hronika/rejim-za-chetene/'),
       linkText: 'Прочети повече',
-      linkLabel: 'Режим за четене в Меридиан!',
+      linkLabel: 'Режим за четене',
       linkSymbol: '✧'
     }
   ];
@@ -50,6 +50,23 @@
     try {
       localStorage.setItem('popup-' + id, '1');
     } catch (e) { /* silent */ }
+  }
+
+  function lockScroll() {
+    document.body.dataset.popupScrollY = window.scrollY;
+    document.body.style.top = '-' + window.scrollY + 'px';
+    document.body.style.position = 'fixed';
+    document.body.style.width = '100%';
+    document.body.style.overflow = 'hidden';
+  }
+
+  function unlockScroll() {
+    var scrollY = parseInt(document.body.dataset.popupScrollY || '0', 10);
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.width = '';
+    document.body.style.overflow = '';
+    window.scrollTo(0, scrollY);
   }
 
   function showPopup(cfg) {
@@ -90,6 +107,8 @@
     overlay.appendChild(dialog);
     document.body.appendChild(overlay);
 
+    lockScroll();
+
     requestAnimationFrame(function () {
       requestAnimationFrame(function () {
         overlay.classList.add('visible');
@@ -98,17 +117,46 @@
 
     function close() {
       overlay.classList.remove('visible');
+      unlockScroll();
       overlay.addEventListener('transitionend', function () {
         if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
       });
       dismiss(cfg.id);
     }
 
+    function killInstantly() {
+      overlay.style.transition = 'none';
+      overlay.style.opacity = '0';
+      overlay.style.pointerEvents = 'none';
+      unlockScroll();
+      dismiss(cfg.id);
+      setTimeout(function () {
+        if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
+      }, 50);
+    }
+
     dialog.querySelector('.site-popup-close').addEventListener('click', close);
 
     if (cfg.link) {
-      dialog.querySelector('.site-popup-link').addEventListener('click', function () {
-        dismiss(cfg.id);
+      dialog.querySelector('.site-popup-link').addEventListener('click', function (e) {
+        e.preventDefault();
+        var href = this.getAttribute('href');
+        var label = this.getAttribute('data-label');
+        var symbol = this.getAttribute('data-symbol');
+
+        killInstantly();
+
+        var fakeLink = document.createElement('a');
+        fakeLink.href = href;
+        fakeLink.setAttribute('data-transition', '');
+        fakeLink.setAttribute('data-label', label);
+        fakeLink.setAttribute('data-symbol', symbol);
+        fakeLink.style.display = 'none';
+        document.body.appendChild(fakeLink);
+        fakeLink.click();
+        setTimeout(function () {
+          if (fakeLink.parentNode) fakeLink.parentNode.removeChild(fakeLink);
+        }, 100);
       });
     } else {
       dialog.querySelector('.site-popup-btn').addEventListener('click', close);
