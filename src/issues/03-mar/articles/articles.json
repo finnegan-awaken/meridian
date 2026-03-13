@@ -1,7 +1,0 @@
-{
-  "layout": "layouts/article.njk",
-  "tags": "article",
-  "issue": "I",
-  "issueTitle": "КРУШЕНИЕ",
-  "issueSlug": "01"
-}

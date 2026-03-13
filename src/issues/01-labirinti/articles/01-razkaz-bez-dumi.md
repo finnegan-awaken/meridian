@@ -1,9 +1,9 @@
 ---
-title: Разказ без думи
+title: Кратко въведение
 author: katq-drozova
 genre: проза
 order: 1
-date: 2026-09-22
+date: 2026-03-12
 permalink: /issue/01/razkaz-bez-dumi/
 excerpt: "Before the word, there was the spark."
 tarot:

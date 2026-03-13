@@ -95,7 +95,7 @@ currentNav: archive
         </div>
       </a>
 
-      {%- set issueArticles = collections.article | filterBy("data.issue", issue.data.number) -%}
+      {%- set issueArticles = collections.article | filterBy("data.issue", issue.data.number) | sortBy("data.order") -%}
       {%- if issueArticles.length > 0 -%}
       <div class="timeline-card-articles">
         <div class="timeline-card-articles-label">Съдържание:</div>
