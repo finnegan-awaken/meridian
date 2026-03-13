@@ -810,7 +810,7 @@
   [data-theme="reading"] .lavitsa-fav-title { font-size: 12px; }
   [data-theme="reading"] .lavitsa-fav-author { font-size: 14px; }
   [data-theme="reading"] .lavitsa-section-title { font-size: 16px; }
-  [data-theme="reading"] .lavitsa-book-note { font-size: 13px; }
+  [data-theme="reading"] .lavitsa-book-note { font-size: 14px; }
 
   /* ── Issue ── */
   [data-theme="reading"] .issue-description { font-size: 14px; }
@@ -856,7 +856,7 @@
 
   /* ── Lavitsa ── */
   [data-theme="reading"] .lavitsa-book-title { font-size: 14px; }
-  [data-theme="reading"] .lavitsa-book-note { font-size: 12px; }
+  [data-theme="reading"] .lavitsa-book-note { font-size: 14px; }
 
   /* ── Issue ── */
   [data-theme="reading"] .issue-description { font-size: 13px; }

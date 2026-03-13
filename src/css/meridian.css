@@ -2041,7 +2041,7 @@ a.mini-star { display: flex; }
 }
 .toc-article-link:hover .toc-article-title,
 .toc-article-link:focus-visible .toc-article-title {
-  letter-spacing: 6px; color: var(--bright);
+  letter-spacing: 5px; color: var(--bright);
 }
 
 .toc-article-subtitle {
@@ -2061,7 +2061,7 @@ a.mini-star { display: flex; }
 }
 .toc-author:hover,
 .toc-author:focus-visible { color: var(--copper); opacity: 1; }
-.toc-genre { font-style: italic; color: var(--copper); opacity: .9; }
+.toc-genre { font-style: italic; color: var(--copper); opacity: .8; }
 
 .toc-dots {
   flex: 0 0 auto; align-self: center;
@@ -4598,7 +4598,7 @@ a:focus-visible {
     font-size: 18px;
   }
   .lavitsa-book-note {
-    font-size: 14px;
+    font-size: 16px;
   }
   .lavitsa-book:hover .lavitsa-book-title {
     letter-spacing: 1px;

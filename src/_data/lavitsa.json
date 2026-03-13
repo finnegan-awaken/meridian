@@ -59,15 +59,6 @@
     "note": "Ми 10-та книга е от поредицата, иначе щеше да е на първо място в списъка."
   },
       {
-    "num": "69",
-    "title": "11 000 камшика",
-    "author": "Гиом Аполинер",
-    "year": 1907,
-    "letter": "Ф",
-    "cover": "https://assets2.chitanka.info/thumb/book-cover/10/4306.max.jpg",
-    "note": "Абе Иване, какви са тия изродщини."
-  },
-      {
     "num": "23",
     "title": "Горменгаст",
     "author": "Мървин Пийк",
@@ -84,6 +75,16 @@
     "letter": "Ф",
     "cover": "https://m.media-amazon.com/images/I/71tYQ94c8TL._SL1500_.jpg",
     "note": "Заглавието нямаше български превод, оправяйте се."
-    }
+    },
+      {
+    "num": "69",
+    "title": "11 000 камшика",
+    "author": "Гиом Аполинер",
+    "year": 1907,
+    "letter": "Ф",
+    "cover": "https://assets2.chitanka.info/thumb/book-cover/10/4306.max.jpg",
+    "note": "Абе Иване, какви са тия изродщини."
+  }
+    
   ]
 }
