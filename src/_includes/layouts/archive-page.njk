@@ -105,7 +105,7 @@ currentNav: archive
              data-transition data-label="{{ article.data.title }}" data-symbol="✧">
             <span class="timeline-article-order">{{ article.data.order }}.</span>
             <span class="timeline-article-title">{{ article.data.title }}</span>
-            <span class="timeline-article-author">{{ authorPage.data.name if authorPage else article.data.author }}</span>
+            <span class="timeline-article-author">от {{ authorPage.data.name if authorPage else article.data.author }}</span>
             <span class="timeline-article-genre">{{ article.data.genre }}</span>
           </a>
         {%- endfor -%}
@@ -223,7 +223,7 @@ currentNav: archive
                 <a href="{{ article.url }}" class="genre-article"
                    data-transition data-label="{{ article.data.title }}" data-symbol="✧">
                   <span class="genre-article-title">{{ article.data.title }}</span>
-                  <span class="genre-article-author">{{ authorPage.data.name if authorPage else article.data.author }}</span>
+                  <span class="genre-article-author">от {{ authorPage.data.name if authorPage else article.data.author }}</span>
                 </a>
               {%- endfor -%}
             </div>
