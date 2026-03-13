@@ -187,18 +187,8 @@ body.page-dest::-webkit-scrollbar { display: none; }
 .codex-sigil {
   position: relative;
   z-index: 3;
-}
-
-
-.page-main {
-  flex: 1 1 auto;
-  display: flex;
-  flex-direction: column;
   width: 100%;
-  position: relative;
-  z-index: 3;
 }
-
 
 
 /* ══════════════════════════════════════════
@@ -1762,7 +1752,7 @@ a.mini-star { display: flex; }
    ══════════════════════════════════════════ */
 .codex-content {
   max-width: 700px; margin: 0 auto;
-  padding: 60px 0 120px;
+  padding: 35px 0 120px;
   flex: 1 1 auto;
 }
 .codex-section { margin-bottom: 50px; }
@@ -2759,7 +2749,7 @@ a.mini-star { display: flex; }
 .lavitsa-content {
   max-width: 700px;
   margin: 0 auto;
-  padding: 0 0 120px;
+  padding: 35px 0 120px;
   width: 100%;
 }
 
@@ -2787,7 +2777,7 @@ a.mini-star { display: flex; }
   font-family: var(--ff-display); font-weight: 400;
   font-size: 22px; letter-spacing: 2px;
   color: var(--copper); opacity: .8;
-  margin-bottom: 28px;
+  margin-bottom: 14px;
 }
 
 /* ── Favorites grid ── */
@@ -2916,7 +2906,7 @@ a.mini-star { display: flex; }
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 0 32px;
-  padding: 32px 0;
+  padding: 15px 0;
   border-bottom: 1px solid var(--copper-faint);
   position: relative;
   transition: border-color .4s ease;
@@ -3015,7 +3005,7 @@ a.mini-star { display: flex; }
 /* ── Title — letter-spacing animation ── */
 .lavitsa-book-title {
   font-family: var(--ff-display);
-  font-size: 22px;
+  font-size: 18px;
   font-weight: 500;
   letter-spacing: .5px;
   line-height: 1.3;
