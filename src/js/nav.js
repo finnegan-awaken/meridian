@@ -277,6 +277,7 @@
     });
     activeStarId = null;
   }
+    window.meridianClearGloss = clearAllActive;
 
   function handleTouchActivate(el) {
     var id = el.dataset.id;

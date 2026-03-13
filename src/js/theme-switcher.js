@@ -1,9 +1,6 @@
 (function () {
   'use strict';
 
-  /* ══════════════════════════════════════
-     CONFIGURATION
-     ══════════════════════════════════════ */
   var STORAGE_KEY = 'meridian-theme';
   var DEFAULT_THEME = 'dark';
   var THEMES = [
@@ -19,25 +16,18 @@
     }
   ];
 
-  /* ══════════════════════════════════════
-     STATE
-     ══════════════════════════════════════ */
+  var isHomePage = document.body.classList.contains('page-nav');
   var currentTheme = DEFAULT_THEME;
   var isOpen = false;
   var container, btnEl, menuEl;
 
-  /* ══════════════════════════════════════
-     THEME APPLICATION
-     ══════════════════════════════════════ */
   function applyTheme(theme) {
     currentTheme = theme;
     document.documentElement.setAttribute('data-theme', theme);
 
     try {
       localStorage.setItem(STORAGE_KEY, theme);
-    } catch (e) {
-      /* localStorage unavailable */
-    }
+    } catch (e) {}
 
     updateButton();
     updateMenuActive();
@@ -50,9 +40,6 @@
     return THEMES[0];
   }
 
-  /* ══════════════════════════════════════
-     UI UPDATES
-     ══════════════════════════════════════ */
   function updateButton() {
     if (!btnEl) return;
     var config = getThemeConfig(currentTheme);
@@ -75,9 +62,6 @@
     }
   }
 
-  /* ══════════════════════════════════════
-     DROPDOWN
-     ══════════════════════════════════════ */
   function openMenu() {
     if (isOpen) return;
     isOpen = true;
@@ -105,14 +89,10 @@
     }
   }
 
-  /* ══════════════════════════════════════
-     BUILD UI
-     ══════════════════════════════════════ */
   function build() {
     container = document.createElement('div');
     container.className = 'theme-switcher';
 
-    /* ── Button ── */
     btnEl = document.createElement('button');
     btnEl.type = 'button';
     btnEl.className = 'theme-switcher-btn';
@@ -120,7 +100,6 @@
     btnEl.setAttribute('aria-expanded', 'false');
     btnEl.innerHTML = '<span class="theme-switcher-icon"></span>';
 
-    /* ── Menu ── */
     menuEl = document.createElement('div');
     menuEl.className = 'theme-switcher-menu';
     menuEl.setAttribute('role', 'menu');
@@ -144,7 +123,6 @@
     updateButton();
     updateMenuActive();
 
-    /* ── Events ── */
     btnEl.addEventListener('click', function (e) {
       e.stopPropagation();
       toggleMenu();
@@ -161,6 +139,12 @@
       }
       closeMenu();
       btnEl.focus();
+    });
+
+    document.addEventListener('click', function (e) {
+      if (isOpen && !container.contains(e.target)) {
+        closeMenu();
+      }
     });
 
     document.addEventListener('touchstart', function (e) {
@@ -198,7 +182,6 @@
   /* ══════════════════════════════════════
      INIT
      ══════════════════════════════════════ */
-
   try {
     var saved = localStorage.getItem(STORAGE_KEY);
     if (saved && (saved === 'dark' || saved === 'reading')) {
@@ -206,12 +189,17 @@
     }
   } catch (e) {}
 
-  applyTheme(currentTheme);
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', build);
+  if (isHomePage) {
+    /* Home page: always dark, no switcher, don't overwrite saved preference */
+    document.documentElement.setAttribute('data-theme', 'dark');
   } else {
-    build();
+    applyTheme(currentTheme);
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', build);
+    } else {
+      build();
+    }
   }
 
 })();

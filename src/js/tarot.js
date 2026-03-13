@@ -175,26 +175,17 @@
       trigger.addEventListener('touchend', function (e) {
         e.preventDefault();
 
-        /* Debounce rapid double-taps */
         var now = Date.now();
         if (now - lastTapTime < 300) return;
         lastTapTime = now;
-        
-        /* ── Always close any open gloss ── */
-        document.querySelectorAll('.gloss.visible').forEach(function (g) {
-          g.classList.remove('visible');
-        });
-        document.querySelectorAll('.star.hovered').forEach(function (s) {
-          s.classList.remove('hovered');
-        });
-        document.body.classList.remove('constellation-hover');
+
+        /* ── Always clear gloss ── */
+        if (window.meridianClearGloss) window.meridianClearGloss();
 
         if (triggerTapState === 'idle') {
-          /* First tap: show label + spread cards + glow */
           triggerTapState = 'label-shown';
           trigger.classList.add('touch-active');
         } else {
-          /* Second tap: open overlay */
           triggerTapState = 'idle';
           trigger.classList.remove('touch-active');
           openTarot();
@@ -264,18 +255,13 @@ function openTarot() {
   state = 'spread';
   drawnCards = [];
   usedArticleUrls = [];
-  previousFocus = document.activeElement;
-  
-  /* ── Close any open gloss ── */
-  document.querySelectorAll('.gloss.visible').forEach(function (g) {
-    g.classList.remove('visible');
-  });
-  document.querySelectorAll('.star.hovered').forEach(function (s) {
-    s.classList.remove('hovered');
-  });
-  document.body.classList.remove('constellation-hover');
 
-  // ── Lock body scroll ──
+  /* ── Clear any open gloss properly ── */
+  if (window.meridianClearGloss) window.meridianClearGloss();
+
+  /* ── Don't refocus a star when tarot closes ── */
+  previousFocus = trigger;
+
   var scrollY = window.scrollY;
   document.body.dataset.scrollY = scrollY;
   document.body.style.top = '-' + scrollY + 'px';
@@ -302,7 +288,6 @@ function openTarot() {
   overlay.setAttribute('aria-hidden', 'false');
   trigger.classList.add('hidden');
 
-  // ── Reset inner scroll to top ──
   var inner = overlay.querySelector('.tarot-overlay-inner');
   if (inner) inner.scrollTop = 0;
 
