@@ -1,6 +1,6 @@
 ---
 title: Кратко въведение
-author: katq-drozova
+author: ivan-danev
 genre: проза
 order: 1
 date: 2026-03-12
