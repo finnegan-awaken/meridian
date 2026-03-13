@@ -169,11 +169,26 @@ body.page-dest {
 body.page-dest::-webkit-scrollbar { display: none; }
 
 /* Ensure all direct children stretch to full width */
-body.page-dest > *:not(.back-link):not(.back-link-right):not(#transition):not(#grain) {
-  width: 100%;
-  position: relative;   /* ← ADD */
-  z-index: 3;           /* ← ADD */
+.page-header,
+.page-main,
+.archive-content,
+.codex-content,
+.atlas-content,
+.hronika-content,
+.lavitsa-content,
+.author-page-content,
+.issue-page-header,
+.issue-cover-wrapper,
+.issue-description,
+.toc,
+.issue-bottom-nav,
+.mini-nav,
+.mini-nav-sep,
+.codex-sigil {
+  position: relative;
+  z-index: 3;
 }
+
 
 .page-main {
   flex: 1 1 auto;
@@ -183,10 +198,7 @@ body.page-dest > *:not(.back-link):not(.back-link-right):not(#transition):not(#g
   position: relative;
   z-index: 3;
 }
-/* Same rule for page-main children */
-.page-main > * {
-  width: 100%;
-}
+
 
 
 /* ══════════════════════════════════════════
