@@ -4208,8 +4208,8 @@ a:focus-visible {
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;
-    column-gap: 8px;
-    row-gap: 4px;
+    column-gap: 14px;
+    row-gap: 6px;
   }
   .timeline-article-order {
     flex: 0 0 auto;
@@ -4217,18 +4217,15 @@ a:focus-visible {
   .timeline-article-title {
     flex: 1 1 calc(100% - 36px);
   }
-  .timeline-article-author {
-    padding-left: 30px;
-    font-size: 18px;
-  }
-  .timeline-article-author::after {
-    content: " · ";
-    color: var(--copper-mid);
-  }
+  .timeline-article-author,
   .timeline-article-genre {
+    display: inline;
     font-size: 18px;
+    margin-left: 0;
   }
-
+  .timeline-article-author {
+    padding-left: calc(1em);
+  }
   /* — Genre — */
   .genre-filter-bar {
     flex-wrap: wrap;
