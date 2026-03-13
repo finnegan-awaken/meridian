@@ -51,7 +51,7 @@ bodyClass: page-dest
     {%- set authorList = collections.author | filterBy("data.key", article.data.author) -%}
 
     <div class="toc-entry">
-      <div class="toc-order">{{ article.data.order }}</div>
+      <div class="toc-order">{{ article.data.order }} .</div>
       <div class="toc-body">
         <a href="{{ article.url }}" class="toc-article-link"
            data-transition data-label="{{ article.data.title }}" data-symbol="✧">
