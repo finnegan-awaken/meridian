@@ -1336,7 +1336,7 @@ a.mini-star { display: flex; }
 .genre-article-author {
   font-family: var(--ff-body);
   font-size: 18px;
-  color: var(--bright);
+  color: var(--copper);
   opacity: .9;
   flex-shrink: 0;
 }
@@ -2218,6 +2218,7 @@ a.mini-star { display: flex; }
   color: var(--bright);
   margin-bottom: 60px;
   text-align: right;
+  white-space: pre-wrap;
 }
 
 
@@ -2358,9 +2359,18 @@ a.mini-star { display: flex; }
 
 .sidebar-title {
   font-family: var(--ff-display);
-  font-size: 16px; letter-spacing: 2px;
+  font-size: 16px;
+  letter-spacing: 2px;
   color: rgba(var(--star-rgb), .5);
   line-height: 1.4;
+  max-width: 100%;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-word;
   transition: color .4s ease, letter-spacing .4s ease;
 }
 .sidebar-star.current .sidebar-title {
@@ -4039,16 +4049,14 @@ a:focus-visible {
     padding: 0 24px 35px;
   }
 
-@supports (-webkit-touch-callout: none) {
-  /* iOS Safari specific */
-  html, body {
-    height: -webkit-fill-available;
+  @supports (-webkit-touch-callout: none) {
+    html, body {
+      height: -webkit-fill-available;
+    }
+    body.page-dest {
+      min-height: -webkit-fill-available;
+    }
   }
-  
-  body.page-dest {
-    min-height: -webkit-fill-available;
-  }
-}
 }
 
 /* ── 601+ · Desktop: hide gloss arrow ── */
@@ -4191,9 +4199,34 @@ a:focus-visible {
   .timeline-card-banner {
     height: 100px;
   }
+
+  /* — Timeline articles (mobile) — */
+  .timeline-card-articles {
+    display: block;
+  }
   .timeline-article {
+    display: flex;
     flex-wrap: wrap;
-    gap: 4px 14px;
+    align-items: baseline;
+    column-gap: 8px;
+    row-gap: 4px;
+  }
+  .timeline-article-order {
+    flex: 0 0 auto;
+  }
+  .timeline-article-title {
+    flex: 1 1 calc(100% - 36px);
+  }
+  .timeline-article-author {
+    padding-left: 30px;
+    font-size: 18px;
+  }
+  .timeline-article-author::after {
+    content: " · ";
+    color: var(--copper-mid);
+  }
+  .timeline-article-genre {
+    font-size: 18px;
   }
 
   /* — Genre — */
@@ -4210,11 +4243,8 @@ a:focus-visible {
     margin-left: 10px;
     padding-left: 12px;
   }
-  .genre-article {
-    flex-wrap: wrap;
-    gap: 4px 14px;
-  }
- /* — Archive news — */
+
+  /* — Archive news — */
   .archive-news-card {
     flex-direction: column;
     gap: 12px;
@@ -4230,6 +4260,11 @@ a:focus-visible {
   .archive-news-card:hover .archive-news-title {
     letter-spacing: 2px;
   }
+    .genre-article {
+    flex-wrap: wrap;
+    gap: 4px 14px;
+  }
+
   /* — Author archive — */
   .archive-author-articles {
     margin-left: 10px;
@@ -4307,7 +4342,7 @@ a:focus-visible {
     padding-left: 16px;
     padding-right: 16px;
   }
-    /* — Hronika featured — */
+  /* — Hronika featured — */
   .hronika-card.featured .hronika-card-thumb {
     aspect-ratio: 16 / 9;
   }
@@ -4327,11 +4362,11 @@ a:focus-visible {
     gap: 20px 0;
   }
   .lavitsa-book-primary {
-    grid-template-columns: 110px 1fr;   /* ← was 80px */
+    grid-template-columns: 110px 1fr;
     gap: 0 16px;
   }
   .lavitsa-cover {
-    width: 110px;                       /* ← was 80px */
+    width: 110px;
   }
   .lavitsa-book-title {
     font-size: 20px;
@@ -4349,7 +4384,7 @@ a:focus-visible {
     padding-left: 16px;
     padding-right: 16px;
   }
-    .lavitsa-favorites-grid {
+  .lavitsa-favorites-grid {
     gap: 16px;
   }
   .lavitsa-fav-title {
@@ -4397,14 +4432,13 @@ a:focus-visible {
   .carousel-fallback-letter {
     font-size: 40px;
   }
-
 }
 
 
 /* ── 500 · Poetry ── */
 @media (max-width: 500px) {
   .article-body pre.small-poetry {
-    font-size: 17px;
+    font-size: 18px;
   }
 }
 
@@ -4531,13 +4565,14 @@ a:focus-visible {
   .hronika-card.featured .hronika-card-title {
     font-size: 19px;
   }
+
   /* — Lavitsa — */
   .lavitsa-book-primary {
-    grid-template-columns: 90px 1fr;    /* ← was 70px */
+    grid-template-columns: 90px 1fr;
     gap: 0 14px;
   }
   .lavitsa-cover {
-    width: 90px;                        /* ← was 70px */
+    width: 90px;
   }
   .lavitsa-book-title {
     font-size: 18px;
@@ -4593,8 +4628,6 @@ a:focus-visible {
     padding-bottom: 2px;
   }
 }
-
-
 
 /* ══════════════════════════════════════════
    23. KEYFRAMES

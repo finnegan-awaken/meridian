@@ -233,6 +233,7 @@
 [data-theme="reading"] .article-header-sep { font-size: 10px; }
 [data-theme="reading"] .article-body { font-size: 17px; }
 [data-theme="reading"] .article-body h2 { font-size: 20px; }
+[data-theme="reading"] .article-body h1 { font-size: 20px; }
 [data-theme="reading"] .article-body pre.poetry { font-size: 16px; }
 [data-theme="reading"] .article-body hr::after { font-size: 8px; }
 
@@ -292,8 +293,7 @@
 [data-theme="reading"] .carousel-back-added { font-size: 12px; }
 [data-theme="reading"] .carousel-fallback-letter { font-size: 52px; }
 [data-theme="reading"] .carousel-arrow { font-size: 30px; }
-
-/* ── Transition ── */
+[data-theme="reading"] .article-body pre.quote-name { font-size: 17px; }
 [data-theme="reading"] #transition-text {
   font-family: 'Linguistics Pro', 'Cormorant Infant', Georgia, serif;
   font-size: 18px;
@@ -832,7 +832,7 @@
 }
 
 @media (max-width: 500px) {
-  [data-theme="reading"] .article-body pre.small-poetry { font-size: 14px; }
+  [data-theme="reading"] .article-body pre.small-poetry { font-size: 16px; }
 }
 
 @media (max-width: 400px) {
