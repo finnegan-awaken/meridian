@@ -171,6 +171,8 @@ body.page-dest::-webkit-scrollbar { display: none; }
 /* Ensure all direct children stretch to full width */
 body.page-dest > *:not(.back-link):not(.back-link-right):not(#transition):not(#grain) {
   width: 100%;
+  position: relative;   /* ← ADD */
+  z-index: 3;           /* ← ADD */
 }
 
 .page-main {
@@ -194,7 +196,7 @@ body.page-dest > *:not(.back-link):not(.back-link-right):not(#transition):not(#g
 
 body::before {
   content: '';
-  position: absolute;                 /* ← CHANGE from absolute to fixed */
+  position: absolute;                 
   top: 18px;
   left: 40px;
   right: 40px;
@@ -206,7 +208,7 @@ body::before {
 
 body::after {
   content: '';
-  position: absolute;                 /* ← CHANGE from absolute to fixed */
+  position: absolute;              
   bottom: 18px;
   left: 40px;
   right: 40px;
@@ -2056,7 +2058,7 @@ a.mini-star { display: flex; }
 .article-genre-label {
   font-family: var(--ff-body);
   font-style: italic; font-size: 18px; font-weight: 300;
-  color: var(--copper);opacity: 0.8;
+  color: var(--copper); opacity: 0.8;
   letter-spacing: 1px; margin-bottom: 15px;
 }
 .article-title {
@@ -2090,14 +2092,14 @@ a.mini-star { display: flex; }
 
 .article-header-sep {  white-space: pre; margin: 5px; color: var(--copper); opacity: 0.8; font-size: 12px; }
 .article-header-author {
-  color: var(--copper);opacity: 0.8;
+  color: var(--copper); opacity: 0.8;
   transition: color .4s ease, opacity .4s ease;
 }
 .article-header-author:hover,
 .article-header-author:focus-visible { color: var(--copper); opacity: 1; }
 .article-header-date  { color: var(--copper); opacity: 0.8;}
 .article-header-issue {
-  color: var(--copper);opacity: 0.8;
+  color: var(--copper); opacity: 0.8;
   transition: color .4s ease, opacity .4s ease;
 }
 .article-header-issue:hover,
@@ -2866,14 +2868,14 @@ a.mini-star { display: flex; }
 /* ── Book year ── */
 .lavitsa-book-year {
   font-family: var(--ff-body);
-  font-size: 14px;
+  font-size: 16px;
   color: var(--copper);
-  opacity: .5;
+  opacity: .9;
   letter-spacing: 2px;
   transition: opacity .4s ease;
 }
 .lavitsa-book:hover .lavitsa-book-year {
-  opacity: .75;
+  opacity: 1;
 }
 
 /* ── Book added by ── */
@@ -3046,19 +3048,6 @@ a.mini-star { display: flex; }
   font-size: 14px;
   letter-spacing: 8px;
   color: var(--copper-mid);
-}
-
-.lavitsa-book-year {
-  font-family: var(--ff-body);
-  font-size: 16px;
-  color: var(--copper);
-  opacity: .9;
-  letter-spacing: 2px;
-  transition: opacity .4s ease;
-}
-
-.lavitsa-book:hover .lavitsa-book-year {
-  opacity: 1;
 }
 
 /* ── Favorites Carousel ── */

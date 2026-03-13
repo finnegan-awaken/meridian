@@ -3,18 +3,13 @@
 <head>
   {% include "partials/head.njk" %}
   <script>window.BASE = "{{ '/' | url }}";</script>
-
-  <!-- Theme: prevent flash of wrong theme -->
   <script>
   (function(){try{var t=localStorage.getItem('meridian-theme');if(t&&(t==='light'||t==='reading'))document.documentElement.setAttribute('data-theme',t)}catch(e){}})();
   </script>
-
-  <!-- Theme stylesheets -->
   <link rel="stylesheet" href="/css/themes.css">
   <link rel="stylesheet" href="/css/theme-switcher.css">
 </head>
 <body class="{{ bodyClass | default('page-dest') }}">
-  {% include "partials/grain.njk" %}
 
   {{ content | safe }}
 
@@ -22,11 +17,25 @@
   {% include "partials/tarot.njk" %}
   {% endif %}
 
-  <!-- Transition overlay -->
-  <div id="transition">
+  <!-- Transition overlay — starts active to prevent flash -->
+  <div id="transition" class="active no-transition">
     <div id="transition-symbol"></div>
     <div id="transition-text"></div>
   </div>
+  <script>
+    if (!sessionStorage.getItem('meridian-transit')) {
+      document.getElementById('transition').classList.remove('active', 'no-transition');
+    }
+  </script>
+
+  <!-- Grain filter + overlay -->
+  <svg style="display:none">
+    <filter id="grain-filter">
+      <feTurbulence type="fractalNoise" baseFrequency="1" numOctaves="3" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+  </svg>
+  <div id="grain" aria-hidden="true"></div>
 
   <script src="/js/shared.js"></script>
   {% if "page-nav" in bodyClass %}
@@ -37,22 +46,9 @@
   {% if "page-dest" in bodyClass %}
   <script src="/js/archive.js"></script>
   {% endif %}
-  <svg style="display:none">
-  <filter id="grain-filter">
-    <feTurbulence
-      type="fractalNoise"
-      baseFrequency="1"
-      numOctaves="3"
-      stitchTiles="stitch"
-    />
-    <feColorMatrix type="saturate" values="0" />
-  </filter>
-</svg>
-
-<div id="grain" aria-hidden="true"></div>
-<script src="/js/carousel.js" defer></script>
-<script src="/js/theme-switcher.js"></script>
-<script src="/js/line-breaks.js"></script>
-<script src="/js/popups.js"></script>
+  <script src="/js/carousel.js" defer></script>
+  <script src="/js/theme-switcher.js"></script>
+  <script src="/js/line-breaks.js"></script>
+  <script src="/js/popups.js"></script>
 </body>
 </html>
