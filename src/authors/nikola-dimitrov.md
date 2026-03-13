@@ -6,6 +6,6 @@ role: cartographer
 permalink: /author/nikola-dimitrov/
 bio: "Никола Димитров..."
 links:
-  - label: Faculty Page
-    url: https://soas.ac.uk/okafor
+  - label: Страница?
+    url: https://www.youtube.com/watch?v=rtL5oMyBHPs
 ---

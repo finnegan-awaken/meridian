@@ -1494,6 +1494,11 @@ a.mini-star { display: flex; }
   font-weight: 300;
   line-height: 1.75;
   color: var(--bright);
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+  overflow-wrap: break-word;
+  text-align: justify;
 }
 
 /* ── Articles list ── */
@@ -1986,7 +1991,12 @@ a.mini-star { display: flex; }
   font-weight: 300;
   line-height: 1.85;
   color: var(--bright);
-  text-align: left;
+    hyphens: auto;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+  overflow-wrap: break-word;
+  text-align: justify;
+
 }
 
 .toc {
@@ -2002,7 +2012,7 @@ a.mini-star { display: flex; }
 }
 
 .toc-entry {
-  display: flex; align-items: baseline; gap: 18px;
+  display: flex; align-items: baseline; gap: 9px;
   padding: 22px 0;
   border-bottom: 1px solid var(--copper-faint);
   transition: border-color .5s ease;
@@ -2012,8 +2022,8 @@ a.mini-star { display: flex; }
 
 .toc-order {
   font-family: var(--ff-display);
-  font-size: 15px; color: var(--copper);
-  opacity: .55; min-width: 18px;
+  font-size: 16px; color: var(--copper);
+  opacity: .75; min-width: 18px;
   transition: opacity .4s ease;
 }
 .toc-entry:hover .toc-order { opacity: .85; }
