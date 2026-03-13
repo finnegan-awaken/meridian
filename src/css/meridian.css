@@ -3608,7 +3608,7 @@ a.mini-star { display: flex; }
   content: '';
   position: absolute;
   inset: 0;
-  background-image: url('/img/grain.png');
+  background-image: url('img/grain.png');
   background-repeat: repeat;
   opacity: 0.2;
   mix-blend-mode: overlay;
@@ -3661,7 +3661,7 @@ a.mini-star { display: flex; }
   inset: 0;
   z-index: 2;
   pointer-events: none;
-  background-image: url('/img/grain.png');
+  background-image: url('img/grain.png');
   background-repeat: repeat;
   opacity: 0.2;
   mix-blend-mode: overlay;
