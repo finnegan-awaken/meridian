@@ -2,7 +2,6 @@
 name: Екатерина Андрозова
 key: katq-drozova
 location: България
-role: cartographer
 permalink: /author/katq-drozova/
 photo: /img/authors/katq-drozova.png
 bio: "Екатерина Андрозова завършва сценични изкуства в Милано през 2018г., където живее и работи до днес. Нейното творчество е смесица между..."

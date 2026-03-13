@@ -1729,6 +1729,7 @@ a.mini-star { display: flex; }
   font-size: 16px; letter-spacing: 2px;
   color: var(--bright); margin-bottom: 4px;
   transition: color .4s ease;
+
 }
 .atlas-cell:hover .atlas-cell-label { color: var(--bright); }
 
@@ -2447,7 +2448,7 @@ a.mini-star { display: flex; }
   aspect-ratio: 1 / 1;
   object-fit: cover;
   opacity: .85;
-  filter: saturate(.7) brightness(.95);
+  filter: brightness(1);
   transition: opacity .5s ease, filter .5s ease;
 }
 .author-photo:hover img {
