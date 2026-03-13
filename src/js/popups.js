@@ -14,6 +14,8 @@
     return prefix + path;
   }
 
+  //CLEAR STORAGE: localStorage.removeItem('popup-light-mode-announce');
+
   var popups = [
     {
       id: 'light-mode-announce',
@@ -23,7 +25,7 @@
       body: 'Както Луната не може без блясъка на Слънцето, така и Меридиан не може без режим за четене. Вече в долния ляв ъгъл на сайта, ще откриете бутон за превключване към новия ни светъл режим, така че да не тормозите излишно очите си и да продължавате да ни четете.',
       link: assetPath('/hronika/rejim-za-chetene/'),
       linkText: 'Прочети повече',
-      linkLabel: 'Режим за четене',
+      linkLabel: 'Режим за четене в Меридиан!',
       linkSymbol: '✧'
     }
   ];
