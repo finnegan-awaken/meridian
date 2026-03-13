@@ -3610,11 +3610,11 @@ a.mini-star { display: flex; }
   inset: 0;
   background-image: url('../img/grain.png');
   background-repeat: repeat;
-  opacity: 0.2;
+  opacity: 0.1;
   mix-blend-mode: overlay;
   pointer-events: none;
   z-index: 1;
-  animation: grain-drift 0.25s steps(1) infinite;
+  animation: grain-drift 0.8s steps(2) infinite;
 }
 
 #transition-symbol {
@@ -3663,21 +3663,22 @@ a.mini-star { display: flex; }
   pointer-events: none;
   background-image: url('../img/grain.png');
   background-repeat: repeat;
-  opacity: 0.2;
+  opacity: 0.1;
   mix-blend-mode: overlay;
-  animation: grain-drift 0.25s steps(1) infinite;
+  animation: grain-drift 0.8s steps(2) infinite;
   will-change: background-position;
 }
 
 @keyframes grain-drift {
-  0%      { background-position:    0       0; }
-  16.67%  { background-position:  -83px   37px; }
-  33.33%  { background-position:   41px -109px; }
-  50%     { background-position: -131px  -61px; }
-  66.67%  { background-position:   89px   73px; }
-  83.33%  { background-position:  -53px -139px; }
-  100%    { background-position:  113px   41px; }
+  0%       { background-position: 0 0; }
+  16.667%  { background-position: -87px 34px; }
+  33.333%  { background-position: 43px -112px; }
+  50%      { background-position: -134px -67px; }
+  66.667%  { background-position: 91px 78px; }
+  83.333%  { background-position: -51px -143px; }
+  100%     { background-position: 117px 37px; }
 }
+
 /* ══════════════════════════════════════════
    21. ACCESSIBILITY
    ══════════════════════════════════════════ */
