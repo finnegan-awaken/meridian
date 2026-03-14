@@ -121,20 +121,8 @@
         });
       }
 
-      function waitAndFade() {
-        if (document.fonts && document.fonts.ready) {
-          document.fonts.ready.then(fadeOut);
-        } else {
-          fadeOut();
-        }
-      }
-
-      if (document.readyState === 'complete') {
-        waitAndFade();
-      } else {
-        window.addEventListener('load', waitAndFade);
-      }
     } else {
+      /* No transit data — make sure overlay is hidden */
       clearTransition();
     }
   }

@@ -70,23 +70,3 @@ currentNav: atlas
 
 </div>
 
-<script>
-(function () {
-  var photos = [
-    {%- for author in collections.author -%}
-      {%- if author.data.photo -%}
-      "{{ author.data.photo }}"{% if not loop.last %},{% endif %}
-      {%- endif -%}
-    {%- endfor -%}
-  ];
-
-  window.addEventListener('load', function () {
-    setTimeout(function () {
-      for (var i = 0; i < photos.length; i++) {
-        var img = new Image();
-        img.src = photos[i];
-      }
-    }, 2000);
-  });
-})();
-</script>

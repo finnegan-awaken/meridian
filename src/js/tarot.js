@@ -531,20 +531,4 @@ function closeTarot() {
   buildOverlay();
   buildTrigger();
 
-  /* ══════════════════════════════════════
-     PRELOAD CARD IMAGES
-     ══════════════════════════════════════ */
-  function preloadCards() {
-    for (var i = 0; i < ALL_CARDS.length; i++) {
-      if (ALL_CARDS[i].image) {
-        var img = new Image();
-        img.src = assetUrl(ALL_CARDS[i].image);
-      }
-    }
-  }
-
-  window.addEventListener('load', function () {
-    setTimeout(preloadCards, 3000);
-  });
-
 })();
