@@ -3,7 +3,7 @@ name: Екатерина Андрозова
 key: katq-drozova
 pageTitle: Екатерина Андрозова
 location: България
-permalink: /avtor/katq-drozova/
+permalink: /katq-drozova/
 photo: /img/authors/katq-drozova.png
 bio: "Екатерина Андрозова завършва сценични изкуства в Милано през 2018г., където живее и работи до днес. Нейното творчество е смесица между..."
 links:

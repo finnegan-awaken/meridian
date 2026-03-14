@@ -4,7 +4,7 @@ key: nikola-dimitrov
 pageTitle: Никола Димитров
 location: България
 role: cartographer
-permalink: /avtor/nikola-dimitrov/
+permalink: /nikola-dimitrov/
 bio: "Никола Димитров..."
 links:
   - label: Страница?
