@@ -7,7 +7,7 @@
       sub: 'Capax infiniti',
       desc: 'Всяко ненаписано начало, всяка неизречена дума.',
       coords: 'α 0h 00m · δ +0° 00′',
-      x: 50, y: 50, mag: 1, href: window.BASE + 'archive/'
+      x: 50, y: 50, mag: 1, href: window.BASE + 'arhiv/'
     },
     {
       id: 'atlas', name: 'АТЛАС', symbol: 'compass', num: 'II',
