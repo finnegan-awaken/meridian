@@ -1,7 +1,8 @@
 ---
 name: Яна Жасминова
 key: qna-jasminova
+pageTitle: Яна Жасминова
 location: "България"
-permalink: /author/qna-jasminova/
+permalink: /avtor/qna-jasminova/
 bio: "Яна Жасминова..."
 ---

@@ -1,5 +1,6 @@
 ---
 title: Небесните тотеми
+pageTitle: Небесните тотеми
 author: qna-jasminova
 genre: поезия
 order: 2

@@ -1,8 +1,9 @@
 ---
 name: Илия Караилиев (Чумата)
 key: chumata
+pageTitle: Илия Караилиев
 location: България
-permalink: /author/iliq-karailiev-chumata/
+permalink: /avtor/iliq-karailiev-chumata/
 bio: "Илия Караилиев..."
 links:
   - label: Чумата

@@ -12,6 +12,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addFilter("year", (date) => new Date(date).getFullYear());
   eleventyConfig.addFilter("pad", (num, size = 2) => String(num).padStart(size, '0'));
   eleventyConfig.addPassthroughCopy({ "src/img/favicon.ico": "favicon.ico" });
+  eleventyConfig.addPassthroughCopy({ "src/site.webmanifest": "site.webmanifest" });
 
   // Filter: find items where a nested property equals a value
   eleventyConfig.addFilter("filterBy", function (arr, prop, value) {

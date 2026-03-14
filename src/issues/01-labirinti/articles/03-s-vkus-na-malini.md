@@ -1,5 +1,6 @@
 ---
 title: С вкус на малини
+pageTitle: С вкус на малини
 author: chumata
 genre: проза
 order: 3

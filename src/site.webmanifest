@@ -1,0 +1,19 @@
+{
+  "name": "Списание Меридиан",
+  "short_name": "Меридиан",
+  "icons": [
+    {
+      "src": "/img/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/img/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#0a0a10",
+  "background_color": "#0a0a10",
+  "display": "standalone"
+}

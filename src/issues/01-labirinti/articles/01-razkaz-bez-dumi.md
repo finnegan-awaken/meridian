@@ -1,10 +1,11 @@
 ---
 title: Кратко въведение
+pageTitle: Кратко въведение
 author: ivan-danev
 genre: проза
 order: 1
 date: 2026-03-12
-permalink: /issue/01/razkaz-bez-dumi/
+permalink: /issue/01/kratko-vuvedenie/
 excerpt: "Before the word, there was the spark."
 tarot:
   - "the-devil"

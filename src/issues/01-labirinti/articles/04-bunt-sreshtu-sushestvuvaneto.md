@@ -1,5 +1,6 @@
 ---
 title: Бунт срещу съществуването
+pageTitle: Бунт срещу съществуването
 author: nikola-dimitrov
 genre: проза
 order: 4
