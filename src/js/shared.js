@@ -121,6 +121,11 @@
         });
       }
 
+      if (document.readyState === 'complete') {
+        fadeOut();
+      } else {
+        window.addEventListener('load', fadeOut);
+      }
     } else {
       /* No transit data — make sure overlay is hidden */
       clearTransition();
