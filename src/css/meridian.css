@@ -190,6 +190,19 @@ body.page-dest::-webkit-scrollbar { display: none; }
   width: 100%;
 }
 
+/* ══════════════════════════════════════════
+   3. COPYRIGHT
+   ══════════════════════════════════════════ */
+.site-copyright {
+  text-align: center;
+  padding: 0 20px 30px;
+  font-family: var(--ff-body);
+  font-size: 14px;
+  font-weight: 300;
+  letter-spacing: 1px;
+  color: var(--copper);
+  opacity: .6;
+}
 
 /* ══════════════════════════════════════════
    3. LAYOUT — EDGE RULES
