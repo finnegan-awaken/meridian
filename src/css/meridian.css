@@ -203,6 +203,9 @@ body.page-dest::-webkit-scrollbar { display: none; }
   color: var(--copper);
   opacity: .6;
 }
+.copyright-break {
+  display: none;
+}
 
 /* ══════════════════════════════════════════
    3. LAYOUT — EDGE RULES
@@ -3623,6 +3626,10 @@ a.mini-star { display: flex; }
 
 /* ── Mobile ── */
 @media (max-width: 600px) {
+
+  .copyright-break {
+    display: block;
+  }
   .site-popup {
     max-width: 300px;
     border-radius: 16px 16px 0 0;
@@ -4568,7 +4575,7 @@ a:focus-visible {
     height: 22px;
   }
   .issue-description {
-    font-size: 15px;
+    font-size: 16px;
   }
 
   /* — Gloss — */

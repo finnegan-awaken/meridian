@@ -2,7 +2,7 @@
 tags: issue
 number: "I"
 title: "ЛАБИРИНТИ"
-pageTitle: Лабиринти
+pageTitle: Брой I
 season: Септември
 year: 2025
 date: 2025-09-10

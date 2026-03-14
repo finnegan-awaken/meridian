@@ -242,3 +242,34 @@ currentNav: archive
   </div>
   <div class="atlas-manifesto-sigil">✦</div>
 </div>
+
+<script>
+(function () {
+  var images = [
+    {%- for issue in collections.issue -%}
+      {%- if issue.data.banner -%}
+      "{{ issue.data.banner }}",
+      {%- endif -%}
+      {%- if issue.data.cover -%}
+      "{{ issue.data.cover }}",
+      {%- endif -%}
+    {%- endfor -%}
+    {%- if collections.новини -%}
+      {%- for entry in collections.новини -%}
+        {%- if entry.data.thumb -%}
+        "{{ entry.data.thumb }}",
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endif -%}
+  ];
+
+  window.addEventListener('load', function () {
+    setTimeout(function () {
+      for (var i = 0; i < images.length; i++) {
+        var img = new Image();
+        img.src = images[i];
+      }
+    }, 2000);
+  });
+})();
+</script>

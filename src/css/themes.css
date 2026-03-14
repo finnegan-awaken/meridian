@@ -33,7 +33,7 @@
   src: url('../fonts/LinguisticsPro-Italic.otf') format('opentype');
   font-weight: 400;
   font-style: italic;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
@@ -41,7 +41,7 @@
   src: url('../fonts/LinguisticsPro-Bold.otf') format('opentype');
   font-weight: 700;
   font-style: normal;
-  font-display: swap;
+  font-display: block;
 }
 
 @font-face {
@@ -49,7 +49,7 @@
   src: url('../fonts/LinguisticsPro-BoldItalic.otf') format('opentype');
   font-weight: 700;
   font-style: italic;
-  font-display: swap;
+  font-display: block;
 }
 
 /* ══════════════════════════════════════════
@@ -241,7 +241,7 @@
 /* ── Article Author Card ── */
 [data-theme="reading"] .author-card-name-left { font-size: 14px; }
 [data-theme="reading"] .author-card-location-left { font-size: 14px; }
-[data-theme="reading"] .author-card-bio-left { font-size: 14px; }
+[data-theme="reading"] .author-card-bio-left { font-size: 14px;  line-height: 2;}
 [data-theme="reading"] .author-card-all-works-left { font-size: 10px; }
 
 /* ── Article Sidebar ── */
