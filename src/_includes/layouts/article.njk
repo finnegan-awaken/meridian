@@ -46,6 +46,11 @@ bodyClass: page-dest page-article
       <a href="/issue/{{ issueSlug }}/" class="article-header-issue"
          data-transition data-label="{{ issueTitle }}" data-symbol="book">Брой {{ issue }}</a>
     </div>
+    {%- if language and translator -%}
+    <div class="article-translation">Превод от {{ language }}, {{ translator }}</div>
+    {%- endif -%}
+  </header>
+</div>
   </header>
 </div>
 

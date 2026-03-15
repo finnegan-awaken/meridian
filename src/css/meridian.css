@@ -2265,7 +2265,7 @@ a.mini-star { display: flex; }
 
 .article-author-card-left {
   max-width: 460px; margin: 30px 0;
-  padding: 25px 0 25px 22px;
+  padding: 7px 0 7px 22px;
   border-left: 1px solid var(--copper-soft);
   text-align: left;
 }
@@ -2289,6 +2289,11 @@ a.mini-star { display: flex; }
   font-family: var(--ff-body);
   font-size: 16px; font-weight: 400;
   line-height: 1.8; color: var(--star);
+  text-align: justify;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+  overflow-wrap: break-word;
 }
 .author-card-all-works-left {
   display: inline-block; margin-top: 14px;
@@ -2452,6 +2457,14 @@ a.mini-star { display: flex; }
 .sidebar-constellation:hover .sidebar-star:not(:hover):not(.current) .sidebar-title   { color: rgba(var(--star-rgb), .12); }
 .sidebar-constellation:hover .sidebar-star:not(:hover):not(.current) .sidebar-author  { color: rgba(var(--copper-rgb), .08); }
 
+.article-translation {
+  font-family: var(--ff-body);
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--copper);
+  opacity: 0.7;
+  margin-top: 20px;
+}
 
 /* ══════════════════════════════════════════
    19. AUTHOR PAGE
