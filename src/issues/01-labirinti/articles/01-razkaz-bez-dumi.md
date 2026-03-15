@@ -6,7 +6,7 @@ genre: проза
 order: 1
 date: 2026-03-12
 permalink: /issue/01/kratko-vuvedenie/
-excerpt: "Before the word, there was the spark."
+excerpt: "Когато първоначално ми хрумна да напиша „Разказ без думи“ бях започнал да схващам каква фундаментална роля изпълнява езика в нашето ежедневие, но изобщо не си давах сметка за препятствията, които ме очакват."
 tarot:
   - "the-devil"
   - "the-tower"
