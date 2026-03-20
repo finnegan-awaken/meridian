@@ -120,6 +120,7 @@
 [data-theme="reading"] .issue-line { font-size: 15px; }
 [data-theme="reading"] #hint { font-size: 11px; }
 [data-theme="reading"] .edge { font-size: 8.5px; }
+[data-theme="reading"] .site-copyright { font-size: 12px; }
 
 /* ── Gloss Panels ── */
 [data-theme="reading"] .gloss-numeral { font-size: 12px; }
@@ -237,6 +238,7 @@
 [data-theme="reading"] .article-body pre.poetry { font-size: 16px; }
 [data-theme="reading"] .article-body hr::after { font-size: 8px; }
 [data-theme="reading"] .article-body pre.noindendt-nolines { font-size: 17px; }
+[data-theme="reading"] .article-translation { font-size: 15px;}
 
 /* ── Article Author Card ── */
 [data-theme="reading"] .author-card-name-left { font-size: 14px; }

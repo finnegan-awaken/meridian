@@ -2459,7 +2459,7 @@ a.mini-star { display: flex; }
 
 .article-translation {
   font-family: var(--ff-body);
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 400;
   color: var(--copper);
   opacity: 0.7;
@@ -3963,6 +3963,8 @@ a:focus-visible {
   .article-columns {
     flex-direction: column;
     gap: 40px;
+    max-width: 100%;
+    overflow-x: hidden;
   }
   .article-text-col {
     max-width: 100%;
